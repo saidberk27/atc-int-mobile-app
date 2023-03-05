@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:intl/intl.dart';
+import 'package:atc_international/local_components/drawer.dart';
+import 'package:atc_international/local_components/profile_picture.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -13,8 +15,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final String logo = 'assets/svg/logo-atcint.svg';
-
-  final String profilePicture = 'assets/images/profile-blank.png';
 
   final String wellcomeMessage = "Hoş Geldin,\t\t";
 
@@ -35,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(),
+      drawer: const ProjectDrawer(),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
@@ -109,12 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleAvatar(
-            radius: 23,
-            backgroundColor: ProjectColor.red,
-            child: CircleAvatar(
-                radius: 20, backgroundImage: ExactAssetImage(profilePicture)),
-          ),
+          ProfilePicture(radius: 23),
           Row(
             children: [
               Text(
