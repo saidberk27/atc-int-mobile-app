@@ -12,8 +12,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final String title = "Ana Sayfa";
-
   final String logo = 'assets/svg/logo-atcint.svg';
 
   final String profilePicture = 'assets/images/profile-blank.png';
@@ -36,9 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
+      appBar: AppBar(),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
@@ -152,7 +148,9 @@ class _MyHomePageState extends State<MyHomePage> {
       Align(
           alignment: const Alignment(0.95, 1),
           child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "/notifications");
+              },
               icon: Icon(
                 Icons.notifications,
                 size: 36,
