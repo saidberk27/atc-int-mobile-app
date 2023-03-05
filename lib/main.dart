@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
       title: pageTitle,
       theme: ThemeData(
         primarySwatch: ProjectColor.customPrimarySwatch,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: ProjectColor.white,
         appBarTheme:
-            const AppBarTheme(backgroundColor: Colors.white, elevation: 0),
+            AppBarTheme(backgroundColor: ProjectColor.white, elevation: 0),
       ),
       home: const MyHomePage(),
       debugShowCheckedModeBanner: false,

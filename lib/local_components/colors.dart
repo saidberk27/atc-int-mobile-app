@@ -19,6 +19,7 @@ class ProjectColor {
   static Color lightGray = const Color(0XFFECF0F1);
   static Color lightBlue = const Color(0XFF3498DB);
   static Color darkBlue = const Color(0XFF2980B9);
+  static Color white = const Color(0XFFFFFFFF);
 
   static MaterialColor get customPrimarySwatch =>
       MaterialColor(0xFF2980B9, color);
