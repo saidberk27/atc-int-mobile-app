@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -8,9 +9,17 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: const Center(child: Text("Sa World")));
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: SafeArea(
+          child: Column(
+        children: [
+          SvgPicture.asset(
+            logo,
+          )
+        ],
+      )),
+    );
   }
 }
