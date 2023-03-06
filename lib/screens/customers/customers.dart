@@ -3,12 +3,15 @@ import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:atc_international/local_components/profile_picture.dart';
 
+import '../../local_components/drawer.dart';
+
 class CustomersPage extends StatelessWidget {
   const CustomersPage({super.key});
   final String _pageTitle = "MÜŞTERİLERİM";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const ProjectDrawer(),
       appBar: AppBar(title: Text(_pageTitle)),
       body: ListView(
         children: [
@@ -19,15 +22,15 @@ class CustomersPage extends StatelessWidget {
           customerCard(context),
           customerCard(context),
           customerCard(context),
-          SizedBox(
+          const SizedBox(
             height: 60,
           )
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => print("FAB"),
-        label: Text("Yeni Müşteri"),
-        icon: Icon(Icons.add),
+        label: const Text("Yeni Müşteri"),
+        icon: const Icon(Icons.add),
         shape: RoundedRectangleBorder(
             side: BorderSide(width: 3, color: ProjectColor.lightBlue),
             borderRadius: BorderRadius.circular(100)),
@@ -62,10 +65,10 @@ class CustomersPage extends StatelessWidget {
               children: [
                 IconButton(
                     onPressed: () => print("Mesaj"),
-                    icon: Icon(Icons.chat_bubble)),
+                    icon: const Icon(Icons.chat_bubble)),
                 IconButton(
-                    onPressed: () => print("Bilgi"),
-                    icon: Icon(Icons.info_outlined))
+                    onPressed: () => Navigator.pushNamed(context, "/customer"),
+                    icon: const Icon(Icons.info_outlined))
               ],
             )
           ],
