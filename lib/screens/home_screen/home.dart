@@ -60,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Color? iconColor,
     }) {
       return ListTile(
+          onTap: () => Navigator.pushNamed(context, "/customers"),
           title: Text(
             tileText,
             style: tileTextStyle,

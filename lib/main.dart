@@ -1,4 +1,5 @@
 import 'package:atc_international/local_components/custom_text_themes.dart';
+import 'package:atc_international/screens/customers/customers.dart';
 import 'package:atc_international/screens/home_screen/home.dart';
 import 'package:atc_international/screens/home_screen/notifications.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/notifications': (context) => const NotificationsPage(),
+        '/customers': (context) => const CustomersPage(),
       },
     );
   }
