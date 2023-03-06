@@ -11,15 +11,49 @@ class NotificationsPage extends StatelessWidget {
     String zeroNotificationMessage = "Hiç bildiriminiz yok :)";
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(
+          title,
+          style: ProjectTextStyle.redMediumStrong(context),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
             border: Border.all(color: ProjectColor.red, width: 3)),
         child: Center(
-          child: Text(
-            zeroNotificationMessage,
-            style: ProjectTextStyle.lightBlueMediumStrong(context),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
+            child: ListView(
+              children: [
+                ListTile(
+                  title: Text(
+                    "Yeni Mesaj",
+                    style: ProjectTextStyle.redMedium(context),
+                  ),
+                  subtitle: Text(
+                    "Said Berk'ten yeni mesaj",
+                    style: ProjectTextStyle.lightBlueSmallStrong(context),
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_right,
+                    color: ProjectColor.red,
+                  ),
+                ),
+                ListTile(
+                  title: Text(
+                    "Yeni Mesaj",
+                    style: ProjectTextStyle.redMedium(context),
+                  ),
+                  subtitle: Text(
+                    "Said Berk'ten yeni mesaj",
+                    style: ProjectTextStyle.lightBlueSmallStrong(context),
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_right,
+                    color: ProjectColor.red,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

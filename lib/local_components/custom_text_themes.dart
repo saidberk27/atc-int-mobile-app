@@ -5,25 +5,55 @@ class ProjectTextStyle {
   static TextStyle lightBlueBigStrong(BuildContext context) =>
       Theme.of(context).textTheme.headlineMedium!.copyWith(
           color: ProjectColor.lightBlue,
-          fontSize: 24,
+          fontSize: 36,
           fontWeight: FontWeight.bold);
 
   static TextStyle lightBlueBig(BuildContext context) =>
       Theme.of(context).textTheme.headlineMedium!.copyWith(
             color: ProjectColor.lightBlue,
-            fontSize: 24,
+            fontSize: 36,
           );
-
-  static TextStyle lightBlueMedium(BuildContext context) => Theme.of(context)
-      .textTheme
-      .headlineMedium!
-      .copyWith(color: ProjectColor.lightBlue, fontSize: 24);
 
   static TextStyle lightBlueMediumStrong(BuildContext context) =>
       Theme.of(context).textTheme.headlineMedium!.copyWith(
           color: ProjectColor.lightBlue,
           fontSize: 24,
           fontWeight: FontWeight.bold);
+
+  static TextStyle lightBlueMedium(BuildContext context) => Theme.of(context)
+      .textTheme
+      .headlineMedium!
+      .copyWith(color: ProjectColor.lightBlue, fontSize: 24);
+
+  static TextStyle lightBlueSmallStrong(BuildContext context) =>
+      Theme.of(context).textTheme.headlineMedium!.copyWith(
+          color: ProjectColor.lightBlue,
+          fontSize: 16,
+          fontWeight: FontWeight.bold);
+
+  static TextStyle lightBlueSmall(BuildContext context) =>
+      Theme.of(context).textTheme.headlineMedium!.copyWith(
+            color: ProjectColor.lightBlue,
+            fontSize: 16,
+          );
+
+  static TextStyle redBigStrong(BuildContext context) =>
+      Theme.of(context).textTheme.headlineMedium!.copyWith(
+          color: ProjectColor.red, fontSize: 36, fontWeight: FontWeight.bold);
+
+  static TextStyle redBig(BuildContext context) => Theme.of(context)
+      .textTheme
+      .headlineMedium!
+      .copyWith(color: ProjectColor.red, fontSize: 36);
+
+  static TextStyle redMediumStrong(BuildContext context) =>
+      Theme.of(context).textTheme.headlineMedium!.copyWith(
+          color: ProjectColor.red, fontSize: 24, fontWeight: FontWeight.bold);
+
+  static TextStyle redMedium(BuildContext context) => Theme.of(context)
+      .textTheme
+      .headlineMedium!
+      .copyWith(color: ProjectColor.red, fontSize: 24);
 
   static TextStyle redSmall(BuildContext context) => Theme.of(context)
       .textTheme
@@ -33,15 +63,6 @@ class ProjectTextStyle {
   static TextStyle redSmallStrong(BuildContext context) =>
       Theme.of(context).textTheme.headlineMedium!.copyWith(
           color: ProjectColor.red, fontSize: 16, fontWeight: FontWeight.bold);
-
-  static TextStyle redMedium(BuildContext context) => Theme.of(context)
-      .textTheme
-      .headlineMedium!
-      .copyWith(color: ProjectColor.red, fontSize: 24);
-
-  static TextStyle redMediumStrong(BuildContext context) =>
-      Theme.of(context).textTheme.headlineMedium!.copyWith(
-          color: ProjectColor.red, fontSize: 24, fontWeight: FontWeight.bold);
 
   static TextStyle whiteMediumStrong(BuildContext context) =>
       Theme.of(context).textTheme.headlineMedium!.copyWith(
