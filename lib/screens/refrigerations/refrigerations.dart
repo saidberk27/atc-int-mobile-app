@@ -10,11 +10,11 @@ class Refrigerations extends StatelessWidget {
   Widget build(BuildContext context) {
     String imageData = "assets/images/ice-bucket.png";
     return Scaffold(
-        drawer: ProjectDrawer(),
+        drawer: const ProjectDrawer(),
         appBar: AppBar(
-          title: Text("KASALARIM"),
+          title: const Text("KASALARIM"),
         ),
-        floatingActionButton: ProjectFAB(text: "YENİ KASA"),
+        floatingActionButton: const ProjectFAB(text: "YENİ KASA"),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ListView(
@@ -27,7 +27,7 @@ class Refrigerations extends StatelessWidget {
               refrigerationCard(imageData, context),
               refrigerationCard(imageData, context),
               refrigerationCard(imageData, context),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               )
             ],
@@ -37,9 +37,9 @@ class Refrigerations extends StatelessWidget {
 
   Padding refrigerationCard(String imageData, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 18.0),
       child: InkWell(
-        onTap: () => null,
+        onTap: () => Navigator.pushNamed(context, "/refrigeration"),
         child: Card(
           elevation: 4,
           child: Column(children: [
@@ -52,7 +52,7 @@ class Refrigerations extends StatelessWidget {
               "KASA MODELİ",
               style: ProjectTextStyle.darkMedium(context),
             ),
-            Icon(
+            const Icon(
               Icons.play_arrow,
               size: 36,
             )

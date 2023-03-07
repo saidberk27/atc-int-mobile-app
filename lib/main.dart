@@ -3,7 +3,8 @@ import 'package:atc_international/screens/customers/customer.dart';
 import 'package:atc_international/screens/customers/customers.dart';
 import 'package:atc_international/screens/home_screen/home.dart';
 import 'package:atc_international/screens/home_screen/notifications.dart';
-import 'package:atc_international/screens/refrigeration/refrigerations.dart';
+import 'package:atc_international/screens/refrigerations/refrigeration.dart';
+import 'package:atc_international/screens/refrigerations/refrigerations.dart';
 import 'package:flutter/material.dart';
 import 'local_components/colors.dart';
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/customers': (context) => const CustomersPage(),
         '/customer': (context) => const CustomerPage(),
         '/refrigerations': (context) => const Refrigerations(),
+        '/refrigeration': (context) => const Refrigeration(),
       },
     );
   }
