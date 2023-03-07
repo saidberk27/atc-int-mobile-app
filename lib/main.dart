@@ -3,6 +3,7 @@ import 'package:atc_international/screens/customers/customer.dart';
 import 'package:atc_international/screens/customers/customers.dart';
 import 'package:atc_international/screens/home_screen/home.dart';
 import 'package:atc_international/screens/home_screen/notifications.dart';
+import 'package:atc_international/screens/refrigeration/refrigerations.dart';
 import 'package:flutter/material.dart';
 import 'local_components/colors.dart';
 
@@ -30,9 +31,11 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
       routes: {
+        '/home': (context) => const MyHomePage(),
         '/notifications': (context) => const NotificationsPage(),
         '/customers': (context) => const CustomersPage(),
         '/customer': (context) => const CustomerPage(),
+        '/refrigerations': (context) => const Refrigerations(),
       },
     );
   }

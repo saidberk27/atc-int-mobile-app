@@ -1,15 +1,16 @@
-import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:atc_international/local_components/profile_picture.dart';
 
 import '../../local_components/drawer.dart';
+import '../../local_components/fab.dart';
 
 class CustomersPage extends StatelessWidget {
   const CustomersPage({super.key});
   final String _pageTitle = "MÜŞTERİLERİM";
   @override
   Widget build(BuildContext context) {
+    const fabtext = "Yeni Müşteri";
     return Scaffold(
       drawer: const ProjectDrawer(),
       appBar: AppBar(title: Text(_pageTitle)),
@@ -27,16 +28,7 @@ class CustomersPage extends StatelessWidget {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => print("FAB"),
-        label: const Text("Yeni Müşteri"),
-        icon: const Icon(Icons.add),
-        shape: RoundedRectangleBorder(
-            side: BorderSide(width: 3, color: ProjectColor.lightBlue),
-            borderRadius: BorderRadius.circular(100)),
-        backgroundColor: ProjectColor.white,
-        foregroundColor: ProjectColor.lightBlue,
-      ),
+      floatingActionButton: const ProjectFAB(text: fabtext),
     );
   }
 

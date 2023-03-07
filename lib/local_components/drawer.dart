@@ -61,11 +61,12 @@ class ProjectDrawer extends StatelessWidget {
   }
 
   Padding menuItem(BuildContext context,
-      {required String text, required IconData icon}) {
+      {required String text, required IconData icon, String? route}) {
+    route ?? (route = "/home");
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
       child: ListTile(
-        onTap: () => print(text),
+        onTap: () => Navigator.pushNamed(context, route!),
         leading: Icon(
           icon,
           color: ProjectColor.lightBlue,

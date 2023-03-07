@@ -57,10 +57,12 @@ class _MyHomePageState extends State<MyHomePage> {
       required String tileText,
       required TextStyle tileTextStyle,
       required Color tileColor,
+      String? tileRoute,
       Color? iconColor,
     }) {
+      tileRoute ?? (tileRoute = "/");
       return ListTile(
-          onTap: () => Navigator.pushNamed(context, "/customers"),
+          onTap: () => Navigator.pushNamed(context, tileRoute!),
           title: Text(
             tileText,
             style: tileTextStyle,
@@ -76,20 +78,20 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       children: [
         buildListTile(
-          tileText: "MÜŞTERİLERİM",
-          tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
-          tileColor: ProjectColor.red,
-        ),
+            tileText: "MÜŞTERİLERİM",
+            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
+            tileColor: ProjectColor.red,
+            tileRoute: "/customers"),
         buildListTile(
-            tileText: "İŞ EMİRLERİM",
+            tileText: "AJANDA",
             tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),
             tileColor: ProjectColor.white,
             iconColor: ProjectColor.darkBlue),
         buildListTile(
-          tileText: "KASALARIM",
-          tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
-          tileColor: ProjectColor.lightBlue,
-        ),
+            tileText: "KASALARIM",
+            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
+            tileColor: ProjectColor.lightBlue,
+            tileRoute: "/refrigerations"),
         buildListTile(
           tileText: "MESAJLARIM",
           tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),

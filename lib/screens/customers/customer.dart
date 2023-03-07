@@ -2,7 +2,6 @@ import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:flutter/material.dart';
 
-import '../../local_components/drawer.dart';
 import '../../local_components/profile_picture.dart';
 
 class CustomerPage extends StatelessWidget {
@@ -24,11 +23,11 @@ class CustomerPage extends StatelessWidget {
             child: Container(
               child: Column(
                 children: [
-                  ChatBubbleRow(context),
-                  NormalRow(context, "Çalıştığı Şirket: ", "Aspar Enerji"),
-                  NormalRow(context, "Unvan: ", "Yazılım Geliştirici"),
-                  NormalRow(context, "E-Posta: ", "csaidberk@gmail.com"),
-                  NormalRow(context, "Telefon: ", "+90 505 122 23 46")
+                  chatBubbleRow(context),
+                  normalRow(context, "Çalıştığı Şirket: ", "Aspar Enerji"),
+                  normalRow(context, "Unvan: ", "Yazılım Geliştirici"),
+                  normalRow(context, "E-Posta: ", "csaidberk@gmail.com"),
+                  normalRow(context, "Telefon: ", "+90 505 122 23 46")
                 ],
               ),
             ),
@@ -38,7 +37,7 @@ class CustomerPage extends StatelessWidget {
     );
   }
 
-  SizedBox ChatBubbleRow(BuildContext context) {
+  SizedBox chatBubbleRow(BuildContext context) {
     return SizedBox(
       height: 50,
       child: Row(
@@ -51,10 +50,10 @@ class CustomerPage extends StatelessWidget {
             "Said Berk",
             style: ProjectTextStyle.lightBlueSmallStrong(context),
           ),
-          Spacer(),
+          const Spacer(),
           IconButton(
             onPressed: () => print("null"),
-            icon: Icon(Icons.chat_bubble),
+            icon: const Icon(Icons.chat_bubble),
             color: ProjectColor.red,
           )
         ],
@@ -62,7 +61,7 @@ class CustomerPage extends StatelessWidget {
     );
   }
 
-  SizedBox NormalRow(BuildContext context, String baslik, String icerik) {
+  SizedBox normalRow(BuildContext context, String baslik, String icerik) {
     return SizedBox(
       height: 50,
       child: Row(

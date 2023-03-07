@@ -8,7 +8,7 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String title = "BİLDİRİMLER";
-    String zeroNotificationMessage = "Hiç bildiriminiz yok :)";
+    //String zeroNotificationMessage = "Hiç bildiriminiz yok :)";
     return Scaffold(
       appBar: AppBar(
         title: Text(
