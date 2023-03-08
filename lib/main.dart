@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                   side: BorderSide(color: ProjectColor.darkBlue, width: 2.5),
                   backgroundColor: ProjectColor.white,
-                  alignment: Alignment(0, 0),
+                  alignment: const Alignment(0, 0),
                   textStyle: ProjectTextStyle.darkBlueMediumStrong(context),
                   elevation: 8,
                   shape: RoundedRectangleBorder(
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         '/refrigeration': (context) => const Refrigeration(),
         '/agenda': (context) => const AgendaPage(),
         "/addNewRefrigeration": (context) => const AddNewRefrigeration(),
-        "/addNewTask": (context) => AddNewTask(),
+        "/addNewTask": (context) => const AddNewTask(),
         "/addNewCustomer": (context) => const AddNewCustomer(),
       },
     );

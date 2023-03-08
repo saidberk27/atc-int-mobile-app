@@ -6,6 +6,7 @@ import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:intl/intl.dart';
 import 'package:atc_international/local_components/drawer.dart';
 import 'package:atc_international/local_components/profile_picture.dart';
+import '../../local_components/get_today.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -25,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    today = getToday();
+    today = Time.getToday();
     super.initState();
   }
 
@@ -163,12 +164,5 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: ProjectColor.red,
               )))
     ]);
-  }
-
-  String getToday() {
-    var now = DateTime.now();
-    var formatter = DateFormat('dd/MM/yyyy');
-    String formattedDate = formatter.format(now);
-    return formattedDate;
   }
 }

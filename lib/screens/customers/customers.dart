@@ -59,7 +59,7 @@ class CustomersPage extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                    onPressed: () => print("Mesaj"),
+                    onPressed: () => debugPrint("Mesaj"),
                     icon: const Icon(Icons.chat_bubble)),
                 IconButton(
                     onPressed: () => Navigator.pushNamed(context, "/customer"),

@@ -1,8 +1,9 @@
+import 'package:atc_international/data/modelview/agenda_mw.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AddNewTask extends StatefulWidget {
-  AddNewTask({super.key});
+  const AddNewTask({super.key});
 
   @override
   State<AddNewTask> createState() => _AddNewTaskState();
@@ -99,13 +100,14 @@ class _AddNewTaskState extends State<AddNewTask> {
           lastDate: DateTime(2101),
         );
         if (pickedDate != null) {
-          String formattedDate = DateFormat("dd.MM.yyyy").format(pickedDate);
+          String formattedDate =
+              DateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDate);
 
           setState(() {
             _dateController.text = formattedDate.toString();
           });
         } else {
-          print("Not selected");
+          debugPrint("Not selected");
         }
       },
       validator: (value) {
@@ -123,6 +125,10 @@ class _AddNewTaskState extends State<AddNewTask> {
           if (_formKey.currentState!.validate()) {
             const snackBar = SnackBar(content: Text('Processing Data'));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            AgendaTask.toJson(
+                taskName: _taskNameController.text,
+                taskDescription: _taskDescriptionController.text,
+                deadEnd: _dateController.text);
           }
         },
         child: const SizedBox(

@@ -16,6 +16,16 @@ class ProjectFirestore {
         debugPrint('DocumentSnapshot added with ID: ${doc.id}'));
   }
 
+  void writeToDocument({required Map<String, dynamic> json}) {
+    db
+        .collection("agenda")
+        .doc("completed")
+        .collection("Görev 1")
+        .add(json)
+        .then((DocumentReference doc) =>
+            debugPrint('DocumentSnapshot added with ID: ${doc.id}'));
+  }
+
   Future<List<dynamic>> readDocumentFromDatabase(
       {required String collection, required String document}) async {
     var documents = [];
