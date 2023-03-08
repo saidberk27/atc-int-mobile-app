@@ -1,5 +1,6 @@
 //This class is a middle layer between view and models.
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 import '../model/project_firestore.dart';
 
@@ -19,13 +20,17 @@ class AgendaModelView {
 class AgendaTask {
   String? taskName;
   String? taskDescription;
-  Timestamp? deadEnd;
-  Timestamp? taskAdded;
+  String? deadEnd;
+  String? taskAdded;
 
   AgendaTask.fromJson({required Map json}) {
+    var formatter = DateFormat('dd/MM/yyyy');
+
     taskName = json["task_name"];
     taskDescription = json["task_description"];
-    deadEnd = json["Dead End"];
-    taskAdded = json["taskAdded"];
+    deadEnd = formatter.format(json["dead_end"].toDate());
+    taskAdded = formatter.format(json["task_added"].toDate());
+    //deadEnd = json["dead_end"];
+    //taskAdded = json["task_added"];
   }
 }
