@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   ProjectFirestore().testData();
                 },
-                child: Text("Database Test"))
+                child: const Text("Database Test"))
           ],
         ),
       )),

@@ -1,9 +1,12 @@
 import 'package:atc_international/local_components/custom_text_themes.dart';
+import 'package:atc_international/screens/agenda/add_new_task.dart';
 import 'package:atc_international/screens/agenda/agenda.dart';
+import 'package:atc_international/screens/customers/add_new_customer.dart';
 import 'package:atc_international/screens/customers/customer.dart';
 import 'package:atc_international/screens/customers/customers.dart';
 import 'package:atc_international/screens/home_screen/home.dart';
 import 'package:atc_international/screens/home_screen/notifications.dart';
+import 'package:atc_international/screens/refrigerations/add_new_refrigeration.dart';
 import 'package:atc_international/screens/refrigerations/refrigeration.dart';
 import 'package:atc_international/screens/refrigerations/refrigerations.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +49,9 @@ class MyApp extends StatelessWidget {
         '/refrigerations': (context) => const Refrigerations(),
         '/refrigeration': (context) => const Refrigeration(),
         '/agenda': (context) => const AgendaPage(),
+        "/addNewRefrigeration": (context) => const AddNewRefrigeration(),
+        "/addNewTask": (context) => const AddNewTask(),
+        "/addNewCustomer": (context) => const AddNewCustomer(),
       },
     );
   }

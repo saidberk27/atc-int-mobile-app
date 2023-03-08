@@ -1,7 +1,6 @@
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:atc_international/local_components/fab.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../data/modelview/agenda_mw.dart';
 
@@ -12,7 +11,7 @@ class AgendaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("AJANDA"),
+        title: const Text("AJANDA"),
       ),
       body: Center(
           child: FutureBuilder(
@@ -21,10 +20,13 @@ class AgendaPage extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return expansionTileListBuild(snapshot);
                 } else {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               })),
-      floatingActionButton: ProjectFAB(text: "YENİ GÖREV"),
+      floatingActionButton: const ProjectFAB(
+        text: "YENİ GÖREV",
+        route: "/addNewTask",
+      ),
     );
   }
 
@@ -66,7 +68,7 @@ class AgendaPage extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Row(
             children: [
               Text(
@@ -77,7 +79,7 @@ class AgendaPage extends StatelessWidget {
                   style: ProjectTextStyle.lightBlueSmallStrong(context)),
             ],
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Row(
             children: [
               Text(
@@ -90,13 +92,13 @@ class AgendaPage extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.done_sharp,
                   color: Colors.green,
                 ),
@@ -112,7 +114,7 @@ class AgendaPage extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.delete,
                   color: Colors.red,
                 ),

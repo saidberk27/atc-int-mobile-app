@@ -28,7 +28,10 @@ class CustomersPage extends StatelessWidget {
           )
         ],
       ),
-      floatingActionButton: const ProjectFAB(text: fabtext),
+      floatingActionButton: const ProjectFAB(
+        text: fabtext,
+        route: "/addNewCustomer",
+      ),
     );
   }
 
