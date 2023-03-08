@@ -14,7 +14,7 @@ class CustomerPage extends StatelessWidget {
       body: Column(
         children: [
           userTitle(context),
-          Divider(
+          const Divider(
             thickness: 2,
             color: ProjectColor.red,
           ),

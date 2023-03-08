@@ -33,7 +33,7 @@ class NotificationsPage extends StatelessWidget {
                     "Said Berk'ten yeni mesaj",
                     style: ProjectTextStyle.lightBlueSmallStrong(context),
                   ),
-                  trailing: Icon(
+                  trailing: const Icon(
                     Icons.arrow_right,
                     color: ProjectColor.red,
                   ),
@@ -47,7 +47,7 @@ class NotificationsPage extends StatelessWidget {
                     "Said Berk'ten yeni mesaj",
                     style: ProjectTextStyle.lightBlueSmallStrong(context),
                   ),
-                  trailing: Icon(
+                  trailing: const Icon(
                     Icons.arrow_right,
                     color: ProjectColor.red,
                   ),

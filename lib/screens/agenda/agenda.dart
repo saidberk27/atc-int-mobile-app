@@ -4,25 +4,53 @@ import 'package:atc_international/local_components/fab.dart';
 import 'package:flutter/material.dart';
 import '../../data/modelview/agenda_mw.dart';
 
-class AgendaPage extends StatelessWidget {
+class AgendaPage extends StatefulWidget {
   const AgendaPage({super.key});
 
+  @override
+  State<AgendaPage> createState() => _AgendaPageState();
+}
+
+class _AgendaPageState extends State<AgendaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("AJANDA"),
       ),
-      body: Center(
-          child: FutureBuilder(
-              future: AgendaModelView().getCompletedTasks(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return expansionTileListBuild(snapshot);
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              })),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Expanded(
+            flex: 6,
+            child: FutureBuilder(
+                future: AgendaModelView().getCompletedTasks(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return expansionTileListBuild(snapshot);
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                }),
+          ),
+          Expanded(
+            flex: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text(
+                    "Tamamlanmış Görevleri Görüntüle",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
       floatingActionButton: const ProjectFAB(
         text: "YENİ GÖREV",
         route: "/addNewTask",
@@ -105,18 +133,12 @@ class AgendaPage extends StatelessWidget {
                 iconSize: 48,
               ),
               IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.edit,
-                  color: ProjectColor.darkBlue,
-                ),
-                iconSize: 48,
-              ),
-              IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  removeFromDatabase(snapshot, index);
+                },
                 icon: const Icon(
                   Icons.delete,
-                  color: Colors.red,
+                  color: ProjectColor.red,
                 ),
                 iconSize: 48,
               )
@@ -125,5 +147,12 @@ class AgendaPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void removeFromDatabase(AsyncSnapshot<dynamic> snapshot, int index) {
+    return setState(() {
+      print(snapshot.data[index].taskId);
+      AgendaModelView().removeTaskFromDatabase(id: snapshot.data[index].taskId);
+    });
   }
 }

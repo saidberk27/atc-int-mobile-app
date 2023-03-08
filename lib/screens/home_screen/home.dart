@@ -1,9 +1,7 @@
-import 'package:atc_international/data/model/project_firestore.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
-import 'package:intl/intl.dart';
 import 'package:atc_international/local_components/drawer.dart';
 import 'package:atc_international/local_components/profile_picture.dart';
 import '../../local_components/get_today.dart';
@@ -48,11 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
               thickness: 2,
             ),
             buildMenu(),
-            ElevatedButton(
-                onPressed: () {
-                  ProjectFirestore().testData();
-                },
-                child: const Text("Database Test"))
           ],
         ),
       )),

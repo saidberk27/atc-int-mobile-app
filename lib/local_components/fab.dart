@@ -16,7 +16,7 @@ class ProjectFAB extends StatelessWidget {
       label: Text(text),
       icon: const Icon(Icons.add),
       shape: RoundedRectangleBorder(
-          side: BorderSide(width: 3, color: ProjectColor.lightBlue),
+          side: const BorderSide(width: 3, color: ProjectColor.lightBlue),
           borderRadius: BorderRadius.circular(100)),
       backgroundColor: ProjectColor.white,
       foregroundColor: ProjectColor.lightBlue,

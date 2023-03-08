@@ -21,6 +21,10 @@ class AgendaModelView {
     }
     return modelsList;
   }
+
+  void removeTaskFromDatabase({required String id}) {
+    ProjectFirestore().removeFromDatabase(id: id);
+  }
 }
 
 class AgendaTask {
@@ -28,6 +32,7 @@ class AgendaTask {
   String? taskDescription;
   String? deadEnd;
   String? taskAdded;
+  String? taskId;
 
   AgendaTask.toJson(
       {required String this.taskName,
@@ -51,7 +56,7 @@ class AgendaTask {
 
   AgendaTask.fromJson({required Map json}) {
     var formatter = DateFormat('dd/MM/yyyy');
-
+    taskId = json["id"];
     taskName = json["task_name"];
     taskDescription = json["task_description"];
     deadEnd = formatter.format(json["dead_end"]

@@ -14,12 +14,12 @@ class ProjectColor {
     900: const Color.fromRGBO(41, 128, 185, 1),
   };
 
-  static Color darkGray = const Color(0XFF2C3E50);
-  static Color red = const Color(0XFFE74C3C);
-  static Color lightGray = const Color(0XFFECF0F1);
-  static Color lightBlue = const Color(0XFF3498DB);
-  static Color darkBlue = const Color(0XFF2980B9);
-  static Color white = const Color(0XFFFFFFFF);
+  static const Color darkGray = Color(0XFF2C3E50);
+  static const Color red = Color(0XFFE74C3C);
+  static const Color lightGray = Color(0XFFECF0F1);
+  static const Color lightBlue = Color(0XFF3498DB);
+  static const Color darkBlue = Color(0XFF2980B9);
+  static const Color white = Color(0XFFFFFFFF);
 
   static MaterialColor get customPrimarySwatch =>
       MaterialColor(0xFF2980B9, color);

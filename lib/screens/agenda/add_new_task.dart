@@ -90,7 +90,7 @@ class _AddNewTaskState extends State<AddNewTask> {
     return TextFormField(
       controller: _dateController,
       decoration: const InputDecoration(
-          icon: Icon(Icons.calendar_today), labelText: "Enter Date"),
+          icon: Icon(Icons.calendar_today), labelText: "Tamamlanma Tarihi"),
       readOnly: true,
       onTap: () async {
         DateTime? pickedDate = await showDatePicker(
@@ -123,12 +123,7 @@ class _AddNewTaskState extends State<AddNewTask> {
     return ElevatedButton(
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            const snackBar = SnackBar(content: Text('Processing Data'));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            AgendaTask.toJson(
-                taskName: _taskNameController.text,
-                taskDescription: _taskDescriptionController.text,
-                deadEnd: _dateController.text);
+            saveAndNavigate();
           }
         },
         child: const SizedBox(
@@ -140,5 +135,15 @@ class _AddNewTaskState extends State<AddNewTask> {
             ),
           ),
         ));
+  }
+
+  void saveAndNavigate() {
+    const snackBar = SnackBar(content: Text('Processing Data'));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    AgendaTask.toJson(
+        taskName: _taskNameController.text,
+        taskDescription: _taskDescriptionController.text,
+        deadEnd: _dateController.text);
+    Navigator.pushNamed(context, "/agenda");
   }
 }

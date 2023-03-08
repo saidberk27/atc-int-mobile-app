@@ -40,7 +40,8 @@ class MyApp extends StatelessWidget {
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
-                  side: BorderSide(color: ProjectColor.darkBlue, width: 2.5),
+                  side: const BorderSide(
+                      color: ProjectColor.darkBlue, width: 2.5),
                   backgroundColor: ProjectColor.white,
                   alignment: const Alignment(0, 0),
                   textStyle: ProjectTextStyle.darkBlueMediumStrong(context),
