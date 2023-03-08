@@ -1,4 +1,4 @@
-import 'package:atc_international/data/firestore.dart';
+import 'package:atc_international/data/model/project_firestore.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
             buildMenu(),
             ElevatedButton(
                 onPressed: () {
-                  ProjectFirestore.testData();
+                  ProjectFirestore().testData();
                 },
                 child: Text("Database Test"))
           ],
@@ -92,7 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
             tileText: "AJANDA",
             tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),
             tileColor: ProjectColor.white,
-            iconColor: ProjectColor.darkBlue),
+            iconColor: ProjectColor.darkBlue,
+            tileRoute: "/agenda"),
         buildListTile(
             tileText: "KASALARIM",
             tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),

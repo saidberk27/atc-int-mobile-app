@@ -1,4 +1,5 @@
 import 'package:atc_international/local_components/custom_text_themes.dart';
+import 'package:atc_international/screens/agenda/agenda.dart';
 import 'package:atc_international/screens/customers/customer.dart';
 import 'package:atc_international/screens/customers/customers.dart';
 import 'package:atc_international/screens/home_screen/home.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/customer': (context) => const CustomerPage(),
         '/refrigerations': (context) => const Refrigerations(),
         '/refrigeration': (context) => const Refrigeration(),
+        '/agenda': (context) => const AgendaPage(),
       },
     );
   }
