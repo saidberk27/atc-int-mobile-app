@@ -52,7 +52,7 @@ class CustomerPage extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            onPressed: () => print("null"),
+            onPressed: () => debugPrint("null"),
             icon: const Icon(Icons.chat_bubble),
             color: ProjectColor.red,
           )

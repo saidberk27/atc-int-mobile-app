@@ -29,16 +29,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: ProjectColor.customPrimarySwatch,
-        scaffoldBackgroundColor: ProjectColor.white,
-        appBarTheme: AppBarTheme(
-          backgroundColor: ProjectColor.white,
-          foregroundColor: ProjectColor.darkBlue,
-          centerTitle: true,
-          titleTextStyle: ProjectTextStyle.redMediumStrong(context),
-          elevation: 0,
-        ),
-      ),
+          primarySwatch: ProjectColor.customPrimarySwatch,
+          scaffoldBackgroundColor: ProjectColor.white,
+          appBarTheme: AppBarTheme(
+            backgroundColor: ProjectColor.white,
+            foregroundColor: ProjectColor.darkBlue,
+            centerTitle: true,
+            titleTextStyle: ProjectTextStyle.redMediumStrong(context),
+            elevation: 0,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                  side: BorderSide(color: ProjectColor.darkBlue, width: 2.5),
+                  backgroundColor: ProjectColor.white,
+                  alignment: Alignment(0, 0),
+                  textStyle: ProjectTextStyle.darkBlueMediumStrong(context),
+                  elevation: 8,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  foregroundColor: ProjectColor.darkBlue))),
       home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
       routes: {
@@ -50,7 +60,7 @@ class MyApp extends StatelessWidget {
         '/refrigeration': (context) => const Refrigeration(),
         '/agenda': (context) => const AgendaPage(),
         "/addNewRefrigeration": (context) => const AddNewRefrigeration(),
-        "/addNewTask": (context) => const AddNewTask(),
+        "/addNewTask": (context) => AddNewTask(),
         "/addNewCustomer": (context) => const AddNewCustomer(),
       },
     );

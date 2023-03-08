@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class ProjectFirestore {
   var db = FirebaseFirestore.instance;
@@ -12,7 +13,7 @@ class ProjectFirestore {
 
 // Add a new document with a generated ID
     db.collection("users").add(user).then((DocumentReference doc) =>
-        print('DocumentSnapshot added with ID: ${doc.id}'));
+        debugPrint('DocumentSnapshot added with ID: ${doc.id}'));
   }
 
   Future<List<dynamic>> readDocumentFromDatabase(
