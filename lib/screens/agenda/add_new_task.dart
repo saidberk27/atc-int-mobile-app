@@ -1,4 +1,4 @@
-import 'package:atc_international/data/modelview/agenda_mw.dart';
+import 'package:atc_international/data/viewmodel/agenda_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

@@ -14,6 +14,7 @@ import 'local_components/colors.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'screens/agenda/completed_tasks.dart';
 
 Future<void> main() async {
   runApp(const MyApp());
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
         "/addNewRefrigeration": (context) => const AddNewRefrigeration(),
         "/addNewTask": (context) => const AddNewTask(),
         "/addNewCustomer": (context) => const AddNewCustomer(),
+        "/completedTasks": (context) => const CompletedTasksPage(),
       },
     );
   }

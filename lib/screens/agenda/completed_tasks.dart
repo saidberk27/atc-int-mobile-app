@@ -1,64 +1,30 @@
-import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
-import 'package:atc_international/local_components/drawer.dart';
-import 'package:atc_international/local_components/fab.dart';
 import 'package:flutter/material.dart';
 import '../../data/viewmodel/agenda_vm.dart';
 
-class AgendaPage extends StatefulWidget {
-  const AgendaPage({super.key});
+class CompletedTasksPage extends StatefulWidget {
+  const CompletedTasksPage({super.key});
 
   @override
-  State<AgendaPage> createState() => _AgendaPageState();
+  State<CompletedTasksPage> createState() => _CompletedTasksPageState();
 }
 
-class _AgendaPageState extends State<AgendaPage> {
+class _CompletedTasksPageState extends State<CompletedTasksPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("AJANDA"),
+        title: const Text("TAMAMLANMIŞ GÖREVLER"),
       ),
-      drawer: ProjectDrawer(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Expanded(
-            flex: 6,
-            child: FutureBuilder(
-                future: AgendaModelView().getTasks(isCompleted: false),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return expansionTileListBuild(snapshot);
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                }),
-          ),
-          Expanded(
-            flex: 4,
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed("/completedTasks");
-                  },
-                  child: const Text(
-                    "Tamamlanmış Görevleri Görüntüle",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-      floatingActionButton: const ProjectFAB(
-        text: "YENİ GÖREV",
-        route: "/addNewTask",
-      ),
+      body: FutureBuilder(
+          future: AgendaModelView().getTasks(isCompleted: true),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return expansionTileListBuild(snapshot);
+            } else {
+              return const CircularProgressIndicator();
+            }
+          }),
     );
   }
 
@@ -126,32 +92,17 @@ class _AgendaPageState extends State<AgendaPage> {
           ),
           const SizedBox(height: 30),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {});
-                  AgendaModelView()
-                      .completeTask(id: snapshot.data[index].taskId);
-                },
-                icon: const Icon(
-                  Icons.done_sharp,
-                  color: Colors.green,
-                ),
-                iconSize: 48,
+              Text(
+                "Tamamlanma Tarihi ",
+                style: ProjectTextStyle.redSmallStrong(context),
               ),
-              IconButton(
-                onPressed: () {
-                  removeFromDatabase(snapshot, index);
-                },
-                icon: const Icon(
-                  Icons.delete,
-                  color: ProjectColor.red,
-                ),
-                iconSize: 48,
-              )
+              Text(
+                snapshot.data[index].taskCompleted,
+                style: ProjectTextStyle.lightBlueSmallStrong(context),
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

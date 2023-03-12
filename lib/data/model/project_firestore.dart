@@ -4,14 +4,10 @@ import 'package:flutter/material.dart';
 class ProjectFirestore {
   var db = FirebaseFirestore.instance;
 
-  void writeToDocument({required Map<String, dynamic> json}) {
-    db
-        .collection("agenda")
-        .doc("completed")
-        .collection("Görev 1")
-        .add(json)
-        .then((DocumentReference doc) =>
-            debugPrint('DocumentSnapshot added with ID: ${doc.id}'));
+  void writeToDocument(
+      {required collectionPath, required Map<String, dynamic> json}) {
+    db.collection(collectionPath).add(json).then((DocumentReference doc) =>
+        debugPrint('DocumentSnapshot added with ID: ${doc.id}'));
   }
 
   void removeFromDatabase({required String id}) {
@@ -28,11 +24,11 @@ class ProjectFirestore {
         );
   }
 
-  Future<List<dynamic>> readDocumentFromDatabase(
-      {required String collection, required String document}) async {
+  Future<List<dynamic>> readDocumentsFromDatabase(
+      {required String collectionPath}) async {
     var documents = [];
 
-    final ref = db.collection(collection).doc(document).collection("Görev 1");
+    final ref = db.collection(collectionPath);
     QuerySnapshot querySnapshot = await ref.get();
     for (var docSnapshot in querySnapshot.docs) {
       var documentMap = docSnapshot.data() as Map<String, dynamic>;
@@ -45,5 +41,36 @@ class ProjectFirestore {
       documents.add(documentMap);
     }
     return documents;
+  }
+
+  Future<List<dynamic>> readDocumentsFromDatabaseWithCondition(
+      {required String collectionPath,
+      required String conditionField,
+      var equalityValue}) async {
+    var documents = [];
+
+    final ref = db
+        .collection(collectionPath)
+        .where(conditionField, isEqualTo: equalityValue);
+    QuerySnapshot querySnapshot = await ref.get();
+    for (var docSnapshot in querySnapshot.docs) {
+      var documentMap = docSnapshot.data() as Map<String, dynamic>;
+      var idMap = {
+        "id": docSnapshot.reference.id
+      }; // dosyanin id'sini ayrica alip bir sozluk olusturuyorum.
+      documentMap.addAll(
+          idMap); //sonra elimdeki asil sozlukun icine id'den yaptigim sozluku koyuyorum.
+      //print(documentMap);
+      documents.add(documentMap);
+    }
+    return documents;
+  }
+
+  Future<void> editDocument(
+      {required String path,
+      required String id,
+      required var field,
+      required var newData}) async {
+    db.doc("$path/$id").update({field: newData});
   }
 }
