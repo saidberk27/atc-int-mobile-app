@@ -16,15 +16,38 @@ class _CompletedTasksPageState extends State<CompletedTasksPage> {
       appBar: AppBar(
         title: const Text("TAMAMLANMIŞ GÖREVLER"),
       ),
-      body: FutureBuilder(
-          future: AgendaModelView().getTasks(isCompleted: true),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return expansionTileListBuild(snapshot);
-            } else {
-              return const CircularProgressIndicator();
-            }
-          }),
+      body: Column(
+        children: [
+          Expanded(
+            flex: 9,
+            child: FutureBuilder(
+                future: AgendaModelView().getTasks(isCompleted: true),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return expansionTileListBuild(snapshot);
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                }),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: () {
+                  AgendaModelView().clearTasks();
+                  Future.delayed(const Duration(milliseconds: 500), () {
+                    // it needs to wait for a while due to database changes.
+                    setState(() {});
+                  });
+                },
+                child: const Text("Temizle"),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 

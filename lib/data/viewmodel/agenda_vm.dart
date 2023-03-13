@@ -44,6 +44,11 @@ class AgendaModelView {
         newData: completionTimeStamp);
   }
 
+  Future<void> clearTasks() async {
+    ProjectFirestore().clearCollection(
+        collectionPath: "agenda/tasks/tasks", conditionField: "is_completed");
+  }
+
   void removeTaskFromDatabase({required String id}) {
     ProjectFirestore().removeFromDatabase(id: id);
   }
