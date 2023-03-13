@@ -14,20 +14,6 @@ class CustomersPage extends StatelessWidget {
     return Scaffold(
       drawer: const ProjectDrawer(),
       appBar: AppBar(title: Text(_pageTitle)),
-      body: ListView(
-        children: [
-          customerCard(context),
-          customerCard(context),
-          customerCard(context),
-          customerCard(context),
-          customerCard(context),
-          customerCard(context),
-          customerCard(context),
-          const SizedBox(
-            height: 60,
-          )
-        ],
-      ),
       floatingActionButton: const ProjectFAB(
         text: fabtext,
         route: "/addNewCustomer",

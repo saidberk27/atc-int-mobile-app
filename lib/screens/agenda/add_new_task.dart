@@ -138,7 +138,7 @@ class _AddNewTaskState extends State<AddNewTask> {
   }
 
   void saveAndNavigate() {
-    const snackBar = SnackBar(content: Text('Processing Data'));
+    const snackBar = SnackBar(content: Text('Kaydediliyor...'));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
     AgendaTask.toJson(
         taskName: _taskNameController.text,

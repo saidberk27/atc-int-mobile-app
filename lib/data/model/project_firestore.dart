@@ -74,10 +74,11 @@ class ProjectFirestore {
     db.doc("$path/$id").update({field: newData});
   }
 
-  Future<void> clearCollection({required String collectionPath}) async {
+  Future<void> clearCollection(
+      {required String collectionPath, required String conditionField}) async {
     db.collection(collectionPath).get().then((snapshot) {
       for (DocumentSnapshot ds in snapshot.docs) {
-        if (ds["is_completed"]) {
+        if (ds[conditionField]) {
           ds.reference.delete();
         }
       }
