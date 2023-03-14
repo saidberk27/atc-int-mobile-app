@@ -1,43 +1,51 @@
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
+import 'package:atc_international/local_components/shorten_string.dart';
 import 'package:flutter/material.dart';
 
 import '../../local_components/profile_picture.dart';
 
 class CustomerPage extends StatelessWidget {
-  const CustomerPage({super.key});
+  const CustomerPage({super.key, String? customerName});
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         children: [
-          userTitle(context),
+          userTitle(context,
+              customerName: args.customerName,
+              customerCompany: args.customerCompany),
           const Divider(
             thickness: 2,
             color: ProjectColor.red,
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Container(
-              child: Column(
-                children: [
-                  chatBubbleRow(context),
-                  normalRow(context, "Çalıştığı Şirket: ", "Aspar Enerji"),
-                  normalRow(context, "Unvan: ", "Yazılım Geliştirici"),
-                  normalRow(context, "E-Posta: ", "csaidberk@gmail.com"),
-                  normalRow(context, "Telefon: ", "+90 505 122 23 46")
-                ],
-              ),
+            child: Column(
+              children: [
+                chatBubbleRow(context, customerName: args.customerName),
+                normalRow(context, "Çalıştığı Şirket: ", args.customerCompany),
+                normalRow(context, "Unvan: ", args.customerTitle),
+                normalRow(context, "E-Posta: ", args.customerMail),
+                normalRow(context, "Telefon: ", args.customerPhone),
+              ],
             ),
+          ),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child:
+                ElevatedButton(onPressed: () {}, child: Text("Müşteriyi Sil")),
           )
         ],
       ),
     );
   }
 
-  SizedBox chatBubbleRow(BuildContext context) {
+  SizedBox chatBubbleRow(BuildContext context, {required String customerName}) {
     return SizedBox(
       height: 50,
       child: Row(
@@ -47,7 +55,7 @@ class CustomerPage extends StatelessWidget {
             style: ProjectTextStyle.redSmallStrong(context),
           ),
           Text(
-            "Said Berk",
+            customerName,
             style: ProjectTextStyle.lightBlueSmallStrong(context),
           ),
           const Spacer(),
@@ -79,7 +87,8 @@ class CustomerPage extends StatelessWidget {
     );
   }
 
-  Row userTitle(BuildContext context) {
+  Row userTitle(BuildContext context,
+      {required String customerName, required String customerCompany}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -87,11 +96,11 @@ class CustomerPage extends StatelessWidget {
         Column(
           children: [
             Text(
-              "Said Berk",
+              shortenString(string: customerName, max_length: 14),
               style: ProjectTextStyle.lightBlueBigStrong(context),
             ),
             Text(
-              "Aspar Enerji",
+              customerCompany,
               style: ProjectTextStyle.redMediumStrong(context),
             ),
           ],
@@ -99,4 +108,19 @@ class CustomerPage extends StatelessWidget {
       ],
     );
   }
+}
+
+class ScreenArguments {
+  final String customerName;
+  final String customerCompany;
+  final String customerTitle;
+  final String customerMail;
+  final String customerPhone;
+
+  ScreenArguments(
+      {required this.customerCompany,
+      required this.customerMail,
+      required this.customerName,
+      required this.customerPhone,
+      required this.customerTitle});
 }
