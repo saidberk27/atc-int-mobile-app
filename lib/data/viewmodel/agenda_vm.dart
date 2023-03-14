@@ -50,7 +50,8 @@ class AgendaModelView {
   }
 
   void removeTaskFromDatabase({required String id}) {
-    ProjectFirestore().removeFromDatabase(id: id);
+    ProjectFirestore().removeFromDatabase(
+        documentPath: "/customers/customers/customers", id: id);
   }
 }
 

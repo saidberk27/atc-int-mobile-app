@@ -26,7 +26,8 @@ class CustomersPage extends StatelessWidget {
                     customerCompany: snapshot.data![index].customerCompany,
                     customerTitle: snapshot.data![index].customerTitle,
                     customerMail: snapshot.data![index].customerMail,
-                    customerPhone: snapshot.data![index].customerPhone);
+                    customerPhone: snapshot.data![index].customerPhone,
+                    customerID: snapshot.data![index].id);
               },
             );
           } else {
@@ -48,7 +49,8 @@ class CustomersPage extends StatelessWidget {
       required String customerCompany,
       required String customerTitle,
       required String customerPhone,
-      required String customerMail}) {
+      required String customerMail,
+      required String customerID}) {
     return Card(
       elevation: 2,
       child: Padding(
@@ -81,7 +83,8 @@ class CustomersPage extends StatelessWidget {
                             customerCompany: customerCompany,
                             customerMail: customerMail,
                             customerPhone: customerPhone,
-                            customerTitle: customerTitle)),
+                            customerTitle: customerTitle,
+                            customerID: customerID)),
                     icon: const Icon(Icons.info_outlined))
               ],
             )

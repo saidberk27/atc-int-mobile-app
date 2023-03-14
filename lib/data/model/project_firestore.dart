@@ -10,15 +10,9 @@ class ProjectFirestore {
         debugPrint('DocumentSnapshot added with ID: ${doc.id}'));
   }
 
-  void removeFromDatabase({required String id}) {
+  void removeFromDatabase({required String documentPath, required String id}) {
     print("Removing...");
-    db
-        .collection("agenda")
-        .doc("completed")
-        .collection("Görev 1")
-        .doc(id)
-        .delete()
-        .then(
+    db.doc("$documentPath/$id").delete().then(
           (doc) => print("Document deleted"),
           onError: (e) => print("Error updating document $e"),
         );

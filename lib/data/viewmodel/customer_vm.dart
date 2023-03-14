@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 import '../../local_components/get_today.dart';
 import '../model/project_firestore.dart';
@@ -31,6 +32,11 @@ class CustomerViewModel {
         customerMail: customerMail,
         customerPhone: customerPhone);
   }
+
+  Future<void> deleteCustomer({required String id}) async {
+    db.removeFromDatabase(
+        documentPath: "customers/customers/customers", id: id);
+  }
 }
 
 class Customer {
@@ -39,6 +45,7 @@ class Customer {
   String? customerTitle;
   String? customerMail;
   String? customerPhone;
+  String? id;
   Timestamp? customerTimeStamp;
   Customer.toJson(
       {required String this.customerName,
@@ -69,6 +76,7 @@ class Customer {
     customerMail = json["customer_mail"];
     customerPhone = json["customer_phone"];
     customerTimeStamp = json["customer_added"];
+    id = json["id"];
     // Timestamp to DateTime to String conversion
   }
 }

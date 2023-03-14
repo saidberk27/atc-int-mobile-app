@@ -1,3 +1,4 @@
+import 'package:atc_international/data/viewmodel/customer_vm.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:atc_international/local_components/shorten_string.dart';
@@ -37,8 +38,11 @@ class CustomerPage extends StatelessWidget {
           Spacer(),
           Padding(
             padding: const EdgeInsets.all(12.0),
-            child:
-                ElevatedButton(onPressed: () {}, child: Text("Müşteriyi Sil")),
+            child: ElevatedButton(
+                onPressed: () {
+                  deleteCustomer(context, id: args.customerID);
+                },
+                child: Text("Müşteriyi Sil")),
           )
         ],
       ),
@@ -108,6 +112,11 @@ class CustomerPage extends StatelessWidget {
       ],
     );
   }
+
+  void deleteCustomer(context, {required String id}) {
+    CustomerViewModel().deleteCustomer(id: id);
+    Navigator.of(context).pushNamed("/customers");
+  }
 }
 
 class ScreenArguments {
@@ -116,11 +125,13 @@ class ScreenArguments {
   final String customerTitle;
   final String customerMail;
   final String customerPhone;
+  final String customerID;
 
   ScreenArguments(
       {required this.customerCompany,
       required this.customerMail,
       required this.customerName,
       required this.customerPhone,
-      required this.customerTitle});
+      required this.customerTitle,
+      required this.customerID});
 }
