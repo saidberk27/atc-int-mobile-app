@@ -1,3 +1,4 @@
+import 'package:atc_international/data/viewmodel/customer_vm.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:atc_international/local_components/profile_picture.dart';
@@ -12,6 +13,23 @@ class CustomersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     const fabtext = "Yeni Müşteri";
     return Scaffold(
+      body: FutureBuilder(
+        future: CustomerViewModel().getCustomers(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return ListView.builder(
+              itemCount: snapshot.data?.length,
+              itemBuilder: (BuildContext context, int index) {
+                return customerCard(context,
+                    customerName: snapshot.data![index].customerName,
+                    customerCompany: snapshot.data![index].customerCompany);
+              },
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      ),
       drawer: const ProjectDrawer(),
       appBar: AppBar(title: Text(_pageTitle)),
       floatingActionButton: const ProjectFAB(
@@ -21,7 +39,8 @@ class CustomersPage extends StatelessWidget {
     );
   }
 
-  Card customerCard(BuildContext context) {
+  Card customerCard(BuildContext context,
+      {required String customerName, required String customerCompany}) {
     return Card(
       elevation: 2,
       child: Padding(
@@ -33,11 +52,11 @@ class CustomersPage extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  "Said Berk",
+                  customerName,
                   style: ProjectTextStyle.redMediumStrong(context),
                 ),
                 Text(
-                  "Aspar Enerji",
+                  customerCompany,
                   style: ProjectTextStyle.lightBlueSmallStrong(context),
                 )
               ],

@@ -26,9 +26,32 @@ class ProjectFirestore {
 
   Future<List<dynamic>> readDocumentsFromDatabase(
       {required String collectionPath}) async {
-    var documents = [];
+    List documents = [];
 
     final ref = db.collection(collectionPath);
+    QuerySnapshot querySnapshot = await ref.get();
+    for (var docSnapshot in querySnapshot.docs) {
+      var documentMap = docSnapshot.data() as Map<String, dynamic>;
+      var idMap = {
+        "id": docSnapshot.reference.id
+      }; // dosyanin id'sini ayrica alip bir sozluk olusturuyorum.
+      documentMap.addAll(
+          idMap); //sonra elimdeki asil sozlukun icine id'den yaptigim sozluku koyuyorum.
+      //print(documentMap);
+      documents.add(documentMap);
+    }
+    return documents;
+  }
+
+  Future<List<dynamic>> readDocumentsFromDatabaseWithOrder(
+      {required String collectionPath,
+      required String orderField,
+      required bool isDescending}) async {
+    List documents = [];
+
+    final ref = db
+        .collection(collectionPath)
+        .orderBy("customer_added", descending: true);
     QuerySnapshot querySnapshot = await ref.get();
     for (var docSnapshot in querySnapshot.docs) {
       var documentMap = docSnapshot.data() as Map<String, dynamic>;

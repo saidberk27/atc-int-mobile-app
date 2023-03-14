@@ -110,7 +110,7 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
           child: Align(
             alignment: Alignment.center,
             child: Text(
-              "Yeni Görev Ekle",
+              "Yeni Müşteri Ekle",
             ),
           ),
         ));
