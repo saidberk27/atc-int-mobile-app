@@ -5,6 +5,7 @@ import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:atc_international/local_components/drawer.dart';
 import 'package:atc_international/local_components/profile_picture.dart';
 import '../../local_components/get_today.dart';
+import 'package:atc_international/local_components/nav_bar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -33,6 +34,47 @@ class _MyHomePageState extends State<MyHomePage> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth > 1000) {
+          return webScaffold(screenHeight, screenWidth, context);
+        } else {
+          return mobileScaffold(screenHeight, screenWidth, context);
+        }
+      },
+    );
+  }
+
+  Scaffold webScaffold(
+      double screenHeight, double screenWidth, BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Row(
+        children: [
+          ProjectSideNavMenu(),
+          Expanded(
+            flex: 8,
+            child: SafeArea(
+                child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  buildLogo(screenHeight, screenWidth),
+                  buildUserandDateSection(context),
+                  const Divider(
+                    thickness: 2,
+                  ),
+                  buildMenu(),
+                ],
+              ),
+            )),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Scaffold mobileScaffold(
+      double screenHeight, double screenWidth, BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       drawer: const ProjectDrawer(),
