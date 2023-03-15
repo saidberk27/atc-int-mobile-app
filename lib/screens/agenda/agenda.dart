@@ -2,6 +2,7 @@ import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:atc_international/local_components/drawer.dart';
 import 'package:atc_international/local_components/fab.dart';
+import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:flutter/material.dart';
 import '../../data/viewmodel/agenda_vm.dart';
 
@@ -15,6 +16,75 @@ class AgendaPage extends StatefulWidget {
 class _AgendaPageState extends State<AgendaPage> {
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (constraints.maxWidth > 1100) {
+        return webScaffold(context);
+      } else {
+        return mobileScaffold(context);
+      }
+    });
+  }
+
+  Scaffold webScaffold(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("AJANDA"),
+      ),
+      body: Row(
+        children: [
+          ProjectSideNavMenu(),
+          Expanded(
+            flex: 8,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  flex: 6,
+                  child: FutureBuilder(
+                      future: AgendaModelView().getTasks(isCompleted: false),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return expansionTileListBuild(snapshot);
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
+                      }),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(32.0, 12.0, 32.0, 76.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed("/completedTasks");
+                      },
+                      child: SizedBox(
+                        height: 50,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Tamamlanmış Görevleri Görüntüle",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: const ProjectFAB(
+        text: "YENİ GÖREV",
+        route: "/addNewTask",
+      ),
+    );
+  }
+
+  Scaffold mobileScaffold(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("AJANDA"),
@@ -45,9 +115,15 @@ class _AgendaPageState extends State<AgendaPage> {
                   onPressed: () {
                     Navigator.of(context).pushNamed("/completedTasks");
                   },
-                  child: const Text(
-                    "Tamamlanmış Görevleri Görüntüle",
-                    textAlign: TextAlign.center,
+                  child: SizedBox(
+                    height: 75,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Tamamlanmış Görevleri Görüntüle",
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
                 ),
               ),

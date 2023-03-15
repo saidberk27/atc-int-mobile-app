@@ -2,6 +2,8 @@ import 'package:atc_international/data/viewmodel/agenda_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../local_components/nav_bar.dart';
+
 class AddNewTask extends StatefulWidget {
   const AddNewTask({super.key});
 
@@ -32,23 +34,72 @@ class _AddNewTaskState extends State<AddNewTask> {
       TextEditingController();
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (constraints.maxWidth > 1100) {
+          return webScaffold();
+        } else {
+          return mobileScaffold();
+        }
+      },
+    );
+  }
+
+  Widget mobileScaffold() {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Yeni Görev Ekle"),
+        title: Text("Yeni Görev Ekle"),
       ),
       body: Padding(
-          padding: const EdgeInsets.only(top: 24, right: 12, left: 12),
-          child: Form(
-              key: _formKey,
-              child: ListView(children: [
-                textFormField(),
-                const SizedBox(height: 40),
-                textArea(),
-                const SizedBox(height: 40),
-                datePicker(context),
-                const SizedBox(height: 40),
-                elevatedButton(),
-              ]))),
+        padding: const EdgeInsets.only(top: 24, right: 12, left: 12),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              textFormField(),
+              const SizedBox(height: 40),
+              textArea(),
+              const SizedBox(height: 40),
+              datePicker(context),
+              const SizedBox(height: 40),
+              elevatedButton(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget webScaffold() {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Yeni Görev Ekle"),
+      ),
+      body: Row(
+        children: [
+          ProjectSideNavMenu(),
+          Expanded(
+            flex: 8,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 24, right: 12, left: 12),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    textFormField(),
+                    const SizedBox(height: 40),
+                    textArea(),
+                    const SizedBox(height: 40),
+                    datePicker(context),
+                    const SizedBox(height: 40),
+                    elevatedButton(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

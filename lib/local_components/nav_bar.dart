@@ -24,28 +24,35 @@ class ProjectSideNavMenu extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "name",
+                    "İsim",
                     style: ProjectTextStyle.darkMediumStrong(context),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   Text(
-                    "surname",
+                    "Soyisim",
                     style: ProjectTextStyle.lightBlueMediumStrong(context),
                   )
                 ],
               ),
               Text(
-                "companyName",
+                "Şirket İsmi",
                 style: ProjectTextStyle.redSmallStrong(context),
               ),
               menuItem(context, text: "ANA SAYFA", icon: Icons.home_outlined),
               menuItem(context,
-                  text: "MÜŞTERİLERİM", icon: Icons.people_alt_outlined),
+                  text: "MÜŞTERİLERİM",
+                  icon: Icons.people_alt_outlined,
+                  route: "/customers"),
               menuItem(context,
-                  text: "AJANDA", icon: Icons.business_center_outlined),
-              menuItem(context, text: "KASALARIM", icon: Icons.kitchen_rounded),
+                  text: "AJANDA",
+                  icon: Icons.business_center_outlined,
+                  route: "/agenda"),
+              menuItem(context,
+                  text: "KASALARIM",
+                  icon: Icons.kitchen_rounded,
+                  route: "/refrigerations"),
               menuItem(context,
                   text: "MESAJLARIM", icon: Icons.message_outlined),
               menuItem(context, text: "ÇIKIŞ YAP", icon: Icons.login_outlined)

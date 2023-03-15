@@ -1,4 +1,6 @@
 import 'package:atc_international/data/viewmodel/customer_vm.dart';
+import 'package:atc_international/local_components/nav_bar.dart';
+
 import 'package:flutter/material.dart';
 
 class AddNewCustomer extends StatefulWidget {
@@ -38,6 +40,65 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (constraints.maxWidth > 1100) {
+        return webScaffold();
+      } else {
+        return mobileScaffold();
+      }
+    });
+  }
+
+  Scaffold webScaffold() {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Yeni Müşteri Ekle"),
+      ),
+      body: Row(
+        children: [
+          ProjectSideNavMenu(),
+          Expanded(
+            flex: 8,
+            child: Padding(
+                padding: const EdgeInsets.only(top: 24, right: 12, left: 12),
+                child: Form(
+                    key: _formKey,
+                    child: ListView(children: [
+                      textFormField(
+                          hintText: "Müşteri İsmi",
+                          controller: _customerNameController),
+                      const SizedBox(height: 40),
+                      textFormField(
+                          hintText: "Çalıştığı Şirket",
+                          controller: _customerCompanyController,
+                          icon: Icons.business),
+                      const SizedBox(height: 40),
+                      textFormField(
+                          hintText: "Unvan",
+                          controller: _customerTitleController,
+                          icon: Icons.title),
+                      const SizedBox(height: 40),
+                      textFormField(
+                          hintText: "E-Posta",
+                          controller: _customerMailController,
+                          icon: Icons.email_outlined),
+                      const SizedBox(height: 40),
+                      textFormField(
+                          hintText: "Telefon",
+                          controller: _customerPhoneController,
+                          icon: Icons.phone_callback_outlined),
+                      const SizedBox(height: 40),
+                      elevatedButton(),
+                      const SizedBox(height: 20),
+                    ]))),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Scaffold mobileScaffold() {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Yeni Müşteri Ekle"),

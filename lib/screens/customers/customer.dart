@@ -1,6 +1,7 @@
 import 'package:atc_international/data/viewmodel/customer_vm.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
+import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:atc_international/local_components/shorten_string.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,18 @@ class CustomerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 1100) {
+          return webScaffold(context, args);
+        } else {
+          return mobileScaffold(context, args);
+        }
+      },
+    );
+  }
+
+  Widget mobileScaffold(BuildContext context, ScreenArguments args) {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -44,6 +57,53 @@ class CustomerPage extends StatelessWidget {
                 },
                 child: Text("Müşteriyi Sil")),
           )
+        ],
+      ),
+    );
+  }
+
+  Widget webScaffold(BuildContext context, ScreenArguments args) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Row(
+        children: [
+          ProjectSideNavMenu(),
+          Expanded(
+            flex: 8,
+            child: Column(
+              children: [
+                userTitle(context,
+                    customerName: args.customerName,
+                    customerCompany: args.customerCompany),
+                const Divider(
+                  thickness: 2,
+                  color: ProjectColor.red,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      chatBubbleRow(context, customerName: args.customerName),
+                      normalRow(
+                          context, "Çalıştığı Şirket: ", args.customerCompany),
+                      normalRow(context, "Unvan: ", args.customerTitle),
+                      normalRow(context, "E-Posta: ", args.customerMail),
+                      normalRow(context, "Telefon: ", args.customerPhone),
+                    ],
+                  ),
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        deleteCustomer(context, id: args.customerID);
+                      },
+                      child: Text("Müşteriyi Sil")),
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );

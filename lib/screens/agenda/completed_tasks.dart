@@ -1,4 +1,5 @@
 import 'package:atc_international/local_components/custom_text_themes.dart';
+import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:flutter/material.dart';
 import '../../data/viewmodel/agenda_vm.dart';
 
@@ -12,6 +13,65 @@ class CompletedTasksPage extends StatefulWidget {
 class _CompletedTasksPageState extends State<CompletedTasksPage> {
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (constraints.maxWidth > 1100) {
+        return webScaffold();
+      } else {
+        return mobileScaffold();
+      }
+    });
+  }
+
+  Scaffold webScaffold() {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("TAMAMLANMIŞ GÖREVLER"),
+      ),
+      body: Row(
+        children: [
+          ProjectSideNavMenu(),
+          Expanded(
+            flex: 6,
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 8,
+                  child: FutureBuilder(
+                      future: AgendaModelView().getTasks(isCompleted: true),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return expansionTileListBuild(snapshot);
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
+                      }),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        AgendaModelView().clearTasks();
+                        Future.delayed(const Duration(milliseconds: 500), () {
+                          // it needs to wait for a while due to database changes.
+                          setState(() {});
+                        });
+                      },
+                      child: const Text("Temizle"),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Scaffold mobileScaffold() {
     return Scaffold(
       appBar: AppBar(
         title: const Text("TAMAMLANMIŞ GÖREVLER"),
