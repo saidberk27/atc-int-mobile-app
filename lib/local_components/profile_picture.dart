@@ -11,8 +11,8 @@ class ProfilePicture extends StatelessWidget {
         ? this.profilePicture = 'assets/images/profile-blank.png'
         : this.profilePicture = profilePicture;
   }
-  double radius;
-  String? profilePicture;
+  final double radius;
+  late final String? profilePicture;
 
   @override
   Widget build(BuildContext context) {
