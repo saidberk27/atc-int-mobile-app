@@ -86,70 +86,77 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
             child: Padding(
                 padding: const EdgeInsets.only(top: 24, right: 12, left: 12),
                 child: Form(
-                    key: _formKey,
-                    child: ListView(children: [
-                      textFormField(
-                          hintText: "Kasa İsmi",
-                          controller: _caseNameController),
-                      const SizedBox(height: 40),
-                      textFormField(
-                          hintText: "Kasa Modeli",
-                          controller: _caseModelController,
-                          icon: Icons.business),
-                      const SizedBox(height: 40),
-                      textFormField(
-                          hintText: "Dıştan Dışa Ölçütler",
-                          controller: _outerMeasurementController,
-                          icon: Icons.title),
-                      const SizedBox(height: 40),
-                      textFormField(
-                          hintText: "İçten İçe Ölçütler",
-                          controller: _innerMeasurementController,
-                          icon: Icons.email_outlined),
-                      const SizedBox(height: 40),
-                      textFormField(
-                          hintText: "Araç Şasi Modelleri",
-                          controller: _vehicleChassisModelController,
-                          icon: Icons.phone_callback_outlined),
-                      const SizedBox(height: 40),
-                      textFormField(
-                          hintText: "Araç Şasi Modelleri",
-                          controller: _vehicleChassisModelController,
-                          icon: Icons.phone_callback_outlined),
-                      const SizedBox(height: 40),
-                      textFormField(
-                          hintText: "Araç Şasi Modelleri",
-                          controller: _vehicleChassisModelController,
-                          icon: Icons.phone_callback_outlined),
-                      const SizedBox(height: 40),
-                      textFormField(
-                          hintText: "Araç Şasi Modelleri",
-                          controller: _vehicleChassisModelController,
-                          icon: Icons.phone_callback_outlined),
-                      const SizedBox(height: 40),
-                      textFormField(
-                          hintText: "Araç Şasi Modelleri",
-                          controller: _vehicleChassisModelController,
-                          icon: Icons.phone_callback_outlined),
-                      const SizedBox(height: 40),
-                      textFormField(
-                          hintText: "Araç Şasi Modelleri",
-                          controller: _vehicleChassisModelController,
-                          icon: Icons.phone_callback_outlined),
-                      const SizedBox(height: 40),
-                      textFormField(
-                          hintText: "Araç Şasi Modelleri",
-                          controller: _vehicleChassisModelController,
-                          icon: Icons.phone_callback_outlined),
-                      const SizedBox(height: 40),
-                      textFormField(
-                          hintText: "Araç Şasi Modelleri",
-                          controller: _vehicleChassisModelController,
-                          icon: Icons.phone_callback_outlined),
-                      const SizedBox(height: 40),
-                      elevatedButton(),
-                      const SizedBox(height: 20),
-                    ]))),
+                  key: _formKey,
+                  child: ListView(children: [
+                    textFormField(
+                        hintText: "Kasa İsmi", controller: _caseNameController),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "Kasa Modeli",
+                        controller: _caseModelController,
+                        icon: Icons.move_down_outlined),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "Dıştan Dışa Ölçütler",
+                        controller: _outerMeasurementController,
+                        icon: Icons.straighten_outlined),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "İçten İçe Ölçütler",
+                        controller: _innerMeasurementController,
+                        icon: Icons.aspect_ratio),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "Araç Şasi Modelleri",
+                        controller: _vehicleChassisModelController,
+                        icon: Icons.local_shipping),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "Çalışma Sıcaklık Aralığı",
+                        controller: _workingTemperatureController,
+                        icon: Icons.thermostat),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "Soğutma Ünitesi",
+                        controller: _coldenUnitController,
+                        icon: Icons.ac_unit),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "Ötektik Pleytler",
+                        controller: _eutaticPlatesController,
+                        icon: Icons.grid_on_rounded),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "Günlük Kapı Açılma Sayısı",
+                        controller: _dailyDoorController,
+                        icon: Icons.door_sliding),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "Dağıtım Zamanı",
+                        controller: _dealTimeController,
+                        icon: Icons.timelapse_sharp),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "İç Isı Değişim Süresi",
+                        controller: _innerTemperatureDurationController,
+                        icon: MdiIcons.timer),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "Kasa Ağırlığı",
+                        controller: _caseWeightController,
+                        icon: MdiIcons.weight),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "İç Hacim",
+                        controller: _innerVolumeController,
+                        icon: MdiIcons.cubeOutline),
+                    const SizedBox(height: 40),
+                    textFormField(
+                        hintText: "Yük Yükleme Kapasitesi",
+                        controller: _weightCapacityController,
+                        icon: MdiIcons.weightKilogram),
+                  ]),
+                )),
           ),
         ],
       ),
