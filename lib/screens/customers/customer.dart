@@ -48,14 +48,14 @@ class CustomerPage extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: ElevatedButton(
                 onPressed: () {
                   deleteCustomer(context, id: args.customerID);
                 },
-                child: Text("Müşteriyi Sil")),
+                child: const Text("Müşteriyi Sil")),
           )
         ],
       ),
@@ -67,7 +67,7 @@ class CustomerPage extends StatelessWidget {
       appBar: AppBar(),
       body: Row(
         children: [
-          ProjectSideNavMenu(),
+          const ProjectSideNavMenu(),
           Expanded(
             flex: 8,
             child: Column(
@@ -92,14 +92,14 @@ class CustomerPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: ElevatedButton(
                       onPressed: () {
                         deleteCustomer(context, id: args.customerID);
                       },
-                      child: Text("Müşteriyi Sil")),
+                      child: const Text("Müşteriyi Sil")),
                 )
               ],
             ),
@@ -160,7 +160,7 @@ class CustomerPage extends StatelessWidget {
         Column(
           children: [
             Text(
-              shortenString(string: customerName, max_length: 14),
+              shortenString(string: customerName, maxLength: 14),
               style: ProjectTextStyle.lightBlueBigStrong(context),
             ),
             Text(

@@ -53,6 +53,14 @@ class AgendaModelView {
     ProjectFirestore().removeFromDatabase(
         documentPath: "/customers/customers/customers", id: id);
   }
+
+  Future<void> saveTask(
+      {required String taskName,
+      required String taskDescription,
+      required String deadEnd}) async {
+    AgendaTask.toJson(
+        taskName: taskName, taskDescription: taskDescription, deadEnd: deadEnd);
+  }
 }
 
 class AgendaTask {

@@ -26,11 +26,11 @@ class CustomersPage extends StatelessWidget {
   }
 }
 
-Scaffold webScaffold(String fabtext, String _pageTitle) {
+Scaffold webScaffold(String fabtext, String pageTitle) {
   return Scaffold(
     body: Row(
       children: [
-        ProjectSideNavMenu(),
+        const ProjectSideNavMenu(),
         Expanded(
           flex: 8,
           child: FutureBuilder(
@@ -50,14 +50,14 @@ Scaffold webScaffold(String fabtext, String _pageTitle) {
                   },
                 );
               } else {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
             },
           ),
         ),
       ],
     ),
-    appBar: AppBar(title: Text(_pageTitle)),
+    appBar: AppBar(title: Text(pageTitle)),
     floatingActionButton: ProjectFAB(
       text: fabtext,
       route: "/addNewCustomer",
@@ -65,7 +65,7 @@ Scaffold webScaffold(String fabtext, String _pageTitle) {
   );
 }
 
-Scaffold mobileScaffold(String fabtext, String _pageTitle) {
+Scaffold mobileScaffold(String fabtext, String pageTitle) {
   return Scaffold(
     body: FutureBuilder(
       future: CustomerViewModel().getCustomers(),
@@ -84,12 +84,12 @@ Scaffold mobileScaffold(String fabtext, String _pageTitle) {
             },
           );
         } else {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
       },
     ),
     drawer: const ProjectDrawer(),
-    appBar: AppBar(title: Text(_pageTitle)),
+    appBar: AppBar(title: Text(pageTitle)),
     floatingActionButton: ProjectFAB(
       text: fabtext,
       route: "/addNewCustomer",

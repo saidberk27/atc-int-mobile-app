@@ -1,6 +1,6 @@
-String shortenString({required String string, required int max_length}) {
-  if (string.length > max_length) {
-    string = string.substring(0, max_length) + "...";
+String shortenString({required String string, required int maxLength}) {
+  if (string.length > maxLength) {
+    string = "${string.substring(0, maxLength)}...";
     return string;
   }
   return string;

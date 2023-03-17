@@ -33,7 +33,7 @@ class _AgendaPageState extends State<AgendaPage> {
       ),
       body: Row(
         children: [
-          ProjectSideNavMenu(),
+          const ProjectSideNavMenu(),
           Expanded(
             flex: 8,
             child: Column(
@@ -59,7 +59,7 @@ class _AgendaPageState extends State<AgendaPage> {
                       onPressed: () {
                         Navigator.of(context).pushNamed("/completedTasks");
                       },
-                      child: SizedBox(
+                      child: const SizedBox(
                         height: 50,
                         child: Align(
                           alignment: Alignment.center,
@@ -89,7 +89,7 @@ class _AgendaPageState extends State<AgendaPage> {
       appBar: AppBar(
         title: const Text("AJANDA"),
       ),
-      drawer: ProjectDrawer(),
+      drawer: const ProjectDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -115,7 +115,7 @@ class _AgendaPageState extends State<AgendaPage> {
                   onPressed: () {
                     Navigator.of(context).pushNamed("/completedTasks");
                   },
-                  child: SizedBox(
+                  child: const SizedBox(
                     height: 75,
                     child: Align(
                       alignment: Alignment.center,
@@ -235,7 +235,7 @@ class _AgendaPageState extends State<AgendaPage> {
 
   void removeFromDatabase(AsyncSnapshot<dynamic> snapshot, int index) {
     return setState(() {
-      print(snapshot.data[index].taskId);
+      debugPrint(snapshot.data[index].taskId);
       AgendaModelView().removeTaskFromDatabase(id: snapshot.data[index].taskId);
     });
   }

@@ -1,4 +1,6 @@
+import 'package:atc_international/data/viewmodel/refrigeration_vm.dart';
 import 'package:atc_international/local_components/colors.dart';
+import 'package:atc_international/local_components/shorten_string.dart';
 import 'package:flutter/material.dart';
 
 import '../../local_components/custom_text_themes.dart';
@@ -8,29 +10,56 @@ class Refrigeration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("EUTETIC 4300 4.5T"),
+        title: Text(args.caseName!),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView(
           children: [
-            normalRow(
-                context, "Model:  ", "Eutectic 4300 Dondurma kasası 4.5T "),
-            normalRow(context, "Yan kapı sayısı:  ", "4+4 "),
-            normalRow(context, "Dıştan dışa ölçüler:  ", "4250x2100x1700mm "),
-            normalRow(context, "Içten içe ölçüler:  ", "4140x1890x1475mm "),
-            normalRow(context, "Araç Şasi Modelleri:  ",
-                "Iveco Daily, \nMercedes-Benz Sprinter"),
-            normalRow(
-                context, "Çalışma sıcaklık aralığı:  ", " −40°C to −20°C "),
             Container(
               decoration: BoxDecoration(
                   border: Border.all(width: 4, color: ProjectColor.darkBlue),
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
               child: Image.network(
                   "https://www.atcint.com.tr/tr/kaynak/yuklemeler/urunler/urunler/detay/187_eutecticplatesinatcint.png"),
+            ),
+            normalRow(context, "Model: ", args.caseModel!),
+            normalRow(context, "Yan kapı sayısı: ", args.dailyDoor!),
+            normalRow(context, "Dıştan dışa ölçüler: ", args.outerMeasurement!),
+            normalRow(context, "Içten içe ölçüler: ", args.innerMeasurement!),
+            normalRow(
+                context, "Araç Şasi modelleri: ", args.vehicleChassisModel!),
+            normalRow(
+                context, "Çalışma sıcaklık aralığı", args.workingTemperature!),
+            normalRow(context, "Soğutma ünitesi: ", args.coldenUnit!),
+            normalRow(context, "Ötektik pleytler: ", args.eutaticPlates!),
+            normalRow(context, "Günlük kapı açılma sayısı: ", args.dailyDoor!),
+            normalRow(context, "Dağıtım zamanı: ", args.dealTime!),
+            normalRow(context, "İç Isı değişim süresi: ",
+                args.innerTemperatureDuration!),
+            normalRow(context, "Kasa ağırlığı: ", args.caseWeight!),
+            normalRow(context, "İç hacim: ", args.innerVolume!),
+            normalRow(
+                context, "Yük yükleme kapasitesi: ", args.weightCapacity!),
+            Padding(
+              padding: EdgeInsets.all(12),
+              child: ElevatedButton(
+                onPressed: () {
+                  RefrigerationViewModel().removeRefrigeration(id: args.id!);
+                  SnackBar snackBar = SnackBar(
+                    content: Text("Kasa Siliniyor ..."),
+                    duration: Duration(milliseconds: 500),
+                  );
+
+                  Navigator.of(context).pushNamed("/refrigerations");
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                },
+                child: Text("Kasayı Sil"),
+              ),
             )
           ],
         ),
@@ -43,16 +72,54 @@ class Refrigeration extends StatelessWidget {
       height: 50,
       child: Row(
         children: [
-          Text(
-            baslik,
-            style: ProjectTextStyle.redSmallStrong(context),
+          Expanded(
+            child: Text(
+              baslik,
+              style: ProjectTextStyle.redSmallStrong(context),
+            ),
           ),
-          Text(
-            icerik,
-            style: ProjectTextStyle.lightBlueSmallStrong(context),
+          Expanded(
+            child: Text(
+              shortenString(string: icerik, maxLength: 34),
+              style: ProjectTextStyle.lightBlueSmallStrong(context),
+            ),
           ),
         ],
       ),
     );
   }
+}
+
+class ScreenArguments {
+  String? caseName;
+  String? caseModel;
+  String? outerMeasurement;
+  String? innerMeasurement;
+  String? vehicleChassisModel;
+  String? workingTemperature;
+  String? coldenUnit;
+  String? eutaticPlates;
+  String? dailyDoor;
+  String? dealTime;
+  String? innerTemperatureDuration;
+  String? caseWeight;
+  String? innerVolume;
+  String? weightCapacity;
+  String? id;
+  ScreenArguments(
+      {required String this.caseName,
+      required String this.caseModel,
+      required String this.outerMeasurement,
+      required String this.innerMeasurement,
+      required String this.vehicleChassisModel,
+      required String this.workingTemperature,
+      required String this.coldenUnit,
+      required String this.eutaticPlates,
+      required String this.dailyDoor,
+      required String this.dealTime,
+      required String this.innerTemperatureDuration,
+      required String this.caseWeight,
+      required String this.innerVolume,
+      required String this.weightCapacity,
+      required String this.id});
 }

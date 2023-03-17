@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(),
       body: Row(
         children: [
-          ProjectSideNavMenu(),
+          const ProjectSideNavMenu(),
           Expanded(
             flex: 8,
             child: SafeArea(
@@ -193,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.pushNamed(context, "/notifications");
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.notifications,
                 size: 36,
                 color: ProjectColor.red,

@@ -11,10 +11,10 @@ class ProjectFirestore {
   }
 
   void removeFromDatabase({required String documentPath, required String id}) {
-    print("Removing...");
+    debugPrint("Removing...");
     db.doc("$documentPath/$id").delete().then(
-          (doc) => print("Document deleted"),
-          onError: (e) => print("Error updating document $e"),
+          (doc) => debugPrint("Document deleted"),
+          onError: (e) => debugPrint("Error updating document $e"),
         );
   }
 

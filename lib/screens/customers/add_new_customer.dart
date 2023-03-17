@@ -57,7 +57,7 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
       ),
       body: Row(
         children: [
-          ProjectSideNavMenu(),
+          const ProjectSideNavMenu(),
           Expanded(
             flex: 8,
             child: Padding(

@@ -30,7 +30,7 @@ class _CompletedTasksPageState extends State<CompletedTasksPage> {
       ),
       body: Row(
         children: [
-          ProjectSideNavMenu(),
+          const ProjectSideNavMenu(),
           Expanded(
             flex: 6,
             child: Column(
@@ -193,7 +193,7 @@ class _CompletedTasksPageState extends State<CompletedTasksPage> {
 
   void removeFromDatabase(AsyncSnapshot<dynamic> snapshot, int index) {
     return setState(() {
-      print(snapshot.data[index].taskId);
+      debugPrint(snapshot.data[index].taskId);
       AgendaModelView().removeTaskFromDatabase(id: snapshot.data[index].taskId);
     });
   }

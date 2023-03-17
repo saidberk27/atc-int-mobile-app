@@ -48,7 +48,7 @@ class _AddNewTaskState extends State<AddNewTask> {
   Widget mobileScaffold() {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Yeni Görev Ekle"),
+        title: const Text("Yeni Görev Ekle"),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 24, right: 12, left: 12),
@@ -73,11 +73,11 @@ class _AddNewTaskState extends State<AddNewTask> {
   Widget webScaffold() {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Yeni Görev Ekle"),
+        title: const Text("Yeni Görev Ekle"),
       ),
       body: Row(
         children: [
-          ProjectSideNavMenu(),
+          const ProjectSideNavMenu(),
           Expanded(
             flex: 8,
             child: Padding(
@@ -191,7 +191,7 @@ class _AddNewTaskState extends State<AddNewTask> {
   void saveAndNavigate() {
     const snackBar = SnackBar(content: Text('Kaydediliyor...'));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    AgendaTask.toJson(
+    AgendaModelView().saveTask(
         taskName: _taskNameController.text,
         taskDescription: _taskDescriptionController.text,
         deadEnd: _dateController.text);
