@@ -2,6 +2,7 @@ import 'package:atc_international/data/viewmodel/refrigeration_vm.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:atc_international/local_components/drawer.dart';
 import 'package:atc_international/local_components/fab.dart';
+import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:atc_international/screens/refrigerations/refrigeration.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,45 @@ class Refrigerations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String imageData = "assets/images/ice-bucket.png";
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (constraints.maxWidth > 1100) {
+        return webScaffold(imageData);
+      } else {
+        return mobileScaffold(imageData);
+      }
+    });
+  }
+
+  Scaffold webScaffold(String imageData) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("KASALARIM"),
+        ),
+        floatingActionButton: const ProjectFAB(
+          text: "YENİ KASA",
+          route: "/addNewRefrigeration",
+        ),
+        body: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: FutureBuilder(
+                future: RefrigerationViewModel().getRefrigerations(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Row(
+                      children: [
+                        ProjectSideNavMenu(),
+                        Expanded(
+                            flex: 8, child: buildCases(snapshot, imageData)),
+                      ],
+                    );
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                })));
+  }
+
+  Scaffold mobileScaffold(String imageData) {
     return Scaffold(
         drawer: const ProjectDrawer(),
         appBar: AppBar(

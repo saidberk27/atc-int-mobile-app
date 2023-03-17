@@ -67,7 +67,7 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       if (constraints.maxWidth > 1100) {
-        return webScaffold(pageTitle);
+        return mobileScaffold(pageTitle);
       } else {
         return mobileScaffold(pageTitle);
       }
