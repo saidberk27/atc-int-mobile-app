@@ -41,6 +41,7 @@ dependencies:
   firebase_core: ^2.7.0
   cloud_firestore: ^4.4.3
   material_design_icons_flutter:
+  chat_bubbles: ^1.4.1
 
 dev_dependencies:
   flutter_test:

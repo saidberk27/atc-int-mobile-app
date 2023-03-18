@@ -42,7 +42,7 @@ class _AgendaPageState extends State<AgendaPage> {
                 Expanded(
                   flex: 6,
                   child: FutureBuilder(
-                      future: AgendaModelView().getTasks(isCompleted: false),
+                      future: AgendaViewModel().getTasks(isCompleted: false),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return expansionTileListBuild(snapshot);
@@ -96,7 +96,7 @@ class _AgendaPageState extends State<AgendaPage> {
           Expanded(
             flex: 6,
             child: FutureBuilder(
-                future: AgendaModelView().getTasks(isCompleted: false),
+                future: AgendaViewModel().getTasks(isCompleted: false),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return expansionTileListBuild(snapshot);
@@ -207,7 +207,7 @@ class _AgendaPageState extends State<AgendaPage> {
               IconButton(
                 onPressed: () {
                   setState(() {});
-                  AgendaModelView()
+                  AgendaViewModel()
                       .completeTask(id: snapshot.data[index].taskId);
                 },
                 icon: const Icon(
@@ -236,7 +236,7 @@ class _AgendaPageState extends State<AgendaPage> {
   void removeFromDatabase(AsyncSnapshot<dynamic> snapshot, int index) {
     return setState(() {
       debugPrint(snapshot.data[index].taskId);
-      AgendaModelView().removeTaskFromDatabase(id: snapshot.data[index].taskId);
+      AgendaViewModel().removeTaskFromDatabase(id: snapshot.data[index].taskId);
     });
   }
 }

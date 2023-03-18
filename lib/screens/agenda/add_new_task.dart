@@ -191,7 +191,7 @@ class _AddNewTaskState extends State<AddNewTask> {
   void saveAndNavigate() {
     const snackBar = SnackBar(content: Text('Kaydediliyor...'));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    AgendaModelView().saveTask(
+    AgendaViewModel().saveTask(
         taskName: _taskNameController.text,
         taskDescription: _taskDescriptionController.text,
         deadEnd: _dateController.text);

@@ -38,7 +38,7 @@ class _CompletedTasksPageState extends State<CompletedTasksPage> {
                 Expanded(
                   flex: 8,
                   child: FutureBuilder(
-                      future: AgendaModelView().getTasks(isCompleted: true),
+                      future: AgendaViewModel().getTasks(isCompleted: true),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return expansionTileListBuild(snapshot);
@@ -53,7 +53,7 @@ class _CompletedTasksPageState extends State<CompletedTasksPage> {
                     alignment: Alignment.center,
                     child: ElevatedButton(
                       onPressed: () {
-                        AgendaModelView().clearTasks();
+                        AgendaViewModel().clearTasks();
                         Future.delayed(const Duration(milliseconds: 500), () {
                           // it needs to wait for a while due to database changes.
                           setState(() {});
@@ -81,7 +81,7 @@ class _CompletedTasksPageState extends State<CompletedTasksPage> {
           Expanded(
             flex: 9,
             child: FutureBuilder(
-                future: AgendaModelView().getTasks(isCompleted: true),
+                future: AgendaViewModel().getTasks(isCompleted: true),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return expansionTileListBuild(snapshot);
@@ -96,7 +96,7 @@ class _CompletedTasksPageState extends State<CompletedTasksPage> {
               alignment: Alignment.center,
               child: ElevatedButton(
                 onPressed: () {
-                  AgendaModelView().clearTasks();
+                  AgendaViewModel().clearTasks();
                   Future.delayed(const Duration(milliseconds: 500), () {
                     // it needs to wait for a while due to database changes.
                     setState(() {});
@@ -194,7 +194,7 @@ class _CompletedTasksPageState extends State<CompletedTasksPage> {
   void removeFromDatabase(AsyncSnapshot<dynamic> snapshot, int index) {
     return setState(() {
       debugPrint(snapshot.data[index].taskId);
-      AgendaModelView().removeTaskFromDatabase(id: snapshot.data[index].taskId);
+      AgendaViewModel().removeTaskFromDatabase(id: snapshot.data[index].taskId);
     });
   }
 }

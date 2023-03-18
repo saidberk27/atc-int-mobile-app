@@ -46,11 +46,11 @@ class Refrigeration extends StatelessWidget {
             normalRow(
                 context, "Yük yükleme kapasitesi: ", args.weightCapacity!),
             Padding(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               child: ElevatedButton(
                 onPressed: () {
                   RefrigerationViewModel().removeRefrigeration(id: args.id!);
-                  SnackBar snackBar = SnackBar(
+                  SnackBar snackBar = const SnackBar(
                     content: Text("Kasa Siliniyor ..."),
                     duration: Duration(milliseconds: 500),
                   );
@@ -58,7 +58,7 @@ class Refrigeration extends StatelessWidget {
                   Navigator.of(context).pushNamed("/refrigerations");
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
-                child: Text("Kasayı Sil"),
+                child: const Text("Kasayı Sil"),
               ),
             )
           ],

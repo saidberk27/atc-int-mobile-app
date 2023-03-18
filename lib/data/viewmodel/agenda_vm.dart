@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../model/project_firestore.dart';
 
-class AgendaModelView {
+class AgendaViewModel {
   late String taskName;
   late String taskDescription;
   late String deadEnd;

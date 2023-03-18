@@ -136,10 +136,10 @@ class _MyHomePageState extends State<MyHomePage> {
             tileColor: ProjectColor.lightBlue,
             tileRoute: "/refrigerations"),
         buildListTile(
-          tileText: "MESAJLARIM",
-          tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
-          tileColor: ProjectColor.red,
-        ),
+            tileText: "MESAJLARIM",
+            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
+            tileColor: ProjectColor.red,
+            tileRoute: "/chats"),
         buildListTile(
             tileText: "ÇIKIŞ YAP",
             tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),

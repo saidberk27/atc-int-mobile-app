@@ -91,4 +91,10 @@ class ProjectTextStyle {
             color: ProjectColor.darkGray,
             fontSize: 16,
           );
+
+  static TextStyle darkSmallStrong(BuildContext context) =>
+      Theme.of(context).textTheme.headlineMedium!.copyWith(
+          color: ProjectColor.darkGray,
+          fontSize: 16,
+          fontWeight: FontWeight.bold);
 }
