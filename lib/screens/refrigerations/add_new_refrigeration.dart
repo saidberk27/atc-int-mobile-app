@@ -1,4 +1,3 @@
-import 'package:atc_international/data/viewmodel/customer_vm.dart';
 import 'package:atc_international/data/viewmodel/refrigeration_vm.dart';
 import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

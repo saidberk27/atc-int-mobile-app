@@ -17,7 +17,7 @@ class CustomChatPage extends StatelessWidget {
           Expanded(
             flex: 5,
             child: ListView(
-              children: [
+              children: const [
                 BubbleSpecialThree(
                   text: 'Kasa seri numarası var mı ?',
                   color: ProjectColor.lightBlue,
@@ -73,7 +73,7 @@ class CustomChatPage extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
               border: Border.all(width: 2, color: ProjectColor.darkBlue),
-              borderRadius: BorderRadius.all(Radius.circular(24))),
+              borderRadius: const BorderRadius.all(Radius.circular(24))),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -82,7 +82,7 @@ class CustomChatPage extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 1.6,
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Mesajınızı Giriniz...",
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,

@@ -21,8 +21,6 @@ class ChatsPage extends StatelessWidget {
           chatCard(context, chatName: "Said Berk", isOnline: true)
         ],
       ),
-      floatingActionButton:
-          ProjectFAB(text: "YENİ MESAJ", route: "/addNewChat"),
     );
   }
 
@@ -64,7 +62,7 @@ class ChatsPage extends StatelessWidget {
                   )
                 ],
               ),
-              Icon(Icons.arrow_right),
+              const Icon(Icons.arrow_right),
             ],
           ),
         ),

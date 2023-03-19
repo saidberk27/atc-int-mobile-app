@@ -68,10 +68,19 @@ class ProjectTextStyle {
       Theme.of(context).textTheme.headlineMedium!.copyWith(
           color: ProjectColor.white, fontSize: 24, fontWeight: FontWeight.bold);
 
+  static TextStyle whiteSmallStrong(BuildContext context) =>
+      Theme.of(context).textTheme.headlineMedium!.copyWith(
+          color: ProjectColor.white, fontSize: 16, fontWeight: FontWeight.bold);
+
   static TextStyle darkBlueMediumStrong(BuildContext context) =>
       Theme.of(context).textTheme.headlineMedium!.copyWith(
           color: ProjectColor.lightBlue,
           fontSize: 24,
+          fontWeight: FontWeight.bold);
+  static TextStyle darkBlueSmallStrong(BuildContext context) =>
+      Theme.of(context).textTheme.headlineMedium!.copyWith(
+          color: ProjectColor.lightBlue,
+          fontSize: 16,
           fontWeight: FontWeight.bold);
 
   static TextStyle darkMediumStrong(BuildContext context) =>

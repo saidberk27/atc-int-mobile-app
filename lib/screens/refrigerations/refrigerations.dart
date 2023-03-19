@@ -39,13 +39,13 @@ class Refrigerations extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return Row(
                       children: [
-                        ProjectSideNavMenu(),
+                        const ProjectSideNavMenu(),
                         Expanded(
                             flex: 8, child: buildCases(snapshot, imageData)),
                       ],
                     );
                   } else {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                 })));
   }
@@ -68,7 +68,7 @@ class Refrigerations extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return buildCases(snapshot, imageData);
                   } else {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                 })));
   }

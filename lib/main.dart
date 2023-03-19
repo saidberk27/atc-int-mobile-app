@@ -6,6 +6,7 @@ import 'package:atc_international/screens/customers/customer.dart';
 import 'package:atc_international/screens/customers/customers.dart';
 import 'package:atc_international/screens/home_screen/home.dart';
 import 'package:atc_international/screens/home_screen/notifications.dart';
+import 'package:atc_international/screens/login/login.dart';
 import 'package:atc_international/screens/messages/chats.dart';
 import 'package:atc_international/screens/messages/custom_chat.dart';
 import 'package:atc_international/screens/refrigerations/add_new_refrigeration.dart';
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   foregroundColor: ProjectColor.darkBlue))),
-      home: const MyHomePage(),
+      home: const LoginPage(),
       debugShowCheckedModeBanner: false,
       routes: {
         '/home': (context) => const MyHomePage(),
