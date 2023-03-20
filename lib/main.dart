@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
       home: const LoginPage(),
       debugShowCheckedModeBanner: false,
       routes: {
+        '/login': (context) => const LoginPage(),
         '/home': (context) => const MyHomePage(),
         '/notifications': (context) => const NotificationsPage(),
         '/customers': (context) => const CustomersPage(),

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthRemoteDB {
   String? emailAddress;
   String? password;
-  AuthRemoteDB({required this.emailAddress, required this.password});
+  AuthRemoteDB({this.emailAddress, this.password});
   Future<String?> signInRemoteDB() async {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -18,5 +18,9 @@ class AuthRemoteDB {
         return "Wrong password provided for that user.";
       }
     }
+  }
+
+  Future<void> signOutRemoteDB() async {
+    FirebaseAuth.instance.signOut();
   }
 }

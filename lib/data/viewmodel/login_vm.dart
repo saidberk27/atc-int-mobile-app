@@ -31,4 +31,11 @@ class LoginViewModel {
         return signInResponse;
     }
   }
+
+  Future<void> signOut() async {
+    AuthRemoteDB db = AuthRemoteDB();
+    db.signOutRemoteDB();
+  }
+
+  String? get getUserId => userId;
 }

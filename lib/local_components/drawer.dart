@@ -1,6 +1,8 @@
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:flutter/material.dart';
+import '../data/viewmodel/login_vm.dart';
+import '../screens/login/login.dart';
 import 'profile_picture.dart';
 
 class ProjectDrawer extends StatelessWidget {
@@ -59,7 +61,10 @@ class ProjectDrawer extends StatelessWidget {
                   route: "/refrigerations"),
               menuItem(context,
                   text: "MESAJLARIM", icon: Icons.message_outlined),
-              menuItem(context, text: "ÇIKIŞ YAP", icon: Icons.login_outlined)
+              menuItem(context,
+                  text: "ÇIKIŞ YAP",
+                  icon: Icons.login_outlined,
+                  isSignOut: true)
             ],
           ),
         ),
@@ -68,21 +73,47 @@ class ProjectDrawer extends StatelessWidget {
   }
 
   Padding menuItem(BuildContext context,
-      {required String text, required IconData icon, String? route}) {
+      {required String text,
+      required IconData icon,
+      String? route,
+      bool isSignOut = false}) {
     route ?? (route = "/home");
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-      child: ListTile(
-        onTap: () => Navigator.pushNamed(context, route!),
-        leading: Icon(
-          icon,
-          color: ProjectColor.lightBlue,
-          size: 32,
+    if (isSignOut) {
+      return Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+        child: ListTile(
+          onTap: () {
+            LoginViewModel().signOut();
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+              (Route<dynamic> route) => false,
+            );
+          },
+          leading: Icon(
+            icon,
+            color: ProjectColor.lightBlue,
+            size: 32,
+          ),
+          title: Text(text,
+              style: ProjectTextStyle.darkMedium(context)
+                  .copyWith(fontWeight: FontWeight.w500)),
         ),
-        title: Text(text,
-            style: ProjectTextStyle.darkMedium(context)
-                .copyWith(fontWeight: FontWeight.w500)),
-      ),
-    );
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+        child: ListTile(
+          onTap: () => Navigator.pushNamed(context, route!),
+          leading: Icon(
+            icon,
+            color: ProjectColor.lightBlue,
+            size: 32,
+          ),
+          title: Text(text,
+              style: ProjectTextStyle.darkMedium(context)
+                  .copyWith(fontWeight: FontWeight.w500)),
+        ),
+      );
+    }
   }
 }

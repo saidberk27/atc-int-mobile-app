@@ -1,4 +1,6 @@
+import 'package:atc_international/data/viewmodel/login_vm.dart';
 import 'package:atc_international/local_components/colors.dart';
+import 'package:atc_international/screens/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
@@ -95,26 +97,43 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Column buildMenu() {
-    ListTile buildListTile({
-      required String tileText,
-      required TextStyle tileTextStyle,
-      required Color tileColor,
-      String? tileRoute,
-      Color? iconColor,
-    }) {
+    ListTile buildListTile(
+        {required String tileText,
+        required TextStyle tileTextStyle,
+        required Color tileColor,
+        String? tileRoute,
+        Color? iconColor,
+        bool? isLogOut = false}) {
       tileRoute ?? (tileRoute = "/");
-      return ListTile(
-          onTap: () => Navigator.pushNamed(context, tileRoute!),
-          title: Text(
-            tileText,
-            style: tileTextStyle,
-          ),
-          tileColor: tileColor,
-          contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
-          trailing: Icon(
-            Icons.arrow_forward_ios,
-            color: (iconColor == null) ? ProjectColor.white : iconColor,
-          ));
+      if (isLogOut!) {
+        return ListTile(
+            onTap: _signOut,
+            title: Text(
+              tileText,
+              style: tileTextStyle,
+            ),
+            tileColor: tileColor,
+            contentPadding:
+                const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: (iconColor == null) ? ProjectColor.white : iconColor,
+            ));
+      } else {
+        return ListTile(
+            onTap: () => Navigator.pushNamed(context, tileRoute!),
+            title: Text(
+              tileText,
+              style: tileTextStyle,
+            ),
+            tileColor: tileColor,
+            contentPadding:
+                const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: (iconColor == null) ? ProjectColor.white : iconColor,
+            ));
+      }
     }
 
     return Column(
@@ -144,7 +163,8 @@ class _MyHomePageState extends State<MyHomePage> {
             tileText: "ÇIKIŞ YAP",
             tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),
             tileColor: ProjectColor.white,
-            iconColor: ProjectColor.darkBlue),
+            iconColor: ProjectColor.darkBlue,
+            isLogOut: true),
       ],
     );
   }
@@ -199,5 +219,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: ProjectColor.red,
               )))
     ]);
+  }
+
+  void _signOut() {
+    print("Çıkış yap");
+    LoginViewModel().signOut();
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+      (Route<dynamic> route) => false,
+    );
   }
 }

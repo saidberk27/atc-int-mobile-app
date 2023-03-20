@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
 
         SnackBar snackBar = SnackBar(
           content: Text(snackBarText),
-          duration: Duration(milliseconds: 1500),
+          duration: const Duration(milliseconds: 1500),
         );
 
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
