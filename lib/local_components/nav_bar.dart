@@ -11,61 +11,68 @@ class ProjectSideNavMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 2,
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              ProfilePicture(
-                radius: 72,
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+    return FutureBuilder(builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        return Expanded(
+          flex: 2,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
                 children: [
-                  Text(
-                    "İsim",
-                    style: ProjectTextStyle.darkMediumStrong(context),
+                  ProfilePicture(
+                    radius: 72,
                   ),
-                  const SizedBox(
-                    width: 10,
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "İsim",
+                        style: ProjectTextStyle.darkMediumStrong(context),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Soyisim",
+                        style: ProjectTextStyle.lightBlueMediumStrong(context),
+                      )
+                    ],
                   ),
                   Text(
-                    "Soyisim",
-                    style: ProjectTextStyle.lightBlueMediumStrong(context),
-                  )
+                    "Şirket İsmi",
+                    style: ProjectTextStyle.redSmallStrong(context),
+                  ),
+                  menuItem(context,
+                      text: "ANA SAYFA", icon: Icons.home_outlined),
+                  menuItem(context,
+                      text: "MÜŞTERİLERİM",
+                      icon: Icons.people_alt_outlined,
+                      route: "/customers"),
+                  menuItem(context,
+                      text: "AJANDA",
+                      icon: Icons.business_center_outlined,
+                      route: "/agenda"),
+                  menuItem(context,
+                      text: "KASALARIM",
+                      icon: Icons.kitchen_rounded,
+                      route: "/refrigerations"),
+                  menuItem(context,
+                      text: "MESAJLARIM", icon: Icons.message_outlined),
+                  menuItem(context,
+                      text: "ÇIKIŞ YAP",
+                      icon: Icons.login_outlined,
+                      isSignOut: true)
                 ],
               ),
-              Text(
-                "Şirket İsmi",
-                style: ProjectTextStyle.redSmallStrong(context),
-              ),
-              menuItem(context, text: "ANA SAYFA", icon: Icons.home_outlined),
-              menuItem(context,
-                  text: "MÜŞTERİLERİM",
-                  icon: Icons.people_alt_outlined,
-                  route: "/customers"),
-              menuItem(context,
-                  text: "AJANDA",
-                  icon: Icons.business_center_outlined,
-                  route: "/agenda"),
-              menuItem(context,
-                  text: "KASALARIM",
-                  icon: Icons.kitchen_rounded,
-                  route: "/refrigerations"),
-              menuItem(context,
-                  text: "MESAJLARIM", icon: Icons.message_outlined),
-              menuItem(context,
-                  text: "ÇIKIŞ YAP",
-                  icon: Icons.login_outlined,
-                  isSignOut: true)
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        );
+      } else {
+        return CircularProgressIndicator();
+      }
+    });
   }
 
   Padding menuItem(BuildContext context,

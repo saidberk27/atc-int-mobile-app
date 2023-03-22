@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:atc_international/data/model/project_firestore.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -19,7 +17,7 @@ class UserName {
   }
 
   Future<String?> getUserName() async {
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 100));
     box = await Hive.openBox('userBox');
     currentUserName = await box.get('name');
 
@@ -27,7 +25,7 @@ class UserName {
   }
 
   Future<String?> getUserId() async {
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     box = await Hive.openBox('userBox');
     currentUserId = await box.get('id');
 

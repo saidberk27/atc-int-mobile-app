@@ -1,3 +1,4 @@
+import 'package:atc_international/data/local/user_name.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:flutter/material.dart';
@@ -12,64 +13,67 @@ class ProjectDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String name = "Ahmet";
-    String surname = "Yılmaz";
     String companyName = "ATC INTERNATIONAL";
 
-    return Drawer(
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              ProfilePicture(
-                radius: 72,
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    name,
-                    style: ProjectTextStyle.darkMediumStrong(context),
+    return FutureBuilder(
+        future: UserName().getUserName(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Drawer(
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      ProfilePicture(
+                        radius: 72,
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            snapshot.data!,
+                            style: ProjectTextStyle.darkMediumStrong(context),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      ),
+                      Text(
+                        companyName,
+                        style: ProjectTextStyle.redSmallStrong(context),
+                      ),
+                      menuItem(context,
+                          text: "ANA SAYFA", icon: Icons.home_outlined),
+                      menuItem(context,
+                          text: "MÜŞTERİLERİM",
+                          icon: Icons.people_alt_outlined,
+                          route: "/customers"),
+                      menuItem(context,
+                          text: "AJANDA",
+                          icon: Icons.business_center_outlined,
+                          route: "/agenda"),
+                      menuItem(context,
+                          text: "KASALARIM",
+                          icon: Icons.kitchen_rounded,
+                          route: "/refrigerations"),
+                      menuItem(context,
+                          text: "MESAJLARIM", icon: Icons.message_outlined),
+                      menuItem(context,
+                          text: "ÇIKIŞ YAP",
+                          icon: Icons.login_outlined,
+                          isSignOut: true)
+                    ],
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    surname,
-                    style: ProjectTextStyle.lightBlueMediumStrong(context),
-                  )
-                ],
+                ),
               ),
-              Text(
-                companyName,
-                style: ProjectTextStyle.redSmallStrong(context),
-              ),
-              menuItem(context, text: "ANA SAYFA", icon: Icons.home_outlined),
-              menuItem(context,
-                  text: "MÜŞTERİLERİM",
-                  icon: Icons.people_alt_outlined,
-                  route: "/customers"),
-              menuItem(context,
-                  text: "AJANDA",
-                  icon: Icons.business_center_outlined,
-                  route: "/agenda"),
-              menuItem(context,
-                  text: "KASALARIM",
-                  icon: Icons.kitchen_rounded,
-                  route: "/refrigerations"),
-              menuItem(context,
-                  text: "MESAJLARIM", icon: Icons.message_outlined),
-              menuItem(context,
-                  text: "ÇIKIŞ YAP",
-                  icon: Icons.login_outlined,
-                  isSignOut: true)
-            ],
-          ),
-        ),
-      ),
-    );
+            );
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
   }
 
   Padding menuItem(BuildContext context,
@@ -85,7 +89,8 @@ class ProjectDrawer extends StatelessWidget {
           onTap: () {
             LoginViewModel().signOut();
             Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+              MaterialPageRoute(
+                  builder: (BuildContext context) => const LoginPage()),
               (Route<dynamic> route) => false,
             );
           },
