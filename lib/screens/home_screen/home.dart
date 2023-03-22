@@ -6,6 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:atc_international/local_components/drawer.dart';
 import 'package:atc_international/local_components/profile_picture.dart';
+
+import '../../data/local/user_name.dart';
 import '../../local_components/get_today.dart';
 import 'package:atc_international/local_components/nav_bar.dart';
 
@@ -21,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final String wellcomeMessage = "Hoş Geldin,\t\t";
 
-  final String userName = "Ahmet";
+  late String userName;
 
   String today = "";
 
@@ -169,30 +171,41 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Padding buildUserandDateSection(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ProfilePicture(radius: 23),
-          Row(
-            children: [
-              Text(
-                wellcomeMessage,
-                style: ProjectTextStyle.lightBlueMedium(context),
+  FutureBuilder buildUserandDateSection(BuildContext context) {
+    return FutureBuilder(
+        future: UserName().getUserName(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ProfilePicture(radius: 23),
+                  Row(
+                    children: [
+                      Text(
+                        wellcomeMessage, //connection staete == done yap
+                        style: ProjectTextStyle.lightBlueSmall(context)
+                            .copyWith(fontSize: 20),
+                      ),
+                      Text(snapshot.data,
+                          style: ProjectTextStyle.redSmallStrong(context)
+                              .copyWith(fontSize: 20)),
+                    ],
+                  ),
+                  Text(
+                    today,
+                    style: ProjectTextStyle.darkSmall(context),
+                  )
+                ],
               ),
-              Text(userName, style: ProjectTextStyle.redMedium(context)),
-            ],
-          ),
-          Text(
-            today,
-            style: ProjectTextStyle.darkSmall(context),
-          )
-        ],
-      ),
-    );
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        });
   }
 
   Stack buildLogo(double screenHeight, double screenWidth) {
@@ -222,7 +235,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _signOut() {
-    print("Çıkış yap");
     LoginViewModel().signOut();
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (BuildContext context) => LoginPage()),

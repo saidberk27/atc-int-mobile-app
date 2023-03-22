@@ -13,14 +13,19 @@ import 'package:atc_international/screens/refrigerations/add_new_refrigeration.d
 import 'package:atc_international/screens/refrigerations/refrigeration.dart';
 import 'package:atc_international/screens/refrigerations/refrigerations.dart';
 import 'package:flutter/material.dart';
+
+import 'package:hive_flutter/hive_flutter.dart';
 import 'local_components/colors.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'screens/agenda/completed_tasks.dart';
 
-Future<void> main() async {
+void main() async {
+  await Hive.initFlutter();
+
   runApp(const MyApp());
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

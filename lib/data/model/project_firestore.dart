@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 class ProjectFirestore {
   var db = FirebaseFirestore.instance;
 
+  Future<Map> getUser({required String userId}) async {
+    DocumentSnapshot userDoc = await db.doc("/users/${userId}").get();
+    Map userData = userDoc.data() as Map<String, dynamic>;
+    return userData;
+  }
+
   void writeToDocument(
       {required collectionPath, required Map<String, dynamic> json}) {
     db.collection(collectionPath).add(json).then((DocumentReference doc) =>

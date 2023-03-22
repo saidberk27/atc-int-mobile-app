@@ -1,3 +1,4 @@
+import 'package:atc_international/data/local/user_name.dart';
 import 'package:atc_international/data/viewmodel/login_vm.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
@@ -71,7 +72,8 @@ class _LoginPageState extends State<LoginPage> {
     return TextButton(
       onPressed: () async {
         late String snackBarText;
-
+        late String userId;
+        late String? userName;
         LoginViewModel login = LoginViewModel();
         String? response = await login.signInWithEmailandPassword(
             emailAdress: _emailController.text,
@@ -84,6 +86,9 @@ class _LoginPageState extends State<LoginPage> {
               ? snackBarText = "Lütfen Geçerli Bir Şekilde Doldurun."
               : snackBarText = response;
         } else {
+          userId = response; //TODO BURAYA BAK
+          UserName user = UserName();
+          user.saveUsernameFromRemoteToLocal(userId: userId);
           snackBarText = "Giriş Başarılı ...";
           Navigator.of(context).pushNamed("/home");
         }
