@@ -1,10 +1,14 @@
+import 'package:atc_international/data/local/user_name.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_bubbles/chat_bubbles.dart';
+import 'package:flutter_chat_bubble/chat_bubble.dart';
+
+import '../../data/viewmodel/message_vm.dart';
 
 class CustomChatPage extends StatelessWidget {
-  const CustomChatPage({super.key});
+  CustomChatPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,48 +18,7 @@ class CustomChatPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            flex: 5,
-            child: ListView(
-              children: const [
-                BubbleSpecialThree(
-                  text: 'Kasa seri numarası var mı ?',
-                  color: ProjectColor.lightBlue,
-                  tail: false,
-                  isSender: true,
-                  textStyle: TextStyle(color: ProjectColor.white, fontSize: 16),
-                ),
-                BubbleSpecialThree(
-                  text: 'Hayır',
-                  color: ProjectColor.red,
-                  tail: false,
-                  isSender: false,
-                  textStyle: TextStyle(color: ProjectColor.white, fontSize: 16),
-                ),
-                BubbleSpecialThree(
-                  text: 'Biz verelim',
-                  color: ProjectColor.lightBlue,
-                  tail: false,
-                  isSender: true,
-                  textStyle: TextStyle(color: ProjectColor.white, fontSize: 16),
-                ),
-                BubbleSpecialThree(
-                  text: 'Hazırlayıp Atacağım Size',
-                  color: ProjectColor.lightBlue,
-                  tail: false,
-                  isSender: true,
-                  textStyle: TextStyle(color: ProjectColor.white, fontSize: 16),
-                ),
-                BubbleSpecialThree(
-                  text: 'Tamamdır',
-                  color: ProjectColor.red,
-                  tail: false,
-                  isSender: false,
-                  textStyle: TextStyle(color: ProjectColor.white, fontSize: 16),
-                ),
-              ],
-            ),
-          ),
+          Expanded(flex: 5, child: MessageViewModel().getMessageStream()),
           Expanded(
             flex: 2,
             child: messageInputArea(context),
@@ -113,6 +76,53 @@ class CustomChatPage extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class RecieverChatBubble extends StatelessWidget {
+  String? content;
+  RecieverChatBubble({super.key, required String this.content});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChatBubble(
+      clipper: ChatBubbleClipper1(type: BubbleType.receiverBubble),
+      backGroundColor: ProjectColor.red,
+      margin: EdgeInsets.only(top: 20),
+      child: Container(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * 0.7,
+        ),
+        child: Text(
+          content!,
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+class SenderChatBubble extends StatelessWidget {
+  String? content;
+  SenderChatBubble({super.key, required String this.content});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChatBubble(
+      clipper: ChatBubbleClipper1(type: BubbleType.sendBubble),
+      alignment: Alignment.topRight,
+      margin: EdgeInsets.only(top: 20),
+      backGroundColor: ProjectColor.darkBlue,
+      child: Container(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * 0.7,
+        ),
+        child: Text(
+          content!,
+          style: TextStyle(color: Colors.white),
         ),
       ),
     );

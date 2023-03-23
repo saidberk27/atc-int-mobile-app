@@ -18,6 +18,7 @@ class AuthRemoteDB {
         return "Wrong password provided for that user.";
       }
     }
+    return null;
   }
 
   Future<void> signOutRemoteDB() async {

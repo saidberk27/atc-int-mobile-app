@@ -5,7 +5,7 @@ class ProjectFirestore {
   var db = FirebaseFirestore.instance;
 
   Future<Map> getUser({required String userId}) async {
-    DocumentSnapshot userDoc = await db.doc("/users/${userId}").get();
+    DocumentSnapshot userDoc = await db.doc("/users/$userId").get();
     Map userData = userDoc.data() as Map<String, dynamic>;
     return userData;
   }

@@ -203,7 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             );
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         });
   }
@@ -237,7 +237,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _signOut() {
     LoginViewModel().signOut();
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+      MaterialPageRoute(builder: (BuildContext context) => const LoginPage()),
       (Route<dynamic> route) => false,
     );
   }
