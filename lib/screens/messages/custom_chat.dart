@@ -24,14 +24,14 @@ class CustomChatPage extends StatelessWidget {
               child: MessageViewModel().getMessageStream(chatID: args.chatID)),
           Expanded(
             flex: 2,
-            child: messageInputArea(context),
+            child: messageInputArea(context, args),
           )
         ],
       ),
     );
   }
 
-  Padding messageInputArea(BuildContext context) {
+  Padding messageInputArea(BuildContext context, ScreenArguments args) {
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Align(
@@ -64,8 +64,8 @@ class CustomChatPage extends StatelessWidget {
                         print("Butona basıldı");
                         MessageViewModel()
                             .sendMessage(
-                              content: _messageController.text,
-                            )
+                                content: _messageController.text,
+                                chatID: args.chatID)
                             .then((value) => print("Message Sent"));
                         _messageController.clear();
                       },

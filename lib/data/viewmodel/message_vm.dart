@@ -51,7 +51,8 @@ class MessageViewModel {
     );
   }
 
-  Future<void> sendMessage({required String content}) async {
+  Future<void> sendMessage(
+      {required String content, required String chatID}) async {
     DateTime messageSentTime = DateTime.parse(Time.getTimeStamp());
     Timestamp messageSentTimeStamp = Timestamp.fromDate(messageSentTime);
     String? senderID = await UserName().getUserId();
@@ -60,7 +61,8 @@ class MessageViewModel {
       "sender": senderID,
       "time": messageSentTimeStamp
     };
-    db.addDocumentToCollection(json: messageJson);
+    db.addDocumentToCollection(
+        json: messageJson, path: "/chats/$chatID/messages");
   }
 
   Future<List<Chat>> getChats() async {
