@@ -4,6 +4,21 @@ import 'package:flutter/material.dart';
 class ProjectFirestore {
   var db = FirebaseFirestore.instance;
 
+  Stream<QuerySnapshot> getChatStream({required String chatID}) {
+    final Stream<QuerySnapshot> usersStream = FirebaseFirestore.instance
+        .collection('/chats/$chatID/messages')
+        .orderBy("time")
+        .snapshots();
+    return usersStream;
+  }
+
+  Future<void> addDocumentToCollection(
+      {required Map<String, dynamic> json}) async {
+    db.collection("/chats/JjAXFp65ZIlI30IpCMAY/messages").add(json).then(
+        (documentSnapshot) =>
+            print("Added Data with ID: ${documentSnapshot.id}"));
+  }
+
   Future<Map> getUser({required String userId}) async {
     DocumentSnapshot userDoc = await db.doc("/users/$userId").get();
     Map userData = userDoc.data() as Map<String, dynamic>;

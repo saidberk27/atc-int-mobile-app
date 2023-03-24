@@ -1,24 +1,27 @@
-import 'package:atc_international/data/local/user_name.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 
 import '../../data/viewmodel/message_vm.dart';
 
 class CustomChatPage extends StatelessWidget {
+  TextEditingController _messageController = TextEditingController();
   CustomChatPage({super.key});
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Said Berk'),
+        title: Text(args.chatPairName),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(flex: 5, child: MessageViewModel().getMessageStream()),
+          Expanded(
+              flex: 5,
+              child: MessageViewModel().getMessageStream(chatID: args.chatID)),
           Expanded(
             flex: 2,
             child: messageInputArea(context),
@@ -45,6 +48,7 @@ class CustomChatPage extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 1.6,
                   child: TextFormField(
+                    controller: _messageController,
                     decoration: const InputDecoration(
                       hintText: "Mesajınızı Giriniz...",
                       focusedBorder: InputBorder.none,
@@ -56,7 +60,15 @@ class CustomChatPage extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print("Butona basıldı");
+                        MessageViewModel()
+                            .sendMessage(
+                              content: _messageController.text,
+                            )
+                            .then((value) => print("Message Sent"));
+                        _messageController.clear();
+                      },
                       icon: const Icon(
                         Icons.send,
                         color: ProjectColor.darkBlue,
@@ -83,22 +95,22 @@ class CustomChatPage extends StatelessWidget {
 }
 
 class RecieverChatBubble extends StatelessWidget {
-  String? content;
-  RecieverChatBubble({super.key, required String this.content});
+  final String? content;
+  const RecieverChatBubble({super.key, required String this.content});
 
   @override
   Widget build(BuildContext context) {
     return ChatBubble(
       clipper: ChatBubbleClipper1(type: BubbleType.receiverBubble),
       backGroundColor: ProjectColor.red,
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       child: Container(
         constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width * 0.7,
         ),
         child: Text(
           content!,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -106,15 +118,15 @@ class RecieverChatBubble extends StatelessWidget {
 }
 
 class SenderChatBubble extends StatelessWidget {
-  String? content;
-  SenderChatBubble({super.key, required String this.content});
+  final String? content;
+  const SenderChatBubble({super.key, required String this.content});
 
   @override
   Widget build(BuildContext context) {
     return ChatBubble(
       clipper: ChatBubbleClipper1(type: BubbleType.sendBubble),
       alignment: Alignment.topRight,
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       backGroundColor: ProjectColor.darkBlue,
       child: Container(
         constraints: BoxConstraints(
@@ -122,9 +134,16 @@ class SenderChatBubble extends StatelessWidget {
         ),
         child: Text(
           content!,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
   }
+}
+
+class ScreenArguments {
+  String chatPairName;
+  String chatID;
+
+  ScreenArguments({required this.chatPairName, required this.chatID});
 }

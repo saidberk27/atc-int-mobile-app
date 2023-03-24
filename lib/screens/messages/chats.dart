@@ -1,4 +1,5 @@
-import 'package:atc_international/local_components/fab.dart';
+import 'package:atc_international/data/viewmodel/message_vm.dart';
+import 'package:atc_international/screens/messages/custom_chat.dart';
 import 'package:flutter/material.dart';
 
 import '../../local_components/custom_text_themes.dart';
@@ -11,26 +12,37 @@ class ChatsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var pageTitle = 'MESAJLARIM';
     return Scaffold(
-      appBar: AppBar(
-        title: Text(pageTitle),
-      ),
-      body: ListView(
-        children: [
-          chatCard(context, chatName: "Said Berk", isOnline: true),
-          chatCard(context, chatName: "Said Berk", isOnline: true),
-          chatCard(context, chatName: "Said Berk", isOnline: true)
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: Text(pageTitle),
+        ),
+        body: FutureBuilder(
+            future: MessageViewModel().getChats(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return chatCard(context,
+                        chatName: snapshot.data![index].chatPair!,
+                        chatID: snapshot.data![index].chatID!,
+                        isOnline: true);
+                  },
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            }));
   }
 
   InkWell chatCard(
     BuildContext context, {
     required String chatName,
+    required String chatID,
     required bool isOnline,
   }) {
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed("/customChat"),
+      onTap: () => Navigator.of(context).pushNamed("/customChat",
+          arguments: ScreenArguments(chatPairName: chatName, chatID: chatID)),
       child: Card(
         elevation: 5,
         child: Padding(
