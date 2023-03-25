@@ -24,6 +24,7 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
     _customerTitleController.dispose();
     _customerMailController.dispose();
     _customerPhoneController.dispose();
+    _customerPasswordController.dispose();
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -35,6 +36,8 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
   final TextEditingController _customerTitleController =
       TextEditingController();
   final TextEditingController _customerMailController = TextEditingController();
+  final TextEditingController _customerPasswordController =
+      TextEditingController();
   final TextEditingController _customerPhoneController =
       TextEditingController();
 
@@ -128,6 +131,11 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
                     icon: Icons.email_outlined),
                 const SizedBox(height: 40),
                 textFormField(
+                    hintText: "Parola",
+                    controller: _customerPasswordController,
+                    icon: Icons.lock),
+                const SizedBox(height: 40),
+                textFormField(
                     hintText: "Telefon",
                     controller: _customerPhoneController,
                     icon: Icons.phone_callback_outlined),
@@ -186,6 +194,7 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
     String customerCompany = _customerCompanyController.text;
     String customerTitle = _customerTitleController.text;
     String customerMail = _customerMailController.text;
+    String customerPassword = _customerPasswordController.text;
     String customerPhone = _customerPhoneController.text;
 
     customerVm.saveCustomer(
@@ -193,6 +202,7 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
         customerCompany: customerCompany,
         customerTitle: customerTitle,
         customerMail: customerMail,
+        customerPassowrd: customerPassword,
         customerPhone: customerPhone);
 
     Navigator.of(context).pushNamed("/customers");

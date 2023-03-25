@@ -11,46 +11,6 @@ class MessageViewModel {
   List modelsList = [];
   ProjectFirestore db = ProjectFirestore();
 
-  StreamBuilder getMessageStream({required String chatID}) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: db.getChatStream(chatID: chatID),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Something went wrong');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text("");
-        }
-
-        return FutureBuilder(
-            //This future builder is necessary for getting user Id (Future, coming from hive)
-            future: UserName().getUserId(),
-            builder: (context, userIdSnapshot) {
-              if (userIdSnapshot.hasData) {
-                return ListView(
-                  children: snapshot.data!.docs
-                      .map((DocumentSnapshot document) {
-                        Map<String, dynamic> data =
-                            document.data()! as Map<String, dynamic>;
-
-                        if (data["sender"] == userIdSnapshot.data) {
-                          return SenderChatBubble(content: data['content']);
-                        } else {
-                          return RecieverChatBubble(content: data['content']);
-                        }
-                      })
-                      .toList()
-                      .cast(),
-                );
-              } else {
-                return const CircularProgressIndicator();
-              }
-            });
-      },
-    );
-  }
-
   Future<void> sendMessage(
       {required String content, required String chatID}) async {
     DateTime messageSentTime = DateTime.parse(Time.getTimeStamp());
@@ -95,6 +55,56 @@ class MessageViewModel {
     }
 
     return chatList;
+  }
+}
+
+class GetMessageStream extends StatelessWidget {
+  GetMessageStream({
+    super.key,
+    required this.chatID,
+  });
+
+  ProjectFirestore db = ProjectFirestore();
+  final String chatID;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: db.getChatStream(chatID: chatID),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("");
+        }
+
+        return FutureBuilder(
+            //This future builder is necessary for getting user Id (Future, coming from hive)
+            future: UserName().getUserId(),
+            builder: (context, userIdSnapshot) {
+              if (userIdSnapshot.hasData) {
+                return ListView.separated(
+                  reverse: true, //    .orderBy("time", descending: true)
+                  separatorBuilder: (context, index) => Divider(),
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Map<String, dynamic> data = snapshot.data!.docs[index]
+                        .data()! as Map<String, dynamic>;
+                    if (data["sender"] == userIdSnapshot.data) {
+                      return SenderChatBubble(content: data['content']);
+                    } else {
+                      return RecieverChatBubble(content: data['content']);
+                    }
+                  },
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            });
+      },
+    );
   }
 }
 

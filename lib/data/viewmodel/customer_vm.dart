@@ -1,3 +1,4 @@
+import 'package:atc_international/data/model/project_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../local_components/get_today.dart';
@@ -23,18 +24,22 @@ class CustomerViewModel {
       required String customerCompany,
       required String customerTitle,
       required String customerMail,
+      required String customerPassowrd,
       required String customerPhone}) async {
     Customer.toJson(
         customerName: customerName,
         customerCompany: customerCompany,
         customerTitle: customerTitle,
         customerMail: customerMail,
+        customerPassword: customerPassowrd,
         customerPhone: customerPhone);
   }
 
   Future<void> deleteCustomer({required String id}) async {
     db.removeFromDatabase(
         documentPath: "customers/customers/customers", id: id);
+//TODO Customer firestoer customers'den siliniyor. fakat id farklı oldugu icin ayni customer users'dan silinmiyor. Ayrıca hesap da kaldırılmıyor auth sistemden
+    db.removeFromDatabase(documentPath: "users", id: id);
   }
 }
 
@@ -43,6 +48,7 @@ class Customer {
   String? customerCompany;
   String? customerTitle;
   String? customerMail;
+  String? customerPassword;
   String? customerPhone;
   String? id;
   Timestamp? customerTimeStamp;
@@ -51,6 +57,7 @@ class Customer {
       required String this.customerCompany,
       required String this.customerTitle,
       required String this.customerMail,
+      required String this.customerPassword,
       required String this.customerPhone}) {
     DateTime customerAddedDate = DateTime.parse(Time.getTimeStamp());
     Timestamp customerTimeStamp = Timestamp.fromDate(customerAddedDate);
@@ -59,13 +66,19 @@ class Customer {
       "customer_name": customerName,
       "customer_company": customerCompany,
       "customer_title": customerTitle,
-      "customer_mail": customerMail,
+      "customer_mail":
+          customerMail, //Customer password will not be writed to firestore due to security reasons
       "customer_phone": customerPhone,
       "customer_added": customerTimeStamp
     };
 
     ProjectFirestore().writeToDocument(
         collectionPath: "/customers/customers/customers", json: customer);
+
+    AuthRemoteDB().createCustomerUser(
+        userEmail: customerMail!,
+        userPassword: customerPassword!,
+        userName: customerName!);
   }
 
   Customer.fromJson({required Map json}) {

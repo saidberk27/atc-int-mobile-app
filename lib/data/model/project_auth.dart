@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'project_firestore.dart';
 
 class AuthRemoteDB {
   String? emailAddress;
@@ -23,5 +24,28 @@ class AuthRemoteDB {
 
   Future<void> signOutRemoteDB() async {
     FirebaseAuth.instance.signOut();
+  }
+
+  Future<void> createCustomerUser(
+      {required String userEmail,
+      required String userPassword,
+      required String userName}) async {
+    try {
+      final _auth = FirebaseAuth.instance;
+      // Kullanıcıyı Firebase Authentication'a kaydedin.
+      await _auth.createUserWithEmailAndPassword(
+          email: userEmail, password: userPassword);
+      print('Kullanıcı oluşturuldu.');
+    } catch (e) {
+      print('Hata oluştu: $e');
+    }
+
+    try {
+      var db = ProjectFirestore();
+      Map<String, dynamic> json = {"user_name": userName};
+      db.addDocumentToCollection(json: json, path: "/users");
+    } catch (e) {
+      print("Hata $e");
+    }
   }
 }

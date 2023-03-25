@@ -19,9 +19,7 @@ class CustomChatPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-              flex: 5,
-              child: MessageViewModel().getMessageStream(chatID: args.chatID)),
+          Expanded(flex: 5, child: GetMessageStream(chatID: args.chatID)),
           Expanded(
             flex: 2,
             child: messageInputArea(context, args),

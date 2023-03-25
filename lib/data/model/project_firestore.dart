@@ -5,9 +5,11 @@ class ProjectFirestore {
   var db = FirebaseFirestore.instance;
 
   Stream<QuerySnapshot> getChatStream({required String chatID}) {
+    var chatMaxLimit = 500;
     final Stream<QuerySnapshot> usersStream = FirebaseFirestore.instance
         .collection('/chats/$chatID/messages')
-        .orderBy("time")
+        .limit(chatMaxLimit)
+        .orderBy("time", descending: true)
         .snapshots();
     return usersStream;
   }
@@ -19,6 +21,7 @@ class ProjectFirestore {
   }
 
   Future<Map> getUser({required String userId}) async {
+    print(userId);
     DocumentSnapshot userDoc = await db.doc("/users/$userId").get();
     Map userData = userDoc.data() as Map<String, dynamic>;
     return userData;
