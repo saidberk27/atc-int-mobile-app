@@ -1,12 +1,13 @@
+import '../local/user_name.dart';
 import '../model/project_firestore.dart';
 
 class RefrigerationViewModel {
   ProjectFirestore db = ProjectFirestore();
   Future<List<dynamic>> getRefrigerations() async {
     List modelList = [];
-
+    String? userID = await UserName.getUserId();
     var refrigerations = await db.readDocumentsFromDatabase(
-        collectionPath: "/refrigerations/refrigerations/refrigerations");
+        collectionPath: "/users/$userID/refrigerations");
 
     for (int i = 0; i < refrigerations.length; i++) {
       modelList.add(Refrigeration.fromJson(json: refrigerations[i]));
@@ -29,7 +30,8 @@ class RefrigerationViewModel {
       String? caseWeight,
       String? innerVolume,
       String? weightCapacity}) async {
-    print("view model");
+    String? userID = await UserName.getUserId();
+
     outerMeasurement == null
         ? outerMeasurement = "Belirtilmedi."
         : outerMeasurement = outerMeasurement;
@@ -84,12 +86,14 @@ class RefrigerationViewModel {
         innerTemperatureDuration: innerTemperatureDuration,
         caseWeight: caseWeight,
         innerVolume: innerVolume,
-        weightCapacity: weightCapacity);
+        weightCapacity: weightCapacity,
+        currentUserID: userID);
   }
 
   Future<void> removeRefrigeration({required String id}) async {
+    String? userID = await UserName.getUserId();
     db.removeFromDatabase(
-        documentPath: "/refrigerations/refrigerations/refrigerations", id: id);
+        documentPath: "/users/$userID/refrigerations", id: id);
   }
 }
 
@@ -142,7 +146,8 @@ class Refrigeration {
       String? innerTemperatureDuration,
       String? caseWeight,
       String? innerVolume,
-      String? weightCapacity}) {
+      String? weightCapacity,
+      String? currentUserID}) {
     final json = <String, dynamic>{
       "case_name": caseName,
       "case_model": caseModel,
@@ -160,6 +165,6 @@ class Refrigeration {
       "weight_capacity": weightCapacity
     };
     db.addDocumentToCollection(
-        path: "/refrigerations/refrigerations/refrigerations", json: json);
+        path: "/users/$currentUserID/refrigerations", json: json);
   }
 }

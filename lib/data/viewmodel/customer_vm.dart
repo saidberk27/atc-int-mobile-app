@@ -1,3 +1,4 @@
+import 'package:atc_international/data/local/user_name.dart';
 import 'package:atc_international/data/model/project_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -8,9 +9,11 @@ class CustomerViewModel {
   List modelsList = [];
   ProjectFirestore db = ProjectFirestore();
   Future<List> getCustomers() async {
+    String? userID = await UserName.getUserId();
+
     //gets json and converts to datamodel.
     var customers = await db.readDocumentsFromDatabaseWithOrder(
-        collectionPath: "/customers/customers/customers",
+        collectionPath: "/users/$userID/customers/",
         orderField: "customer_added",
         isDescending: false);
     for (int i = 0; i < customers.length; i++) {
@@ -26,6 +29,8 @@ class CustomerViewModel {
       required String customerMail,
       required String customerPassword,
       required String customerPhone}) async {
+    String? currentUserID = await UserName.getUserId();
+
     String createdUserID = await AuthRemoteDB().createCustomerUser(
         userEmail: customerMail,
         userPassword: customerPassword,
@@ -37,12 +42,14 @@ class CustomerViewModel {
         customerMail: customerMail,
         customerPassword: customerPassword,
         customerPhone: customerPhone,
-        id: createdUserID);
+        id: createdUserID,
+        userID: currentUserID!);
   }
 
   Future<void> deleteCustomer({required String id}) async {
-    db.removeFromDatabase(
-        documentPath: "customers/customers/customers", id: id);
+    String? userID = await UserName.getUserId();
+
+    db.removeFromDatabase(documentPath: "users/$userID/customers", id: id);
 //TODO Customer firestoer customers'den siliniyor. fakat id farklı oldugu icin ayni customer users'dan silinmiyor. Ayrıca hesap da kaldırılmıyor auth sistemden
     db.removeFromDatabase(documentPath: "users", id: id);
   }
@@ -64,7 +71,8 @@ class Customer {
       required String this.customerMail,
       required String this.customerPassword,
       required String this.customerPhone,
-      required String this.id}) {
+      required String this.id,
+      required String userID}) {
     DateTime customerAddedDate = DateTime.parse(Time.getTimeStamp());
     Timestamp customerTimeStamp = Timestamp.fromDate(customerAddedDate);
 
@@ -84,7 +92,7 @@ class Customer {
         .addDocumentToCollectionWithID(path: "/users", json: user, ID: id!);
 
     ProjectFirestore().addDocumentToCollectionWithID(
-        path: "/customers/customers/customers", json: customer, ID: id!);
+        path: "/users/$userID/customers/", json: customer, ID: id!);
   }
 
   Customer.fromJson({required Map json}) {
