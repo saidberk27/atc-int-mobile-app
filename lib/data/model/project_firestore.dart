@@ -35,14 +35,14 @@ class ProjectFirestore {
   Future<Map> getUser({required String userId}) async {
     print(userId);
     DocumentSnapshot userDoc = await db.doc("/users/$userId").get();
-    Map userData = userDoc.data() as Map<String, dynamic>;
-    return userData;
-  }
-
-  void writeToDocument(
-      {required collectionPath, required Map<String, dynamic> json}) {
-    db.collection(collectionPath).add(json).then((DocumentReference doc) =>
-        debugPrint('DocumentSnapshot added with ID: ${doc.id}'));
+    try {
+      Map userData = userDoc.data() as Map<String, dynamic>;
+      return userData;
+    } catch (e) {
+      debugPrint("Hata, $e");
+      var userData = null;
+      return userData;
+    }
   }
 
   void removeFromDatabase({required String documentPath, required String id}) {

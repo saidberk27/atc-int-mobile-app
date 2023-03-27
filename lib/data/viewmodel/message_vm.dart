@@ -15,7 +15,7 @@ class MessageViewModel {
       {required String content, required String chatID}) async {
     DateTime messageSentTime = DateTime.parse(Time.getTimeStamp());
     Timestamp messageSentTimeStamp = Timestamp.fromDate(messageSentTime);
-    String? senderID = await UserName().getUserId();
+    String? senderID = await UserName.getUserId();
     Map<String, dynamic> messageJson = {
       "content": content,
       "sender": senderID,
@@ -26,7 +26,7 @@ class MessageViewModel {
   }
 
   Future<List<Chat>> getChats() async {
-    String? currentUserId = await UserName().getUserId();
+    String? currentUserId = await UserName.getUserId();
     String? chatPairID;
     String? chatPairName;
     Map<dynamic, dynamic> user;
@@ -82,7 +82,7 @@ class GetMessageStream extends StatelessWidget {
 
         return FutureBuilder(
             //This future builder is necessary for getting user Id (Future, coming from hive)
-            future: UserName().getUserId(),
+            future: UserName.getUserId(),
             builder: (context, userIdSnapshot) {
               if (userIdSnapshot.hasData) {
                 return ListView.separated(

@@ -173,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   FutureBuilder buildUserandDateSection(BuildContext context) {
     return FutureBuilder(
-        future: UserName().getUserName(),
+        future: UserName.getUserName(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Padding(

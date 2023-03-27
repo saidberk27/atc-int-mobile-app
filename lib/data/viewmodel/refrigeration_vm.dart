@@ -159,8 +159,7 @@ class Refrigeration {
       "inner_volume": innerVolume,
       "weight_capacity": weightCapacity
     };
-    db.writeToDocument(
-        collectionPath: "/refrigerations/refrigerations/refrigerations",
-        json: json);
+    db.addDocumentToCollection(
+        path: "/refrigerations/refrigerations/refrigerations", json: json);
   }
 }

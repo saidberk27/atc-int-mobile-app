@@ -16,7 +16,7 @@ class ProjectDrawer extends StatelessWidget {
     String companyName = "ATC INTERNATIONAL";
 
     return FutureBuilder(
-        future: UserName().getUserName(),
+        future: UserName.getUserName(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Drawer(
