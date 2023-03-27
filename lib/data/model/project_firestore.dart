@@ -20,6 +20,18 @@ class ProjectFirestore {
         print("Added Data with ID: ${documentSnapshot.id}"));
   }
 
+  Future<void> addDocumentToCollectionWithID(
+      {required Map<String, dynamic> json,
+      required String path,
+      required String ID}) async {
+    try {
+      db.collection(path).doc(ID).set(json);
+      debugPrint("Data SUccesfully Added.");
+    } catch (e) {
+      debugPrint("An error occured on add document $e");
+    }
+  }
+
   Future<Map> getUser({required String userId}) async {
     print(userId);
     DocumentSnapshot userDoc = await db.doc("/users/$userId").get();

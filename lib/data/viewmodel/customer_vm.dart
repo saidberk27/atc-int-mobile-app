@@ -24,15 +24,20 @@ class CustomerViewModel {
       required String customerCompany,
       required String customerTitle,
       required String customerMail,
-      required String customerPassowrd,
+      required String customerPassword,
       required String customerPhone}) async {
+    String createdUserID = await AuthRemoteDB().createCustomerUser(
+        userEmail: customerMail,
+        userPassword: customerPassword,
+        userName: customerName);
     Customer.toJson(
         customerName: customerName,
         customerCompany: customerCompany,
         customerTitle: customerTitle,
         customerMail: customerMail,
-        customerPassword: customerPassowrd,
-        customerPhone: customerPhone);
+        customerPassword: customerPassword,
+        customerPhone: customerPhone,
+        id: createdUserID);
   }
 
   Future<void> deleteCustomer({required String id}) async {
@@ -58,7 +63,8 @@ class Customer {
       required String this.customerTitle,
       required String this.customerMail,
       required String this.customerPassword,
-      required String this.customerPhone}) {
+      required String this.customerPhone,
+      required String this.id}) {
     DateTime customerAddedDate = DateTime.parse(Time.getTimeStamp());
     Timestamp customerTimeStamp = Timestamp.fromDate(customerAddedDate);
 
@@ -72,13 +78,13 @@ class Customer {
       "customer_added": customerTimeStamp
     };
 
-    ProjectFirestore().writeToDocument(
-        collectionPath: "/customers/customers/customers", json: customer);
+    final user = <String, dynamic>{"user_name": customerName};
 
-    AuthRemoteDB().createCustomerUser(
-        userEmail: customerMail!,
-        userPassword: customerPassword!,
-        userName: customerName!);
+    ProjectFirestore()
+        .addDocumentToCollectionWithID(path: "/users", json: user, ID: id!);
+
+    ProjectFirestore().addDocumentToCollectionWithID(
+        path: "/customers/customers/customers", json: customer, ID: id!);
   }
 
   Customer.fromJson({required Map json}) {

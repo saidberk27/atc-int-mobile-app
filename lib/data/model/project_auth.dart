@@ -26,26 +26,23 @@ class AuthRemoteDB {
     FirebaseAuth.instance.signOut();
   }
 
-  Future<void> createCustomerUser(
+  Future<String> createCustomerUser(
       {required String userEmail,
       required String userPassword,
       required String userName}) async {
     try {
       final _auth = FirebaseAuth.instance;
       // Kullanıcıyı Firebase Authentication'a kaydedin.
-      await _auth.createUserWithEmailAndPassword(
+      final userCrediental = await _auth.createUserWithEmailAndPassword(
           email: userEmail, password: userPassword);
-      print('Kullanıcı oluşturuldu.');
+      final user = userCrediental.user;
+      final userID = user!.uid;
+
+      print('Kullanıcı oluşturuldu: $userID');
+      return userID;
     } catch (e) {
       print('Hata oluştu: $e');
-    }
-
-    try {
-      var db = ProjectFirestore();
-      Map<String, dynamic> json = {"user_name": userName};
-      db.addDocumentToCollection(json: json, path: "/users");
-    } catch (e) {
-      print("Hata $e");
+      return 'Hata oluştu: $e';
     }
   }
 }

@@ -202,7 +202,7 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
         customerCompany: customerCompany,
         customerTitle: customerTitle,
         customerMail: customerMail,
-        customerPassowrd: customerPassword,
+        customerPassword: customerPassword,
         customerPhone: customerPhone);
 
     Navigator.of(context).pushNamed("/customers");
