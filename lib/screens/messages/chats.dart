@@ -42,7 +42,8 @@ class ChatsPage extends StatelessWidget {
   }) {
     return InkWell(
       onTap: () => Navigator.of(context).pushNamed("/customChat",
-          arguments: ScreenArguments(chatPairName: chatName, chatID: chatID)),
+          arguments:
+              ChatScreenArguments(chatPairName: chatName, chatID: chatID)),
       child: Card(
         elevation: 5,
         child: Padding(

@@ -16,8 +16,11 @@ class ProjectFirestore {
 
   Future<void> addDocumentToCollection(
       {required Map<String, dynamic> json, required String path}) async {
-    db.collection(path).add(json).then((documentSnapshot) =>
-        print("Added Data with ID: ${documentSnapshot.id}"));
+    db.collection(path).add(json).then((documentSnapshot) {
+      Map<Object, Object?> documentIDfield = {"id": documentSnapshot.id};
+      db.collection(path).doc(documentSnapshot.id).update(documentIDfield);
+      print("Added Data with ID: ${documentSnapshot.id}");
+    });
   }
 
   Future<void> addDocumentToCollectionWithID(

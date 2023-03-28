@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:atc_international/data/local/user_name.dart';
+import 'package:atc_international/data/model/project_firestorage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -12,17 +15,29 @@ class MessageViewModel {
   ProjectFirestore db = ProjectFirestore();
 
   Future<void> sendMessage(
-      {required String content, required String chatID}) async {
+      {String type = "text",
+      required String content,
+      required String chatID}) async {
     DateTime messageSentTime = DateTime.parse(Time.getTimeStamp());
     Timestamp messageSentTimeStamp = Timestamp.fromDate(messageSentTime);
     String? senderID = await UserName.getUserId();
     Map<String, dynamic> messageJson = {
+      "type": type,
       "content": content,
       "sender": senderID,
       "time": messageSentTimeStamp
     };
     db.addDocumentToCollection(
         json: messageJson, path: "/chats/$chatID/messages");
+  }
+
+  Future<Widget> sendMedia({required File file, required String chatID}) async {
+    ProjectFireStorage projectFireStorage = ProjectFireStorage();
+    String downloadURL = await projectFireStorage.uploadFile(file);
+    sendMessage(type: "media", content: downloadURL, chatID: chatID);
+    Container fileInfoContainer = Container();
+
+    return fileInfoContainer;
   }
 
   Future<List<Chat>> getChats() async {
@@ -37,7 +52,7 @@ class MessageViewModel {
         await db.readDocumentsFromDatabase(collectionPath: "/chats");
     for (var snapshot in chatsSnapshots) {
       participantIDList = snapshot["participants"];
-      chatID = snapshot["chat_id"];
+      chatID = snapshot["id"];
       if (participantIDList.contains(currentUserId)) {
         participantIDList.forEach((element) {
           element != currentUserId
@@ -50,11 +65,42 @@ class MessageViewModel {
             userId:
                 chatPairID!); //Converts another participant ID's to user name.
         chatPairName = user["user_name"];
-        chatList.add(Chat.fromJson(chatID: chatID!, chatPair: chatPairName!));
+        chatList.add(Chat.fromJson(
+            chatID: chatID!, chatPair: chatPairName!, chatPairID: chatPairID!));
       }
     }
 
     return chatList;
+  }
+
+  Future<String?> getChatID({required String customerID}) async {
+    print("burası");
+    print(await getChat(chatPairID: customerID));
+    if (await getChat(chatPairID: customerID) != null) {
+      String? activeChatID = await getChat(chatPairID: customerID);
+      return activeChatID;
+    } else {
+      await _createChat(chatPairID: customerID);
+      String? activeChatID = await getChat(chatPairID: customerID);
+      return activeChatID;
+    }
+  }
+
+  Future<void> _createChat({required String chatPairID}) async {
+    String? currentUserId = await UserName.getUserId();
+    final json = <String, dynamic>{
+      "participants": [currentUserId, chatPairID]
+    };
+    ProjectFirestore().addDocumentToCollection(json: json, path: "chats/");
+  }
+
+  Future<String?> getChat({required String chatPairID}) async {
+    List<Chat> chatList = await getChats();
+    for (Chat chat in chatList) {
+      if (chat.chatPairID == chatPairID) {
+        return chat.chatID;
+      }
+    }
   }
 }
 
@@ -92,10 +138,20 @@ class GetMessageStream extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     Map<String, dynamic> data = snapshot.data!.docs[index]
                         .data()! as Map<String, dynamic>;
-                    if (data["sender"] == userIdSnapshot.data) {
+                    if (data["sender"] == userIdSnapshot.data &&
+                        data['type'] == "text") {
                       return SenderChatBubble(content: data['content']);
-                    } else {
+                    } else if (data["sender"] == userIdSnapshot.data &&
+                        data['type'] == "media") {
+                      return MediaSenderChatBubble(mediaURL: data['content']);
+                    }
+                    //--------------------------------------------------------SENDER -> RECIEVER
+                    else if (data["sender"] != userIdSnapshot.data &&
+                        data['type'] == "text") {
                       return RecieverChatBubble(content: data['content']);
+                    } else if (data["sender"] != userIdSnapshot.data &&
+                        data['type'] == "media") {
+                      return MediaRecieverChatBubble(mediaURL: data['content']);
                     }
                   },
                 );
@@ -111,8 +167,12 @@ class GetMessageStream extends StatelessWidget {
 class Chat {
   String? chatID;
   String? chatPair;
+  String? chatPairID;
 
-  Chat.fromJson({required String this.chatID, required String this.chatPair});
+  Chat.fromJson(
+      {required String this.chatID,
+      required String this.chatPair,
+      required String this.chatPairID});
 }
 
 class Message {

@@ -1,4 +1,5 @@
 import 'package:atc_international/data/viewmodel/customer_vm.dart';
+import 'package:atc_international/data/viewmodel/message_vm.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:atc_international/screens/customers/customer.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,8 @@ import 'package:atc_international/local_components/profile_picture.dart';
 import '../../local_components/drawer.dart';
 import '../../local_components/fab.dart';
 import '../../local_components/nav_bar.dart';
+
+import '../messages/custom_chat.dart';
 
 class CustomersPage extends StatelessWidget {
   const CustomersPage({super.key});
@@ -104,6 +107,7 @@ Card customerCard(BuildContext context,
     required String customerPhone,
     required String customerMail,
     required String customerID}) {
+  SnackBar snackBar = const SnackBar(content: Text("Mesaj Kutusu Açılıyor..."));
   return Card(
     elevation: 2,
     child: Padding(
@@ -127,7 +131,16 @@ Card customerCard(BuildContext context,
           Row(
             children: [
               IconButton(
-                  onPressed: () => debugPrint("Mesaj"),
+                  onPressed: () async {
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    MessageViewModel messageVM = MessageViewModel();
+                    String? chatID =
+                        await messageVM.getChatID(customerID: customerID);
+
+                    Navigator.of(context).pushNamed("/customChat",
+                        arguments: ChatScreenArguments(
+                            chatPairName: customerName, chatID: chatID));
+                  },
                   icon: const Icon(Icons.chat_bubble)),
               IconButton(
                   onPressed: () => Navigator.pushNamed(context, "/customer",
