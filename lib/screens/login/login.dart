@@ -24,11 +24,57 @@ class _LoginPageState extends State<LoginPage> {
     const String wellcomeMessage = "Hoş Geldiniz!";
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (constraints.maxWidth > 1100) {
+        return webScaffold(
+            screenWidth, screenHeight, logo, wellcomeMessage, context);
+      } else {
+        return mobileScaffold(
+            screenWidth, screenHeight, logo, wellcomeMessage, context);
+      }
+    });
+  }
+
+  Scaffold mobileScaffold(double screenWidth, double screenHeight, String logo,
+      String wellcomeMessage, BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(26.0),
         child: Center(
           child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: screenHeight / 5,
+                  width: screenWidth / 1.2,
+                  child: SvgPicture.asset(
+                    logo,
+                  ),
+                ),
+                Align(
+                    alignment: Alignment.center,
+                    child: Text(wellcomeMessage,
+                        style: ProjectTextStyle.redMediumStrong(context))),
+                formInputs(context),
+                loginAndForgotPassword(context, screenHeight,
+                    screenWidth) // Generated code for this password Widget...
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Scaffold webScaffold(double screenWidth, double screenHeight, String logo,
+      String wellcomeMessage, BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: screenHeight / 6),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: screenWidth / 4),
             child: Column(
               children: [
                 SizedBox(
@@ -147,56 +193,54 @@ class _LoginPageState extends State<LoginPage> {
   Padding emailInput(BuildContext context) {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-      child: Expanded(
-        child: TextFormField(
-          obscureText: false,
-          controller: _emailController,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return "Lütfen bir değer girin.";
-            } else if (value.length < 4) {
-              return "Parola 3 karakterden fazla olmalıdır!";
-            }
-            return null;
-          },
-          decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.email_outlined),
-            labelText: 'E - Posta Adresi',
-            labelStyle: ProjectTextStyle.darkBlueSmallStrong(context),
-            hintText: 'E-Posta\'nızı Buraya Girin...',
-            hintStyle: ProjectTextStyle.darkSmall(context),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: ProjectColor.lightBlue,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(40),
+      child: TextFormField(
+        obscureText: false,
+        controller: _emailController,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "Lütfen bir değer girin.";
+          } else if (value.length < 4) {
+            return "Parola 3 karakterden fazla olmalıdır!";
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.email_outlined),
+          labelText: 'E - Posta Adresi',
+          labelStyle: ProjectTextStyle.darkBlueSmallStrong(context),
+          hintText: 'E-Posta\'nızı Buraya Girin...',
+          hintStyle: ProjectTextStyle.darkSmall(context),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: ProjectColor.lightBlue,
+              width: 2,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: ProjectColor.darkBlue,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(40),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: ProjectColor.lightBlue,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(40),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: ProjectColor.lightBlue,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(40),
-            ),
-            contentPadding: const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+            borderRadius: BorderRadius.circular(40),
           ),
-          style: ProjectTextStyle.darkSmallStrong(context),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: ProjectColor.darkBlue,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(40),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: ProjectColor.lightBlue,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(40),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: ProjectColor.lightBlue,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(40),
+          ),
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
         ),
+        style: ProjectTextStyle.darkSmallStrong(context),
       ),
     );
   }
@@ -204,70 +248,67 @@ class _LoginPageState extends State<LoginPage> {
   Padding passwordInput(BuildContext context) {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-      child: Expanded(
-        child: TextFormField(
-          controller: _passwordController,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return "Lütfen bir değer girin.";
-            } else if (value.length < 4) {
-              return "Parola 3 karakterden fazla olmalıdır!";
-            }
-            return null;
-          },
-          obscureText: !passwordVisibility,
-          decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.lock_rounded),
-            labelText: 'Şifre',
-            labelStyle: ProjectTextStyle.darkBlueSmallStrong(context),
-            hintText: 'Şifrenizi Buraya Girin...',
-            hintStyle: ProjectTextStyle.darkSmall(context),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: ProjectColor.lightBlue,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(40),
+      child: TextFormField(
+        controller: _passwordController,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return "Lütfen bir değer girin.";
+          } else if (value.length < 4) {
+            return "Parola 3 karakterden fazla olmalıdır!";
+          }
+          return null;
+        },
+        obscureText: !passwordVisibility,
+        decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.lock_rounded),
+          labelText: 'Şifre',
+          labelStyle: ProjectTextStyle.darkBlueSmallStrong(context),
+          hintText: 'Şifrenizi Buraya Girin...',
+          hintStyle: ProjectTextStyle.darkSmall(context),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: ProjectColor.lightBlue,
+              width: 2,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: ProjectColor.lightBlue,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(40),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: ProjectColor.lightBlue,
+              width: 2,
             ),
-            errorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: ProjectColor.lightBlue,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(40),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: ProjectColor.lightBlue,
+              width: 2,
             ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: ProjectColor.lightBlue,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(40),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: ProjectColor.lightBlue,
+              width: 2,
             ),
-            contentPadding:
-                const EdgeInsetsDirectional.fromSTEB(16, 24, 24, 24),
-            suffixIcon: InkWell(
-              onTap: () => setState(
-                () => passwordVisibility = !passwordVisibility,
-              ),
-              focusNode: FocusNode(skipTraversal: true),
-              child: Icon(
-                !passwordVisibility
-                    ? Icons.visibility_outlined
-                    : Icons.visibility_off_outlined,
-                color: ProjectColor.darkBlue,
-                size: 22,
-              ),
+            borderRadius: BorderRadius.circular(40),
+          ),
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(16, 24, 24, 24),
+          suffixIcon: InkWell(
+            onTap: () => setState(
+              () => passwordVisibility = !passwordVisibility,
+            ),
+            focusNode: FocusNode(skipTraversal: true),
+            child: Icon(
+              !passwordVisibility
+                  ? Icons.visibility_outlined
+                  : Icons.visibility_off_outlined,
+              color: ProjectColor.darkBlue,
+              size: 22,
             ),
           ),
-          style: ProjectTextStyle.darkSmallStrong(context),
         ),
+        style: ProjectTextStyle.darkSmallStrong(context),
       ),
     );
   }

@@ -8,14 +8,56 @@ import 'package:flutter_chat_bubble/chat_bubble.dart';
 
 import '../../data/viewmodel/message_vm.dart';
 
-class CustomChatPage extends StatelessWidget {
-  final TextEditingController _messageController = TextEditingController();
+class CustomChatPage extends StatefulWidget {
   CustomChatPage({super.key});
+
+  @override
+  State<CustomChatPage> createState() => _CustomChatPageState();
+}
+
+class _CustomChatPageState extends State<CustomChatPage> {
+  final TextEditingController _messageController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as ChatScreenArguments;
 
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (constraints.maxWidth > 1100) {
+        return webScaffold(args, context);
+      } else {
+        return mobileScaffold(args, context);
+      }
+    });
+  }
+
+  Scaffold webScaffold(ChatScreenArguments args, BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(args.chatPairName!),
+      ),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: screenWidth / 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(flex: 5, child: GetMessageStream(chatID: args.chatID!)),
+              Expanded(
+                flex: 2,
+                child: messageInputArea(context, args),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Scaffold mobileScaffold(ChatScreenArguments args, BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(args.chatPairName!),
@@ -47,7 +89,7 @@ class CustomChatPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 1.6,
@@ -80,19 +122,21 @@ class CustomChatPage extends StatelessWidget {
                       splashRadius: 26,
                     ),
                     IconButton(
-                      onPressed: () async {
-                        FilePickerResult? result =
-                            await FilePicker.platform.pickFiles();
+                      onPressed: () {
+                        setState(() async {
+                          FilePickerResult? result =
+                              await FilePicker.platform.pickFiles();
 
-                        if (result != null) {
-                          File file = File(result.files.single.path!);
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(fileSending);
-                          MessageViewModel()
-                              .sendMedia(file: file, chatID: args.chatID!);
-                        } else {
-                          // User canceled the picker
-                        }
+                          if (result != null) {
+                            File file = File(result.files.single.path!);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(fileSending);
+                            MessageViewModel()
+                                .sendMedia(file: file, chatID: args.chatID!);
+                          } else {
+                            // User canceled the picker
+                          }
+                        });
                       },
                       icon: const Icon(
                         Icons.attach_file_outlined,

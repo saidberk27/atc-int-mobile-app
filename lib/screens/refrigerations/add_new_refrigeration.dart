@@ -66,7 +66,7 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       if (constraints.maxWidth > 1100) {
-        return mobileScaffold(pageTitle);
+        return webScaffold(pageTitle);
       } else {
         return mobileScaffold(pageTitle);
       }
@@ -82,20 +82,21 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
         children: [
           const ProjectSideNavMenu(),
           Expanded(
-            flex: 8,
-            child: Column(
-              children: [
-                Padding(
-                    padding:
-                        const EdgeInsets.only(top: 24, right: 12, left: 12),
-                    child: Form(
-                      key: _formKey,
-                      child: formFields(),
-                    )),
-                submitButton()
-              ],
-            ),
-          ),
+              flex: 8,
+              child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 6,
+                        child: formFields(),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: submitButton(),
+                      )
+                    ],
+                  ))),
         ],
       ),
     );

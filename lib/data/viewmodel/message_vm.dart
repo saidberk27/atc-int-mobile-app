@@ -133,7 +133,7 @@ class GetMessageStream extends StatelessWidget {
               if (userIdSnapshot.hasData) {
                 return ListView.separated(
                   reverse: true, //    .orderBy("time", descending: true)
-                  separatorBuilder: (context, index) => Divider(),
+                  separatorBuilder: (context, index) => const Divider(),
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (BuildContext context, int index) {
                     Map<String, dynamic> data = snapshot.data!.docs[index]

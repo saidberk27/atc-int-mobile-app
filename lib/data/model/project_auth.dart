@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'project_firestore.dart';
 
 class AuthRemoteDB {
   String? emailAddress;
@@ -31,9 +30,9 @@ class AuthRemoteDB {
       required String userPassword,
       required String userName}) async {
     try {
-      final _auth = FirebaseAuth.instance;
+      final auth = FirebaseAuth.instance;
       // Kullanıcıyı Firebase Authentication'a kaydedin.
-      final userCrediental = await _auth.createUserWithEmailAndPassword(
+      final userCrediental = await auth.createUserWithEmailAndPassword(
           email: userEmail, password: userPassword);
       final user = userCrediental.user;
       final userID = user!.uid;

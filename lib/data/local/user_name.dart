@@ -8,7 +8,7 @@ class UserName {
   late Map currentUser;
 
   Future<void> saveUsernameFromRemoteToLocal({required userId}) async {
-    var box;
+    Box box;
     box = await Hive.openBox('userBox');
     currentUser = await ProjectFirestore().getUser(userId: userId!);
 
@@ -19,7 +19,7 @@ class UserName {
   static Future<String?> getUserName() async {
     String? currentUserName;
 
-    var box;
+    Box box;
     await Future.delayed(const Duration(milliseconds: 100));
     box = await Hive.openBox('userBox');
     currentUserName = await box.get('name');
@@ -28,7 +28,7 @@ class UserName {
   }
 
   static Future<String?> getUserId() async {
-    var box;
+    Box box;
 
     String? currentUserId;
     await Future.delayed(const Duration(milliseconds: 500));

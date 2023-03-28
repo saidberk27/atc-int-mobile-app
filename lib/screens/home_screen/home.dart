@@ -26,11 +26,14 @@ class _MyHomePageState extends State<MyHomePage> {
   late String userName;
 
   String today = "";
+  late Future<String?> username;
 
   @override
   void initState() {
     today = Time.getToday();
+    username = UserName.getUserName();
     super.initState();
+    setState(() {});
   }
 
   @override
@@ -173,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   FutureBuilder buildUserandDateSection(BuildContext context) {
     return FutureBuilder(
-        future: UserName.getUserName(),
+        future: username,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Padding(

@@ -4,6 +4,7 @@ import 'package:atc_international/screens/agenda/agenda.dart';
 import 'package:atc_international/screens/customers/add_new_customer.dart';
 import 'package:atc_international/screens/customers/customer.dart';
 import 'package:atc_international/screens/customers/customers.dart';
+import 'package:atc_international/screens/error/custom_error.dart';
 import 'package:atc_international/screens/home_screen/home.dart';
 import 'package:atc_international/screens/home_screen/notifications.dart';
 import 'package:atc_international/screens/login/login.dart';
@@ -38,6 +39,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (BuildContext context, Widget? widget) {
+        ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+          return CustomError(errorDetails: errorDetails);
+        };
+        return widget!;
+      },
       theme: ThemeData(
           primarySwatch: ProjectColor.customPrimarySwatch,
           scaffoldBackgroundColor: ProjectColor.white,
