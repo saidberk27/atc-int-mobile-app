@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 
@@ -122,21 +123,35 @@ class _CustomChatPageState extends State<CustomChatPage> {
                       splashRadius: 26,
                     ),
                     IconButton(
-                      onPressed: () {
-                        setState(() async {
+                      onPressed: () async {
+                        try {
+                          print("files are being picking...");
+                          File file;
                           FilePickerResult? result =
                               await FilePicker.platform.pickFiles();
 
+                          if (kIsWeb) {
+                            file = File(
+                                ""); // if platform is web, file should be empty. Because on web, we work with bytes. for more info: https://stackoverflow.com/questions/65420592/flutter-web-file-picker-throws-invalid-arguments-path-must-not-be-null-e
+                          } else {
+                            file = File(result!.files.single.path!);
+                          }
+
                           if (result != null) {
-                            File file = File(result.files.single.path!);
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(fileSending);
-                            MessageViewModel()
-                                .sendMedia(file: file, chatID: args.chatID!);
+                            MessageViewModel().uploadAndSendMedia(
+                                file: file,
+                                result: result,
+                                chatID: args
+                                    .chatID!); //file is necessary for mobile, result is necessary for web.
                           } else {
+                            print("files are null");
                             // User canceled the picker
                           }
-                        });
+                        } catch (e) {
+                          print("Error $e");
+                        }
                       },
                       icon: const Icon(
                         Icons.attach_file_outlined,
@@ -157,7 +172,8 @@ class _CustomChatPageState extends State<CustomChatPage> {
 
 class RecieverChatBubble extends StatelessWidget {
   final String? content;
-  const RecieverChatBubble({super.key, required String this.content});
+  const RecieverChatBubble(
+      {super.key, int? height, required String this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -214,10 +230,15 @@ class MediaSenderChatBubble extends StatelessWidget {
       margin: const EdgeInsets.only(top: 20),
       backGroundColor: ProjectColor.darkBlue,
       child: Container(
+        height: 300,
+        width: 300,
         constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width * 0.7,
         ),
-        child: Image.network(mediaURL!),
+        child: Image.network(
+          mediaURL!,
+          fit: BoxFit.fill,
+        ),
       ),
     );
   }
@@ -234,6 +255,7 @@ class MediaRecieverChatBubble extends StatelessWidget {
       backGroundColor: ProjectColor.red,
       margin: const EdgeInsets.only(top: 20),
       child: Container(
+        height: 500,
         constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width * 0.7,
         ),

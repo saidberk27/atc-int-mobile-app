@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:atc_international/data/local/user_name.dart';
 import 'package:atc_international/data/model/project_firestorage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../local_components/get_today.dart';
 import '../../screens/messages/custom_chat.dart';
 import '../model/project_firestore.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class MessageViewModel {
   List messagesList = [];
@@ -31,13 +33,23 @@ class MessageViewModel {
         json: messageJson, path: "/chats/$chatID/messages");
   }
 
-  Future<Widget> sendMedia({required File file, required String chatID}) async {
+  Future<void> uploadAndSendMedia(
+      {required File file,
+      required FilePickerResult result,
+      required String chatID}) async {
+    late String downloadURL;
     ProjectFireStorage projectFireStorage = ProjectFireStorage();
-    String downloadURL = await projectFireStorage.uploadFile(file);
-    sendMessage(type: "media", content: downloadURL, chatID: chatID);
-    Container fileInfoContainer = Container();
+    if (kIsWeb) {
+      // running on the web!
+      print("web uploading...");
+      downloadURL = await projectFireStorage.uploadFileWeb(result);
+    } else {
+      print("mobil uploading...");
+      // NOT running on the web! You can check for additional platforms here.
+      downloadURL = await projectFireStorage.uploadFile(file);
+    }
 
-    return fileInfoContainer;
+    sendMessage(type: "media", content: downloadURL, chatID: chatID);
   }
 
   Future<List<Chat>> getChats() async {

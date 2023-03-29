@@ -23,12 +23,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'screens/agenda/completed_tasks.dart';
 
-void main() async {
-  await Hive.initFlutter();
+void main() {
+  Hive.initFlutter();
 
   runApp(const MyApp());
 
-  await Firebase.initializeApp(
+  Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 }
