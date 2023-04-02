@@ -86,7 +86,9 @@ class Customer {
       "customer_added": customerTimeStamp
     };
 
-    final user = <String, dynamic>{"user_name": customerName};
+    final user = <String, dynamic>{
+      "user_name": customerName,
+    };
 
     ProjectFirestore()
         .addDocumentToCollectionWithID(path: "/users", json: user, ID: id!);

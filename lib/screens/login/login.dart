@@ -113,39 +113,40 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  void _signIn() async {
+    late String snackBarText;
+    late String userId;
+    late String? userName;
+    LoginViewModel login = LoginViewModel();
+    String? response = await login.signInWithEmailandPassword(
+        emailAdress: _emailController.text, password: _passwordController.text);
+
+    if (response == "Böyle Bir Kullanıcı Kayıtlı Değil." ||
+        response == "Parola Hatalı." ||
+        response == null) {
+      response == null
+          ? snackBarText = "Lütfen Geçerli Bir Şekilde Doldurun."
+          : snackBarText = response;
+    } else {
+      userId = response; //TODO BURAYA BAK
+      UserName user = UserName();
+      user.saveUsernameFromRemoteToLocal(userId: userId);
+      snackBarText = "Giriş Başarılı ...";
+      Navigator.of(context).pushNamed("/home");
+    }
+
+    SnackBar snackBar = SnackBar(
+      content: Text(snackBarText),
+      duration: const Duration(milliseconds: 1500),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   TextButton signInButton(
       double screenHeight, double screenWidth, BuildContext context) {
     return TextButton(
-      onPressed: () async {
-        late String snackBarText;
-        late String userId;
-        late String? userName;
-        LoginViewModel login = LoginViewModel();
-        String? response = await login.signInWithEmailandPassword(
-            emailAdress: _emailController.text,
-            password: _passwordController.text);
-
-        if (response == "Böyle Bir Kullanıcı Kayıtlı Değil." ||
-            response == "Parola Hatalı." ||
-            response == null) {
-          response == null
-              ? snackBarText = "Lütfen Geçerli Bir Şekilde Doldurun."
-              : snackBarText = response;
-        } else {
-          userId = response; //TODO BURAYA BAK
-          UserName user = UserName();
-          user.saveUsernameFromRemoteToLocal(userId: userId);
-          snackBarText = "Giriş Başarılı ...";
-          Navigator.of(context).pushNamed("/home");
-        }
-
-        SnackBar snackBar = SnackBar(
-          content: Text(snackBarText),
-          duration: const Duration(milliseconds: 1500),
-        );
-
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      },
+      onPressed: _signIn,
       style: ButtonStyle(
           shape: MaterialStateProperty.all(const StadiumBorder()),
           backgroundColor: MaterialStateProperty.all(ProjectColor.lightBlue)),
@@ -194,6 +195,7 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
       child: TextFormField(
+        onFieldSubmitted: (value) => _signIn(),
         obscureText: false,
         controller: _emailController,
         validator: (value) {
@@ -249,6 +251,7 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
       child: TextFormField(
+        onFieldSubmitted: (value) => _signIn(),
         controller: _passwordController,
         validator: (value) {
           if (value == null || value.isEmpty) {
