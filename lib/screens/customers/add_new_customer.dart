@@ -88,6 +88,11 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
                           icon: Icons.email_outlined),
                       const SizedBox(height: 40),
                       textFormField(
+                          hintText: "Parola",
+                          controller: _customerPasswordController,
+                          icon: Icons.lock),
+                      const SizedBox(height: 40),
+                      textFormField(
                           hintText: "Telefon",
                           controller: _customerPhoneController,
                           icon: Icons.phone_callback_outlined),

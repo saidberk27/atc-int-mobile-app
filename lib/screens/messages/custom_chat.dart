@@ -224,20 +224,32 @@ class MediaSenderChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChatBubble(
-      clipper: ChatBubbleClipper1(type: BubbleType.sendBubble),
-      alignment: Alignment.topRight,
-      margin: const EdgeInsets.only(top: 20),
-      backGroundColor: ProjectColor.darkBlue,
-      child: Container(
-        height: 300,
-        width: 300,
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.7,
-        ),
-        child: Image.network(
-          mediaURL!,
-          fit: BoxFit.fill,
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ImageDialog(
+              imageUrl: mediaURL!,
+            );
+          },
+        );
+      },
+      child: ChatBubble(
+        clipper: ChatBubbleClipper1(type: BubbleType.sendBubble),
+        alignment: Alignment.topRight,
+        margin: const EdgeInsets.only(top: 20),
+        backGroundColor: ProjectColor.darkBlue,
+        child: Container(
+          height: 300,
+          width: 300,
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width * 0.7,
+          ),
+          child: Image.network(
+            mediaURL!,
+            fit: BoxFit.fill,
+          ),
         ),
       ),
     );
@@ -250,16 +262,32 @@ class MediaRecieverChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChatBubble(
-      clipper: ChatBubbleClipper1(type: BubbleType.receiverBubble),
-      backGroundColor: ProjectColor.red,
-      margin: const EdgeInsets.only(top: 20),
-      child: Container(
-        height: 500,
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.7,
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ImageDialog(
+              imageUrl: mediaURL!,
+            );
+          },
+        );
+      },
+      child: ChatBubble(
+        clipper: ChatBubbleClipper1(type: BubbleType.receiverBubble),
+        backGroundColor: ProjectColor.red,
+        margin: const EdgeInsets.only(top: 20),
+        child: Container(
+          height: 300,
+          width: 300,
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width * 0.7,
+          ),
+          child: Image.network(
+            mediaURL!,
+            fit: BoxFit.fill,
+          ),
         ),
-        child: Image.network(mediaURL!),
       ),
     );
   }
@@ -270,4 +298,24 @@ class ChatScreenArguments {
   String? chatID;
 
   ChatScreenArguments({required this.chatPairName, required this.chatID});
+}
+
+class ImageDialog extends StatelessWidget {
+  final String imageUrl;
+
+  const ImageDialog({Key? key, required this.imageUrl}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: InteractiveViewer(
+        maxScale: 5.0,
+        panEnabled: true,
+        child: Hero(
+          tag: imageUrl,
+          child: Image.network(imageUrl),
+        ),
+      ),
+    );
+  }
 }
