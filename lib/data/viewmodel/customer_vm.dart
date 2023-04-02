@@ -88,6 +88,7 @@ class Customer {
 
     final user = <String, dynamic>{
       "user_name": customerName,
+      "user_type": "customer",
     };
 
     ProjectFirestore()
