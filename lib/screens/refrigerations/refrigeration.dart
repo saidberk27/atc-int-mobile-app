@@ -92,22 +92,61 @@ class Refrigeration extends StatelessWidget {
                       icon: MdiIcons.text),
                   Padding(
                     padding: const EdgeInsets.all(12),
-                    child: SizedBox(
-                      height: 150,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          RefrigerationViewModel()
-                              .removeRefrigeration(id: args.id!);
-                          SnackBar snackBar = const SnackBar(
-                            content: Text("Kasa Siliniyor ..."),
-                            duration: Duration(milliseconds: 500),
-                          );
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          height: 150,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text("Kasayı Düzenle"),
+                                SizedBox(width: 10),
+                                Icon(Icons.edit)
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 150,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  ProjectColor.red),
+                              side:
+                                  MaterialStateProperty.resolveWith<BorderSide>(
+                                (Set<MaterialState> states) {
+                                  return BorderSide(
+                                      color: Colors.red,
+                                      width: 2); // varsayılan kenarlık rengi
+                                },
+                              ),
+                            ),
+                            onPressed: () {
+                              RefrigerationViewModel()
+                                  .removeRefrigeration(id: args.id!);
+                              SnackBar snackBar = const SnackBar(
+                                content: Text("Kasa Siliniyor ..."),
+                                duration: Duration(milliseconds: 500),
+                              );
 
-                          Navigator.of(context).pushNamed("/refrigerations");
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        },
-                        child: const Text("Kasayı Sil"),
-                      ),
+                              Navigator.of(context)
+                                  .pushNamed("/refrigerations");
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            },
+                            child: Row(
+                              children: [
+                                const Text("Kasayı Sil"),
+                                SizedBox(width: 10),
+                                const Icon(Icons.delete)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 ],
