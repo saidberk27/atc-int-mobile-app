@@ -19,46 +19,50 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
   @override
   void dispose() {
     super.dispose();
-    _caseNameController.dispose();
+    _caseBrandController.dispose();
     _caseModelController.dispose();
-    _outerMeasurementController.dispose();
-    _innerMeasurementController.dispose();
-    _vehicleChassisModelController.dispose();
-    _workingTemperatureController.dispose();
-    _coldenUnitController.dispose();
-    _eutaticPlatesController.dispose();
-    _dailyDoorController.dispose();
-    _dealTimeController.dispose();
-    _innerTemperatureDurationController.dispose();
-    _caseWeightController.dispose();
-    _innerVolumeController.dispose();
-    _weightCapacityController.dispose();
+    _serialNumberController.dispose();
+    _rearDoorController.dispose();
+    _vehicleInformationController.dispose();
+    _compressorBrandController.dispose();
+    _compressorModelController.dispose();
+    _compressorStatusController.dispose();
+    _euteticPlateModelController.dispose();
+    _euteticPlateMeasurementsController.dispose();
+    _euteticPlateNumberController.dispose();
+    _euteticPlateStatusController.dispose();
+    _interiorInstallationStatusController.dispose();
+    _gasStatusController.dispose();
+    _extraNotesController.dispose();
   }
 
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _caseNameController = TextEditingController();
+  final TextEditingController _caseBrandController = TextEditingController();
   final TextEditingController _caseModelController = TextEditingController();
 
-  final TextEditingController _outerMeasurementController =
+  final TextEditingController _serialNumberController = TextEditingController();
+  final TextEditingController _rearDoorController = TextEditingController();
+  final TextEditingController _vehicleInformationController =
       TextEditingController();
-  final TextEditingController _innerMeasurementController =
+  final TextEditingController _compressorBrandController =
       TextEditingController();
-  final TextEditingController _vehicleChassisModelController =
+  final TextEditingController _compressorModelController =
       TextEditingController();
-  final TextEditingController _workingTemperatureController =
+  final TextEditingController _compressorStatusController =
       TextEditingController();
-  final TextEditingController _coldenUnitController = TextEditingController();
-  final TextEditingController _eutaticPlatesController =
+  final TextEditingController _euteticPlateModelController =
       TextEditingController();
-  final TextEditingController _dailyDoorController = TextEditingController();
-  final TextEditingController _dealTimeController = TextEditingController();
-  final TextEditingController _caseWeightController = TextEditingController();
-  final TextEditingController _innerVolumeController = TextEditingController();
-  final TextEditingController _weightCapacityController =
+  final TextEditingController _euteticPlateMeasurementsController =
       TextEditingController();
-  final TextEditingController _innerTemperatureDurationController =
+  final TextEditingController _euteticPlateStatusController =
       TextEditingController();
+  final TextEditingController _interiorInstallationStatusController =
+      TextEditingController();
+  final TextEditingController _gasStatusController = TextEditingController();
+  final TextEditingController _euteticPlateNumberController =
+      TextEditingController();
+  final TextEditingController _extraNotesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -129,75 +133,81 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
   ListView formFields() {
     return ListView(children: [
       textFormField(
-          hintText: "Kasa İsmi",
+          hintText: "Kasa Markası",
           isRequired: true,
-          controller: _caseNameController),
+          controller: _caseBrandController),
       const SizedBox(height: 40),
       textFormField(
           hintText: "Kasa Modeli",
           controller: _caseModelController,
           isRequired: true,
-          icon: Icons.move_down_outlined),
+          icon: MdiIcons.fridgeIndustrial),
       const SizedBox(height: 40),
       textFormField(
-          hintText: "Dıştan Dışa Ölçütler",
-          controller: _outerMeasurementController,
-          icon: Icons.straighten_outlined),
+          hintText: "Seri Numarası",
+          controller: _serialNumberController,
+          icon: MdiIcons.barcodeScan),
       const SizedBox(height: 40),
       textFormField(
-          hintText: "İçten İçe Ölçütler",
-          controller: _innerMeasurementController,
-          icon: Icons.aspect_ratio),
-      const SizedBox(height: 40),
-      textFormField(
-          hintText: "Araç Şasi Modelleri",
-          controller: _vehicleChassisModelController,
+          hintText: "Araç Bilgileri",
+          controller: _vehicleInformationController,
           icon: Icons.local_shipping),
       const SizedBox(height: 40),
       textFormField(
-          hintText: "Çalışma Sıcaklık Aralığı",
-          controller: _workingTemperatureController,
-          icon: Icons.thermostat),
+          hintText: "Arka Kapı",
+          controller: _rearDoorController,
+          icon: MdiIcons.doorSliding),
       const SizedBox(height: 40),
       textFormField(
-          hintText: "Soğutma Ünitesi",
-          controller: _coldenUnitController,
-          icon: Icons.ac_unit),
+          hintText: "Kompresör Markası",
+          controller: _compressorBrandController,
+          icon: MdiIcons.airFilter),
       const SizedBox(height: 40),
       textFormField(
-          hintText: "Ötektik Pleytler",
-          controller: _eutaticPlatesController,
-          icon: Icons.grid_on_rounded),
+          hintText: "Kompresör Modeli",
+          controller: _compressorModelController,
+          icon: MdiIcons.airFilter),
       const SizedBox(height: 40),
       textFormField(
-          hintText: "Günlük Kapı Açılma Sayısı",
-          controller: _dailyDoorController,
-          icon: Icons.door_sliding),
+          hintText: "Kompresör Durumu",
+          controller: _compressorStatusController,
+          icon: MdiIcons.listStatus),
       const SizedBox(height: 40),
       textFormField(
-          hintText: "Dağıtım Zamanı",
-          controller: _dealTimeController,
-          icon: Icons.timelapse_sharp),
+          hintText: "Ötektik Plaka Modeli",
+          controller: _euteticPlateModelController,
+          icon: MdiIcons.snowflakeThermometer),
       const SizedBox(height: 40),
       textFormField(
-          hintText: "İç Isı Değişim Süresi",
-          controller: _innerTemperatureDurationController,
-          icon: MdiIcons.timer),
+          hintText: "Ötektik Plaka Ölçüleri",
+          controller: _euteticPlateMeasurementsController,
+          icon: MdiIcons.rulerSquare),
       const SizedBox(height: 40),
       textFormField(
-          hintText: "Kasa Ağırlığı",
-          controller: _caseWeightController,
-          icon: MdiIcons.weight),
+          hintText: "Ötektik Plaka Sayısı",
+          controller: _euteticPlateNumberController,
+          icon: MdiIcons.counter),
       const SizedBox(height: 40),
       textFormField(
-          hintText: "İç Hacim",
-          controller: _innerVolumeController,
-          icon: MdiIcons.cubeOutline),
+          hintText: "Ötektik Plaka Durumu",
+          controller: _euteticPlateStatusController,
+          icon: MdiIcons.listStatus),
       const SizedBox(height: 40),
       textFormField(
-          hintText: "Yük Yükleme Kapasitesi",
-          controller: _weightCapacityController,
-          icon: MdiIcons.weightKilogram),
+          hintText: "İç Tesisat Durumu",
+          controller: _interiorInstallationStatusController,
+          icon: MdiIcons.hammerWrench),
+      const SizedBox(height: 40),
+      textFormField(
+          hintText: "Gaz Durumu",
+          controller: _gasStatusController,
+          icon: MdiIcons.gasCylinder),
+      const SizedBox(height: 40),
+      textFormField(
+          hintText: "Not:",
+          controller: _extraNotesController,
+          icon: MdiIcons.text),
+      const SizedBox(height: 40),
     ]);
   }
 
@@ -245,44 +255,58 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
   }
 
   void saveAndNavigate() {
-    print("screeen");
-    RefrigerationViewModel customerVm = RefrigerationViewModel();
-    const snackBar = SnackBar(
-      content: Text('Kaydediliyor...'),
-      duration: Duration(milliseconds: 500),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    try {
+      print("screeen");
+      RefrigerationViewModel customerVm = RefrigerationViewModel();
+      const snackBar = SnackBar(
+        content: Text('Kaydediliyor...'),
+        duration: Duration(milliseconds: 500),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-    String caseName = _caseNameController.text;
-    String caseModel = _caseModelController.text;
-    String outerMeasurement = _outerMeasurementController.text;
-    String innerMeasurement = _innerMeasurementController.text;
-    String vehicleChassisModel = _vehicleChassisModelController.text;
-    String workingTemperature = _workingTemperatureController.text;
-    String coldenUnit = _coldenUnitController.text;
-    String eutaticPlates = _eutaticPlatesController.text;
-    String dailyDoor = _dailyDoorController.text;
-    String dealTime = _dealTimeController.text;
-    String innerTemperatureDuration = _innerTemperatureDurationController.text;
-    String caseWeight = _caseWeightController.text;
-    String innerVolume = _innerVolumeController.text;
-    String weightCapacity = _weightCapacityController.text;
+      try {
+        String caseBrand = _caseBrandController.text;
+        String caseModel = _caseModelController.text;
+        String serialNumber = _serialNumberController.text;
+        String rearDoor = _rearDoorController.text;
+        String vehicleInformation = _vehicleInformationController.text;
+        String compressorBrand = _compressorBrandController.text;
 
-    customerVm.addRefrigeration(
-        caseName: caseName,
-        caseModel: caseModel,
-        innerMeasurement: innerMeasurement,
-        vehicleChassisModel: vehicleChassisModel,
-        workingTemperature: workingTemperature,
-        coldenUnit: coldenUnit,
-        eutaticPlates: eutaticPlates,
-        dailyDoor: dailyDoor,
-        dealTime: dealTime,
-        innerTemperatureDuration: innerTemperatureDuration,
-        caseWeight: caseWeight,
-        innerVolume: innerVolume,
-        weightCapacity: weightCapacity);
+        String compressorModel = _compressorBrandController.text;
+        String compressorStatus = _compressorStatusController.text;
+        String euteticPlateModel = _euteticPlateModelController.text;
+        String euteticPlateMeasurement =
+            _euteticPlateMeasurementsController.text;
+        String euteticPlateNumber = _euteticPlateNumberController.text;
+        String euteticPlateStatus = _euteticPlateStatusController.text;
+        String interiorInstallationStatus =
+            _interiorInstallationStatusController.text;
+        String gasStatus = _gasStatusController.text;
+        String extraNotes = _extraNotesController.text;
 
-    Navigator.of(context).pushNamed("/refrigerations");
+        customerVm.addRefrigeration(
+            caseBrand: caseBrand,
+            caseModel: caseModel,
+            serialNumber: serialNumber,
+            rearDoor: rearDoor,
+            vehicleInformation: vehicleInformation,
+            compressorBrand: compressorBrand,
+            compressorModel: compressorModel,
+            compressorStatus: compressorStatus,
+            euteticPlateModel: euteticPlateModel,
+            euteticPlateMeasurement: euteticPlateMeasurement,
+            euteticPlateNumber: euteticPlateNumber,
+            euteticPlateStatus: euteticPlateStatus,
+            interiorInstallationStatus: interiorInstallationStatus,
+            gasStatus: gasStatus,
+            extraNotes: extraNotes);
+      } catch (e) {
+        print(e.toString());
+      }
+
+      Navigator.of(context).pushNamed("/refrigerations");
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

@@ -3,6 +3,7 @@ import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:atc_international/local_components/shorten_string.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../local_components/custom_text_themes.dart';
 
@@ -25,7 +26,7 @@ class Refrigeration extends StatelessWidget {
   Scaffold webScaffold(ScreenArguments args, BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(args.caseName!),
+        title: Text(args.caseBrand!),
       ),
       body: Row(
         children: [
@@ -50,27 +51,45 @@ class Refrigeration extends StatelessWidget {
                       ),
                     ),
                   ),
-                  normalRow(context, "Model: ", args.caseModel!),
-                  normalRow(context, "Yan kapı sayısı: ", args.dailyDoor!),
+                  normalRow(context, "Kasa Markası: ", args.caseBrand!,
+                      icon: Icons.abc),
+                  normalRow(context, "Model: ", args.caseModel!,
+                      icon: MdiIcons.fridgeIndustrial),
+                  normalRow(context, "Seri Numarası: ", args.serialNumber!,
+                      icon: MdiIcons.barcodeScan),
                   normalRow(
-                      context, "Dıştan dışa ölçüler: ", args.outerMeasurement!),
+                      context, "Araç Bilgileri: ", args.vehicleInformation!,
+                      icon: Icons.local_shipping),
+                  normalRow(context, "Arka Kapı: ", args.rearDoor!,
+                      icon: MdiIcons.doorSliding),
                   normalRow(
-                      context, "Içten içe ölçüler: ", args.innerMeasurement!),
-                  normalRow(context, "Araç Şasi modelleri: ",
-                      args.vehicleChassisModel!),
-                  normalRow(context, "Çalışma sıcaklık aralığı",
-                      args.workingTemperature!),
-                  normalRow(context, "Soğutma ünitesi: ", args.coldenUnit!),
-                  normalRow(context, "Ötektik pleytler: ", args.eutaticPlates!),
+                      context, "Kompresör Markası: ", args.compressorBrand!,
+                      icon: MdiIcons.airFilter),
                   normalRow(
-                      context, "Günlük kapı açılma sayısı: ", args.dailyDoor!),
-                  normalRow(context, "Dağıtım zamanı: ", args.dealTime!),
-                  normalRow(context, "İç Isı değişim süresi: ",
-                      args.innerTemperatureDuration!),
-                  normalRow(context, "Kasa ağırlığı: ", args.caseWeight!),
-                  normalRow(context, "İç hacim: ", args.innerVolume!),
-                  normalRow(context, "Yük yükleme kapasitesi: ",
-                      args.weightCapacity!),
+                      context, "Kompresör Modeli: ", args.compressorModel!,
+                      icon: MdiIcons.airFilter),
+                  normalRow(
+                      context, "Kompresör Durumu: ", args.compressorStatus!,
+                      icon: MdiIcons.listStatus),
+                  normalRow(
+                      context, "Ötetik Plaka Modeli: ", args.euteticPlateModel!,
+                      icon: MdiIcons.snowflakeThermometer),
+                  normalRow(context, "Ötetik Plaka Ölçüleri: ",
+                      args.euteticPlateMeasurement!,
+                      icon: MdiIcons.rulerSquare),
+                  normalRow(context, "Ötetik Plaka Sayısı: ",
+                      args.euteticPlateNumber!,
+                      icon: MdiIcons.counter),
+                  normalRow(context, "Ötetik Plaka Durumu: ",
+                      args.euteticPlateStatus!,
+                      icon: MdiIcons.listStatus),
+                  normalRow(context, "İç Tesisat Durumu: ",
+                      args.interiorInstallationStatus!,
+                      icon: MdiIcons.hammerWrench),
+                  normalRow(context, "Gaz Durumu: ", args.gasStatus!,
+                      icon: MdiIcons.gasCylinder),
+                  normalRow(context, "Notlar: ", args.extraNotes!,
+                      icon: MdiIcons.text),
                   Padding(
                     padding: const EdgeInsets.all(12),
                     child: SizedBox(
@@ -103,7 +122,7 @@ class Refrigeration extends StatelessWidget {
   Scaffold mobileScaffold(ScreenArguments args, BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(args.caseName!),
+        title: Text(args.caseBrand!),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -115,24 +134,40 @@ class Refrigeration extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
               child: Image.asset("assets/images/eutatic.png"),
             ),
-            normalRow(context, "Model: ", args.caseModel!),
-            normalRow(context, "Yan kapı sayısı: ", args.dailyDoor!),
-            normalRow(context, "Dıştan dışa ölçüler: ", args.outerMeasurement!),
-            normalRow(context, "Içten içe ölçüler: ", args.innerMeasurement!),
+            normalRow(context, "Kasa Markası: ", args.caseBrand!,
+                icon: Icons.abc),
+            normalRow(context, "Model: ", args.caseModel!,
+                icon: MdiIcons.fridgeIndustrial),
+            normalRow(context, "Seri Numarası: ", args.serialNumber!,
+                icon: MdiIcons.barcodeScan),
+            normalRow(context, "Araç Bilgileri: ", args.vehicleInformation!,
+                icon: Icons.local_shipping),
+            normalRow(context, "Arka Kapı: ", args.rearDoor!,
+                icon: MdiIcons.doorSliding),
+            normalRow(context, "Kompresör Markası: ", args.compressorBrand!,
+                icon: MdiIcons.airFilter),
+            normalRow(context, "Kompresör Modeli: ", args.compressorModel!,
+                icon: MdiIcons.airFilter),
+            normalRow(context, "Kompresör Durumu: ", args.compressorStatus!,
+                icon: MdiIcons.listStatus),
+            normalRow(context, "Ötetik Plaka Modeli: ", args.euteticPlateModel!,
+                icon: MdiIcons.snowflakeThermometer),
+            normalRow(context, "Ötetik Plaka Ölçüleri: ",
+                args.euteticPlateMeasurement!,
+                icon: MdiIcons.rulerSquare),
             normalRow(
-                context, "Araç Şasi modelleri: ", args.vehicleChassisModel!),
+                context, "Ötetik Plaka Sayısı: ", args.euteticPlateNumber!,
+                icon: MdiIcons.counter),
             normalRow(
-                context, "Çalışma sıcaklık aralığı", args.workingTemperature!),
-            normalRow(context, "Soğutma ünitesi: ", args.coldenUnit!),
-            normalRow(context, "Ötektik pleytler: ", args.eutaticPlates!),
-            normalRow(context, "Günlük kapı açılma sayısı: ", args.dailyDoor!),
-            normalRow(context, "Dağıtım zamanı: ", args.dealTime!),
-            normalRow(context, "İç Isı değişim süresi: ",
-                args.innerTemperatureDuration!),
-            normalRow(context, "Kasa ağırlığı: ", args.caseWeight!),
-            normalRow(context, "İç hacim: ", args.innerVolume!),
-            normalRow(
-                context, "Yük yükleme kapasitesi: ", args.weightCapacity!),
+                context, "Ötetik Plaka Durumu: ", args.euteticPlateStatus!,
+                icon: MdiIcons.listStatus),
+            normalRow(context, "İç Tesisat Durumu: ",
+                args.interiorInstallationStatus!,
+                icon: MdiIcons.hammerWrench),
+            normalRow(context, "Gaz Durumu: ", args.gasStatus!,
+                icon: MdiIcons.gasCylinder),
+            normalRow(context, "Notlar: ", args.extraNotes!,
+                icon: MdiIcons.text),
             Padding(
               padding: const EdgeInsets.all(12),
               child: ElevatedButton(
@@ -155,20 +190,31 @@ class Refrigeration extends StatelessWidget {
     );
   }
 
-  SizedBox normalRow(BuildContext context, String baslik, String icerik) {
+  SizedBox normalRow(BuildContext context, String baslik, String icerik,
+      {required IconData? icon}) {
     return SizedBox(
       height: 50,
       child: Row(
         children: [
           Expanded(
+              flex: 1,
+              child: Icon(
+                icon,
+                color: ProjectColor.darkBlue,
+              )),
+          Expanded(
+            flex: 6,
             child: Text(
               baslik,
+              textAlign: TextAlign.center,
               style: ProjectTextStyle.redSmallStrong(context),
             ),
           ),
           Expanded(
+            flex: 4,
             child: Text(
               shortenString(string: icerik, maxLength: 34),
+              textAlign: TextAlign.center,
               style: ProjectTextStyle.lightBlueSmallStrong(context),
             ),
           ),
@@ -179,35 +225,37 @@ class Refrigeration extends StatelessWidget {
 }
 
 class ScreenArguments {
-  String? caseName;
+  String? caseBrand;
   String? caseModel;
-  String? outerMeasurement;
-  String? innerMeasurement;
-  String? vehicleChassisModel;
-  String? workingTemperature;
-  String? coldenUnit;
-  String? eutaticPlates;
-  String? dailyDoor;
-  String? dealTime;
-  String? innerTemperatureDuration;
-  String? caseWeight;
-  String? innerVolume;
-  String? weightCapacity;
+  String? rearDoor;
+  String? serialNumber;
+  String? vehicleInformation;
+  String? compressorBrand;
+  String? compressorModel;
+  String? compressorStatus;
+  String? euteticPlateModel;
+  String? euteticPlateMeasurement;
+  String? euteticPlateNumber;
+  String? euteticPlateStatus;
+  String? interiorInstallationStatus;
+  String? gasStatus;
+  String? extraNotes;
   String? id;
   ScreenArguments(
-      {required String this.caseName,
+      {required String this.caseBrand,
       required String this.caseModel,
-      required String this.outerMeasurement,
-      required String this.innerMeasurement,
-      required String this.vehicleChassisModel,
-      required String this.workingTemperature,
-      required String this.coldenUnit,
-      required String this.eutaticPlates,
-      required String this.dailyDoor,
-      required String this.dealTime,
-      required String this.innerTemperatureDuration,
-      required String this.caseWeight,
-      required String this.innerVolume,
-      required String this.weightCapacity,
+      required String this.rearDoor,
+      required String this.serialNumber,
+      required String this.vehicleInformation,
+      required String this.compressorBrand,
+      required String this.compressorModel,
+      required String this.compressorStatus,
+      required String this.euteticPlateModel,
+      required String this.euteticPlateMeasurement,
+      required String this.euteticPlateNumber,
+      required String this.euteticPlateStatus,
+      required String this.interiorInstallationStatus,
+      required String this.gasStatus,
+      required String this.extraNotes,
       required String this.id});
 }

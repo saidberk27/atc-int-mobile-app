@@ -16,77 +16,85 @@ class RefrigerationViewModel {
   }
 
   Future<void> addRefrigeration(
-      {required String caseName,
+      {required String caseBrand,
       required String caseModel,
-      String? outerMeasurement,
-      String? innerMeasurement,
-      String? vehicleChassisModel,
-      String? workingTemperature,
-      String? coldenUnit,
-      String? eutaticPlates,
-      String? dailyDoor,
-      String? dealTime,
-      String? innerTemperatureDuration,
-      String? caseWeight,
-      String? innerVolume,
-      String? weightCapacity}) async {
+      String? rearDoor,
+      String? serialNumber,
+      String? vehicleInformation,
+      String? compressorBrand,
+      String? compressorModel,
+      String? compressorStatus,
+      String? euteticPlateModel,
+      String? euteticPlateMeasurement,
+      String? euteticPlateNumber,
+      String? euteticPlateStatus,
+      String? interiorInstallationStatus,
+      String? gasStatus,
+      String? extraNotes}) async {
     String? userID = await UserName.getUserId();
 
-    outerMeasurement == null
-        ? outerMeasurement = "Belirtilmedi."
-        : outerMeasurement = outerMeasurement;
+    rearDoor == null ? rearDoor = "Belirtilmedi." : rearDoor = rearDoor;
 
-    innerMeasurement == null
-        ? outerMeasurement = "Belirtilmedi."
-        : outerMeasurement = innerMeasurement;
+    vehicleInformation == null
+        ? vehicleInformation = "Belirtilmedi."
+        : vehicleInformation = vehicleInformation;
 
-    vehicleChassisModel == null
-        ? vehicleChassisModel = "Belirtilmedi."
-        : vehicleChassisModel = vehicleChassisModel;
+    serialNumber == null
+        ? serialNumber = "Belirtilmedi."
+        : serialNumber = serialNumber;
 
-    workingTemperature == null
-        ? workingTemperature = "Belirtilmedi."
-        : workingTemperature = workingTemperature;
+    compressorBrand == null
+        ? compressorBrand = "Belirtilmedi."
+        : compressorBrand = compressorBrand;
 
-    coldenUnit == null ? coldenUnit = "Belirtilmedi." : coldenUnit = coldenUnit;
+    compressorModel == null
+        ? compressorModel = "Belirtilmedi."
+        : compressorModel = compressorModel;
 
-    eutaticPlates == null
-        ? eutaticPlates = "Belirtilmedi."
-        : eutaticPlates = eutaticPlates;
+    compressorStatus == null
+        ? compressorStatus = "Belirtilmedi."
+        : compressorStatus = compressorStatus;
 
-    dailyDoor == null ? dailyDoor = "Belirtilmedi." : dailyDoor = dailyDoor;
+    euteticPlateModel == null
+        ? euteticPlateModel = "Belirtilmedi."
+        : euteticPlateModel = euteticPlateModel;
 
-    dealTime == null ? dealTime = "Belirtilmedi." : dealTime = dealTime;
+    euteticPlateMeasurement == null
+        ? euteticPlateMeasurement = "Belirtilmedi."
+        : euteticPlateMeasurement = euteticPlateMeasurement;
 
-    innerTemperatureDuration == null
-        ? innerTemperatureDuration = "Belirtilmedi."
-        : innerTemperatureDuration = innerTemperatureDuration;
+    euteticPlateNumber == null
+        ? euteticPlateNumber = "Belirtilmedi."
+        : euteticPlateNumber = euteticPlateNumber;
 
-    caseWeight == null ? caseWeight = "Belirtilmedi." : caseWeight = caseWeight;
+    euteticPlateStatus == null
+        ? euteticPlateStatus = "Belirtilmedi."
+        : euteticPlateStatus = euteticPlateStatus;
 
-    innerVolume == null
-        ? innerVolume = "Belirtilmedi."
-        : innerVolume = innerVolume;
+    interiorInstallationStatus == null
+        ? interiorInstallationStatus = "Belirtilmedi."
+        : interiorInstallationStatus = interiorInstallationStatus;
 
-    weightCapacity == null
-        ? weightCapacity = "Belirtilmedi."
-        : weightCapacity = weightCapacity;
+    gasStatus == null ? gasStatus = "Belirtilmedi." : gasStatus = gasStatus;
+
+    extraNotes == null ? extraNotes = "Belirtilmedi." : extraNotes = extraNotes;
 
     Refrigeration.toJson(
-        caseName: caseName,
+        caseBrand: caseBrand,
         caseModel: caseModel,
-        outerMeasurement: outerMeasurement,
-        innerMeasurement: innerMeasurement,
-        vehicleChassisModel: vehicleChassisModel,
-        workingTemperature: workingTemperature,
-        coldenUnit: coldenUnit,
-        eutaticPlates: eutaticPlates,
-        dailyDoor: dailyDoor,
-        dealTime: dealTime,
-        innerTemperatureDuration: innerTemperatureDuration,
-        caseWeight: caseWeight,
-        innerVolume: innerVolume,
-        weightCapacity: weightCapacity,
+        rearDoor: rearDoor,
+        serialNumber: serialNumber,
+        vehicleInformation: vehicleInformation,
+        compressorBrand: compressorBrand,
+        compressorModel: compressorModel,
+        compressorStatus: compressorStatus,
+        euteticPlateModel: euteticPlateModel,
+        euteticPlateMeasurement: euteticPlateMeasurement,
+        euteticPlateNumber: euteticPlateNumber,
+        euteticPlateStatus: euteticPlateStatus,
+        interiorInstallationStatus: interiorInstallationStatus,
+        gasStatus: gasStatus,
+        extraNotes: extraNotes,
         currentUserID: userID);
   }
 
@@ -99,70 +107,74 @@ class RefrigerationViewModel {
 
 class Refrigeration {
   ProjectFirestore db = ProjectFirestore();
-  late final String caseName;
+  late final String caseBrand;
   late final String caseModel;
-  late final String outerMeasurement;
-  late final String innerMeasurement;
-  late final String vehicleChassisModel;
-  late final String workingTemperature;
-  late final String coldenUnit;
-  late final String eutaticPlates;
-  late final String dailyDoor;
-  late final String dealTime;
-  late final String innerTemperatureDuration;
-  late final String caseWeight;
-  late final String innerVolume;
-  late final String weightCapacity;
+  late final String rearDoor;
+  late final String serialNumber;
+  late final String vehicleInformation;
+  late final String compressorBrand;
+  late final String compressorModel;
+  late final String compressorStatus;
+  late final String euteticPlateModel;
+  late final String euteticPlateMeasurement;
+  late final String euteticPlateNumber;
+  late final String euteticPlateStatus;
+  late final String interiorInstallationStatus;
+  late final String gasStatus;
+  late final String extraNotes;
   late final String id;
   Refrigeration.fromJson({required Map json}) {
-    caseName = json["case_name"];
+    caseBrand = json["case_brand"];
     caseModel = json["case_model"];
-    outerMeasurement = json["outer_measurement"];
-    innerMeasurement = json["inner_measurement"];
-    vehicleChassisModel = json["vehicle_chassis_model"];
-    workingTemperature = json["working_temperature"];
-    coldenUnit = json["colden_unit"];
-    eutaticPlates = json["eutatic_plates"];
-    dailyDoor = json["daily_door"];
-    dealTime = json["deal_time"];
-    innerTemperatureDuration = json["inner_temperature_duration"];
-    caseWeight = json["case_weight"];
-    innerVolume = json["inner_volume"];
-    weightCapacity = json["weight_capacity"];
+    rearDoor = json["rear_door"];
+    serialNumber = json["serial_number"];
+    vehicleInformation = json["vehicle_information"];
+    compressorBrand = json["compressor_brand"];
+    compressorModel = json["compressor_model"];
+    compressorStatus = json["compressor_status"];
+    euteticPlateModel = json["eutetic_plate_model"];
+    euteticPlateMeasurement = json["eutetic_plate_measurement"];
+    euteticPlateNumber = json["eutetic_plate_number"];
+    euteticPlateStatus = json["eutetic_plate_status"];
+    interiorInstallationStatus = json["interior_installation_status"];
+    gasStatus = json["gas_status"];
+    extraNotes = json["extra_notes"];
     id = json["id"];
   }
 
   Refrigeration.toJson(
-      {String? caseName,
+      {String? caseBrand,
       String? caseModel,
-      String? outerMeasurement,
-      String? innerMeasurement,
-      String? vehicleChassisModel,
-      String? workingTemperature,
-      String? coldenUnit,
-      String? eutaticPlates,
-      String? dailyDoor,
-      String? dealTime,
-      String? innerTemperatureDuration,
-      String? caseWeight,
-      String? innerVolume,
-      String? weightCapacity,
+      String? serialNumber,
+      String? rearDoor,
+      String? vehicleInformation,
+      String? compressorBrand,
+      String? compressorModel,
+      String? compressorStatus,
+      String? euteticPlateModel,
+      String? euteticPlateMeasurement,
+      String? euteticPlateNumber,
+      String? euteticPlateStatus,
+      String? interiorInstallationStatus,
+      String? gasStatus,
+      String? extraNotes,
       String? currentUserID}) {
     final json = <String, dynamic>{
-      "case_name": caseName,
+      "case_brand": caseBrand,
       "case_model": caseModel,
-      "outer_measurement": outerMeasurement,
-      "inner_measurement": innerMeasurement,
-      "vehicle_chassis_model": vehicleChassisModel,
-      "working_temperature": workingTemperature,
-      "colden_unit": coldenUnit,
-      "eutatic_plates": eutaticPlates,
-      "daily_door": dailyDoor,
-      "deal_time": dealTime,
-      "inner_temperature_duration": innerTemperatureDuration,
-      "case_weight": caseWeight,
-      "inner_volume": innerVolume,
-      "weight_capacity": weightCapacity
+      "rear_door": rearDoor,
+      "serial_number": serialNumber,
+      "vehicle_information": vehicleInformation,
+      "compressor_brand": compressorBrand,
+      "compressor_model": compressorModel,
+      "compressor_status": compressorStatus,
+      "eutetic_plate_model": euteticPlateModel,
+      "eutetic_plate_measurement": euteticPlateMeasurement,
+      "eutetic_plate_number": euteticPlateNumber,
+      "eutetic_plate_status": euteticPlateStatus,
+      "interior_installation_status": interiorInstallationStatus,
+      "gas_status": gasStatus,
+      "extra_notes": extraNotes,
     };
     db.addDocumentToCollection(
         path: "/users/$currentUserID/refrigerations", json: json);
