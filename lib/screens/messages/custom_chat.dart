@@ -96,6 +96,14 @@ class _CustomChatPageState extends State<CustomChatPage> {
                   width: MediaQuery.of(context).size.width / 1.6,
                   child: TextFormField(
                     controller: _messageController,
+                    onFieldSubmitted: (value) {
+                      MessageViewModel()
+                          .sendMessage(
+                              content: _messageController.text,
+                              chatID: args.chatID!)
+                          .then((value) => print("Message Sent"));
+                      _messageController.clear();
+                    },
                     decoration: const InputDecoration(
                       hintText: "Mesajınızı Giriniz...",
                       focusedBorder: InputBorder.none,
@@ -108,7 +116,6 @@ class _CustomChatPageState extends State<CustomChatPage> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        print("Butona basıldı");
                         MessageViewModel()
                             .sendMessage(
                                 content: _messageController.text,
