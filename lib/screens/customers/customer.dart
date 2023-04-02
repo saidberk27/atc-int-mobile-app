@@ -5,7 +5,9 @@ import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:atc_international/local_components/shorten_string.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/viewmodel/message_vm.dart';
 import '../../local_components/profile_picture.dart';
+import '../messages/custom_chat.dart';
 
 class CustomerPage extends StatelessWidget {
   const CustomerPage({super.key, String? customerName});
@@ -40,7 +42,9 @@ class CustomerPage extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                chatBubbleRow(context, customerName: args.customerName),
+                chatBubbleRow(context,
+                    customerName: args.customerName,
+                    customerID: args.customerID),
                 normalRow(context, "Çalıştığı Şirket: ", args.customerCompany),
                 normalRow(context, "Unvan: ", args.customerTitle),
                 normalRow(context, "E-Posta: ", args.customerMail),
@@ -83,7 +87,9 @@ class CustomerPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
-                      chatBubbleRow(context, customerName: args.customerName),
+                      chatBubbleRow(context,
+                          customerName: args.customerName,
+                          customerID: args.customerID),
                       normalRow(
                           context, "Çalıştığı Şirket: ", args.customerCompany),
                       normalRow(context, "Unvan: ", args.customerTitle),
@@ -109,7 +115,11 @@ class CustomerPage extends StatelessWidget {
     );
   }
 
-  SizedBox chatBubbleRow(BuildContext context, {required String customerName}) {
+  SizedBox chatBubbleRow(BuildContext context,
+      {required String customerName, required String customerID}) {
+    SnackBar snackBar =
+        const SnackBar(content: Text("Mesaj Kutusu Açılıyor..."));
+
     return SizedBox(
       height: 50,
       child: Row(
@@ -124,7 +134,16 @@ class CustomerPage extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            onPressed: () => debugPrint("null"),
+            onPressed: () async {
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              MessageViewModel messageVM = MessageViewModel();
+              String? chatID =
+                  await messageVM.getChatID(customerID: customerID);
+
+              Navigator.of(context).pushNamed("/customChat",
+                  arguments: ChatScreenArguments(
+                      chatPairName: customerName, chatID: chatID));
+            },
             icon: const Icon(Icons.chat_bubble),
             color: ProjectColor.red,
           )
