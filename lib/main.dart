@@ -66,7 +66,13 @@ class MyApp extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  foregroundColor: ProjectColor.darkBlue))),
+                  foregroundColor: ProjectColor.darkBlue)),
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: {
+              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+              TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            },
+          )),
       home: const LoginPage(),
       debugShowCheckedModeBanner: false,
       routes: {
