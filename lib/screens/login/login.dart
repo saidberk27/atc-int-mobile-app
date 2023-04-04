@@ -1,4 +1,4 @@
-import 'package:atc_international/data/local/user_name.dart';
+import 'package:atc_international/data/local/current_user_data.dart';
 import 'package:atc_international/data/viewmodel/login_vm.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
@@ -129,8 +129,8 @@ class _LoginPageState extends State<LoginPage> {
           : snackBarText = response;
     } else {
       userId = response; //TODO BURAYA BAK
-      UserName user = UserName();
-      user.saveUsernameFromRemoteToLocal(userId: userId);
+      UserData user = UserData();
+      user.saveUserDataFromRemoteToLocal(userId: userId);
       snackBarText = "Giriş Başarılı ...";
       Navigator.of(context).pushNamed("/home");
     }

@@ -1,4 +1,4 @@
-import 'package:atc_international/data/local/user_name.dart';
+import 'package:atc_international/data/local/current_user_data.dart';
 import 'package:atc_international/data/model/project_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -9,7 +9,7 @@ class CustomerViewModel {
   List modelsList = [];
   ProjectFirestore db = ProjectFirestore();
   Future<List> getCustomers() async {
-    String? userID = await UserName.getUserId();
+    String? userID = await UserData.getUserId();
 
     //gets json and converts to datamodel.
     var customers = await db.readDocumentsFromDatabaseWithOrder(
@@ -29,7 +29,7 @@ class CustomerViewModel {
       required String customerMail,
       required String customerPassword,
       required String customerPhone}) async {
-    String? currentUserID = await UserName.getUserId();
+    String? currentUserID = await UserData.getUserId();
 
     String createdUserID = await AuthRemoteDB().createCustomerUser(
         userEmail: customerMail,
@@ -47,7 +47,7 @@ class CustomerViewModel {
   }
 
   Future<void> deleteCustomer({required String id}) async {
-    String? userID = await UserName.getUserId();
+    String? userID = await UserData.getUserId();
 
     db.removeFromDatabase(documentPath: "users/$userID/customers", id: id);
 //TODO Customer firestoer customers'den siliniyor. fakat id farklı oldugu icin ayni customer users'dan silinmiyor. Ayrıca hesap da kaldırılmıyor auth sistemden
@@ -88,7 +88,7 @@ class Customer {
 
     final user = <String, dynamic>{
       "user_name": customerName,
-      "user_type": "customer",
+      "user_privelege": "customer",
     };
 
     ProjectFirestore()

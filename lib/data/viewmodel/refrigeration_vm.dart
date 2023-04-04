@@ -1,11 +1,11 @@
-import '../local/user_name.dart';
+import '../local/current_user_data.dart';
 import '../model/project_firestore.dart';
 
 class RefrigerationViewModel {
   ProjectFirestore db = ProjectFirestore();
   Future<List<dynamic>> getRefrigerations() async {
     List modelList = [];
-    String? userID = await UserName.getUserId();
+    String? userID = await UserData.getUserId();
     var refrigerations = await db.readDocumentsFromDatabase(
         collectionPath: "/users/$userID/refrigerations");
 
@@ -31,7 +31,7 @@ class RefrigerationViewModel {
       String? interiorInstallationStatus,
       String? gasStatus,
       String? extraNotes}) async {
-    String? userID = await UserName.getUserId();
+    String? userID = await UserData.getUserId();
 
     rearDoor == null ? rearDoor = "Belirtilmedi." : rearDoor = rearDoor;
 
@@ -99,7 +99,7 @@ class RefrigerationViewModel {
   }
 
   Future<void> removeRefrigeration({required String id}) async {
-    String? userID = await UserName.getUserId();
+    String? userID = await UserData.getUserId();
     db.removeFromDatabase(
         documentPath: "/users/$userID/refrigerations", id: id);
   }

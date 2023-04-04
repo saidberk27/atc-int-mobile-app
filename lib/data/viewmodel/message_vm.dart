@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:atc_international/data/local/user_name.dart';
+import 'package:atc_international/data/local/current_user_data.dart';
 import 'package:atc_international/data/model/project_firestorage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
@@ -22,7 +22,7 @@ class MessageViewModel {
       required String chatID}) async {
     DateTime messageSentTime = DateTime.parse(Time.getTimeStamp());
     Timestamp messageSentTimeStamp = Timestamp.fromDate(messageSentTime);
-    String? senderID = await UserName.getUserId();
+    String? senderID = await UserData.getUserId();
     Map<String, dynamic> messageJson = {
       "type": type,
       "content": content,
@@ -53,7 +53,7 @@ class MessageViewModel {
   }
 
   Future<List<Chat>> getChats() async {
-    String? currentUserId = await UserName.getUserId();
+    String? currentUserId = await UserData.getUserId();
     String? chatPairID;
     String? chatPairName;
     Map<dynamic, dynamic> user;
@@ -99,7 +99,7 @@ class MessageViewModel {
   }
 
   Future<void> _createChat({required String chatPairID}) async {
-    String? currentUserId = await UserName.getUserId();
+    String? currentUserId = await UserData.getUserId();
     final json = <String, dynamic>{
       "participants": [currentUserId, chatPairID]
     };
@@ -140,7 +140,7 @@ class GetMessageStream extends StatelessWidget {
 
         return FutureBuilder(
             //This future builder is necessary for getting user Id (Future, coming from hive)
-            future: UserName.getUserId(),
+            future: UserData.getUserId(),
             builder: (context, userIdSnapshot) {
               if (userIdSnapshot.hasData) {
                 return ListView.separated(

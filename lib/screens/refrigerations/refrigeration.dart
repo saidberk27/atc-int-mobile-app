@@ -30,7 +30,7 @@ class Refrigeration extends StatelessWidget {
       ),
       body: Row(
         children: [
-          ProjectSideNavMenu(),
+          const ProjectSideNavMenu(),
           Expanded(
             flex: 8,
             child: Padding(
@@ -118,7 +118,7 @@ class Refrigeration extends StatelessWidget {
                               side:
                                   MaterialStateProperty.resolveWith<BorderSide>(
                                 (Set<MaterialState> states) {
-                                  return BorderSide(
+                                  return const BorderSide(
                                       color: Colors.red,
                                       width: 2); // varsayılan kenarlık rengi
                                 },
@@ -138,10 +138,10 @@ class Refrigeration extends StatelessWidget {
                                   .showSnackBar(snackBar);
                             },
                             child: Row(
-                              children: [
-                                const Text("Kasayı Sil"),
+                              children: const [
+                                Text("Kasayı Sil"),
                                 SizedBox(width: 10),
-                                const Icon(Icons.delete)
+                                Icon(Icons.delete)
                               ],
                             ),
                           ),

@@ -7,7 +7,7 @@ import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:atc_international/local_components/drawer.dart';
 import 'package:atc_international/local_components/profile_picture.dart';
 
-import '../../data/local/user_name.dart';
+import '../../data/local/current_user_data.dart';
 import '../../local_components/get_today.dart';
 import 'package:atc_international/local_components/nav_bar.dart';
 
@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     today = Time.getToday();
-    username = UserName.getUserName();
+    username = UserData.getUserName();
     super.initState();
     setState(() {});
   }
@@ -101,46 +101,84 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Column buildMenu() {
-    ListTile buildListTile(
-        {required String tileText,
-        required TextStyle tileTextStyle,
-        required Color tileColor,
-        String? tileRoute,
-        Color? iconColor,
-        bool? isLogOut = false}) {
-      tileRoute ?? (tileRoute = "/");
-      if (isLogOut!) {
-        return ListTile(
-            onTap: _signOut,
-            title: Text(
-              tileText,
-              style: tileTextStyle,
-            ),
-            tileColor: tileColor,
-            contentPadding:
-                const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              color: (iconColor == null) ? ProjectColor.white : iconColor,
-            ));
-      } else {
-        return ListTile(
-            onTap: () => Navigator.pushNamed(context, tileRoute!),
-            title: Text(
-              tileText,
-              style: tileTextStyle,
-            ),
-            tileColor: tileColor,
-            contentPadding:
-                const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              color: (iconColor == null) ? ProjectColor.white : iconColor,
-            ));
-      }
-    }
+  FutureBuilder buildMenu() {
+    return FutureBuilder(
+        future: UserData.getCompleteUser(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data!.userPrivelege == "admin") {
+              return adminMenu();
+            } else if (snapshot.data!.userPrivelege == "customer") {
+              return customerMenu();
+            } else if (snapshot.data!.userPrivelege == "worker") {
+              return workerMenu();
+            } else {
+              return errorMenu();
+            }
+          } else {
+            return CircularProgressIndicator();
+          }
+        });
+  }
 
+  Column workerMenu() {
+    return Column(
+      children: [
+        buildListTile(
+            tileText: "İŞ TAKİP FORMLARIM",
+            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
+            tileColor: ProjectColor.red,
+            tileRoute: "/customers"),
+        buildListTile(
+            tileText: "AJANDA",
+            tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),
+            tileColor: ProjectColor.white,
+            iconColor: ProjectColor.darkBlue,
+            tileRoute: "/agenda"),
+        buildListTile(
+            tileText: "KASALARIM",
+            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
+            tileColor: ProjectColor.lightBlue,
+            tileRoute: "/refrigerations"),
+        buildListTile(
+            tileText: "ÇIKIŞ YAP",
+            tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),
+            tileColor: ProjectColor.red,
+            isLogOut: true),
+      ],
+    );
+  }
+
+  Column customerMenu() {
+    return Column(
+      children: [
+        buildListTile(
+            tileText: "AJANDA",
+            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
+            tileColor: ProjectColor.red,
+            tileRoute: "/agenda"),
+        buildListTile(
+            tileText: "KASALARIM",
+            tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),
+            tileColor: ProjectColor.white,
+            iconColor: ProjectColor.darkBlue,
+            tileRoute: "/refrigerations"),
+        buildListTile(
+            tileText: "MESAJLARIM",
+            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
+            tileColor: ProjectColor.lightBlue,
+            tileRoute: "/chats"),
+        buildListTile(
+          tileText: "ÇIKIŞ YAP",
+          tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
+          tileColor: ProjectColor.red,
+          isLogOut: true,
+        ),
+      ],
+    );
+  }
+
+  Column adminMenu() {
     return Column(
       children: [
         buildListTile(
@@ -172,6 +210,61 @@ class _MyHomePageState extends State<MyHomePage> {
             isLogOut: true),
       ],
     );
+  }
+
+  Column errorMenu() {
+    return Column(
+      children: [
+        buildListTile(
+            tileText: "HATA! MENU YUKLENEMEDİ",
+            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
+            tileColor: ProjectColor.red,
+            tileRoute: "/home"),
+        buildListTile(
+            tileText: "ÇIKIŞ YAP",
+            tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),
+            tileColor: ProjectColor.white,
+            iconColor: ProjectColor.darkBlue,
+            isLogOut: true),
+      ],
+    );
+  }
+
+  ListTile buildListTile(
+      {required String tileText,
+      required TextStyle tileTextStyle,
+      required Color tileColor,
+      String? tileRoute,
+      Color? iconColor,
+      bool? isLogOut = false}) {
+    tileRoute ?? (tileRoute = "/");
+    if (isLogOut!) {
+      return ListTile(
+          onTap: _signOut,
+          title: Text(
+            tileText,
+            style: tileTextStyle,
+          ),
+          tileColor: tileColor,
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            color: (iconColor == null) ? ProjectColor.white : iconColor,
+          ));
+    } else {
+      return ListTile(
+          onTap: () => Navigator.pushNamed(context, tileRoute!),
+          title: Text(
+            tileText,
+            style: tileTextStyle,
+          ),
+          tileColor: tileColor,
+          contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            color: (iconColor == null) ? ProjectColor.white : iconColor,
+          ));
+    }
   }
 
   FutureBuilder buildUserandDateSection(BuildContext context) {
