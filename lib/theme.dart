@@ -2,7 +2,7 @@ import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:flutter/material.dart';
 
-ThemeData proectTheme(BuildContext context) {
+ThemeData projectTheme(BuildContext context) {
   return ThemeData(
       primarySwatch: ProjectColor.customPrimarySwatch,
       scaffoldBackgroundColor: ProjectColor.white,

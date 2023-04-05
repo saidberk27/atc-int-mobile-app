@@ -135,7 +135,7 @@ Card customerCard(BuildContext context,
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     MessageViewModel messageVM = MessageViewModel();
                     String? chatID =
-                        await messageVM.getChatID(customerID: customerID);
+                        await messageVM.getChatID(userID: customerID);
 
                     Navigator.of(context).pushNamed("/customChat",
                         arguments: ChatScreenArguments(

@@ -25,7 +25,7 @@ class AuthRemoteDB {
     FirebaseAuth.instance.signOut();
   }
 
-  Future<String> createCustomerUser(
+  Future<String> createUser(
       {required String userEmail,
       required String userPassword,
       required String userName}) async {

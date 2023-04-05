@@ -16,6 +16,7 @@ class CustomerViewModel {
         collectionPath: "/users/$userID/customers/",
         orderField: "customer_added",
         isDescending: false);
+
     for (int i = 0; i < customers.length; i++) {
       modelsList.add(Customer.fromJson(json: customers[i]));
     }
@@ -31,7 +32,7 @@ class CustomerViewModel {
       required String customerPhone}) async {
     String? currentUserID = await UserData.getUserId();
 
-    String createdUserID = await AuthRemoteDB().createCustomerUser(
+    String createdUserID = await AuthRemoteDB().createUser(
         userEmail: customerMail,
         userPassword: customerPassword,
         userName: customerName);

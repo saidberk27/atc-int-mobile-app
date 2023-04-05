@@ -27,6 +27,10 @@ class ProjectDrawer extends StatelessWidget {
                     icon: Icons.people_alt_outlined,
                     route: "/customers"),
                 menuItem(context,
+                    text: "SERVİS ELEMANLARI",
+                    icon: Icons.people_alt_outlined,
+                    route: "/workers"),
+                menuItem(context,
                     text: "AJANDA",
                     icon: Icons.business_center_outlined,
                     route: "/agenda"),
@@ -104,7 +108,7 @@ class ProjectDrawer extends StatelessWidget {
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
+          child: ListView(
             children: [
               ProfilePicture(
                 radius: 72,
@@ -125,6 +129,7 @@ class ProjectDrawer extends StatelessWidget {
               Text(
                 companyName,
                 style: ProjectTextStyle.redSmallStrong(context),
+                textAlign: TextAlign.center,
               ),
               Column(children: menuItems)
             ],

@@ -85,15 +85,15 @@ class MessageViewModel {
     return chatList;
   }
 
-  Future<String?> getChatID({required String customerID}) async {
+  Future<String?> getChatID({required String userID}) async {
     print("burası");
-    print(await getChat(chatPairID: customerID));
-    if (await getChat(chatPairID: customerID) != null) {
-      String? activeChatID = await getChat(chatPairID: customerID);
+    print(await getChat(chatPairID: userID));
+    if (await getChat(chatPairID: userID) != null) {
+      String? activeChatID = await getChat(chatPairID: userID);
       return activeChatID;
     } else {
-      await _createChat(chatPairID: customerID);
-      String? activeChatID = await getChat(chatPairID: customerID);
+      await _createChat(chatPairID: userID);
+      String? activeChatID = await getChat(chatPairID: userID);
       return activeChatID;
     }
   }

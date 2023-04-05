@@ -81,9 +81,8 @@ class ProjectFirestore {
       required bool isDescending}) async {
     List documents = [];
 
-    final ref = db
-        .collection(collectionPath)
-        .orderBy("customer_added", descending: true);
+    final ref =
+        db.collection(collectionPath).orderBy(orderField, descending: true);
     QuerySnapshot querySnapshot = await ref.get();
     for (var docSnapshot in querySnapshot.docs) {
       var documentMap = docSnapshot.data() as Map<String, dynamic>;

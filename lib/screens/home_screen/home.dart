@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
               return errorMenu();
             }
           } else {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
         });
   }
@@ -187,26 +187,31 @@ class _MyHomePageState extends State<MyHomePage> {
             tileColor: ProjectColor.red,
             tileRoute: "/customers"),
         buildListTile(
-            tileText: "AJANDA",
+            tileText: "SERVİS ELEMANLARI",
             tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),
             tileColor: ProjectColor.white,
             iconColor: ProjectColor.darkBlue,
+            tileRoute: "/workers"),
+        buildListTile(
+            tileText: "AJANDA",
+            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
+            tileColor: ProjectColor.lightBlue,
             tileRoute: "/agenda"),
         buildListTile(
             tileText: "KASALARIM",
             tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
-            tileColor: ProjectColor.lightBlue,
+            tileColor: ProjectColor.red,
             tileRoute: "/refrigerations"),
         buildListTile(
             tileText: "MESAJLARIM",
-            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
-            tileColor: ProjectColor.red,
-            tileRoute: "/chats"),
-        buildListTile(
-            tileText: "ÇIKIŞ YAP",
             tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),
             tileColor: ProjectColor.white,
             iconColor: ProjectColor.darkBlue,
+            tileRoute: "/chats"),
+        buildListTile(
+            tileText: "ÇIKIŞ YAP",
+            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
+            tileColor: ProjectColor.lightBlue,
             isLogOut: true),
       ],
     );
@@ -316,7 +321,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      Align(
+      /*Align(
           alignment: const Alignment(0.95, 1),
           child: IconButton(
               onPressed: () {
@@ -326,7 +331,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Icons.notifications,
                 size: 36,
                 color: ProjectColor.red,
-              )))
+              )))*/
     ]);
   }
 

@@ -137,8 +137,7 @@ class CustomerPage extends StatelessWidget {
             onPressed: () async {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               MessageViewModel messageVM = MessageViewModel();
-              String? chatID =
-                  await messageVM.getChatID(customerID: customerID);
+              String? chatID = await messageVM.getChatID(userID: customerID);
 
               Navigator.of(context).pushNamed("/customChat",
                   arguments: ChatScreenArguments(
