@@ -128,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
             tileText: "İŞ TAKİP FORMLARIM",
             tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
             tileColor: ProjectColor.red,
-            tileRoute: "/customers"),
+            tileRoute: "/workerForms"),
         buildListTile(
             tileText: "AJANDA",
             tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),
@@ -142,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
             tileRoute: "/refrigerations"),
         buildListTile(
             tileText: "ÇIKIŞ YAP",
-            tileTextStyle: ProjectTextStyle.darkBlueMediumStrong(context),
+            tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
             tileColor: ProjectColor.red,
             isLogOut: true),
       ],

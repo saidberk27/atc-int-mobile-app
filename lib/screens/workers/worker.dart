@@ -10,9 +10,14 @@ import '../../data/viewmodel/message_vm.dart';
 import '../../local_components/profile_picture.dart';
 import '../messages/custom_chat.dart';
 
-class WorkerPage extends StatelessWidget {
+class WorkerPage extends StatefulWidget {
   const WorkerPage({super.key, String? workerName});
 
+  @override
+  State<WorkerPage> createState() => _WorkerPageState();
+}
+
+class _WorkerPageState extends State<WorkerPage> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
@@ -142,6 +147,8 @@ class WorkerPage extends StatelessWidget {
                 arguments: ChatScreenArguments(
                     chatPairName: workerName, chatID: chatID),
               );
+
+              setState(() {});
             },
             icon: const Icon(Icons.chat_bubble),
             color: ProjectColor.red,

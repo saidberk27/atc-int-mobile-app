@@ -11,6 +11,7 @@ import 'package:atc_international/screens/messages/chats.dart';
 import 'package:atc_international/screens/messages/custom_chat.dart';
 import 'package:atc_international/screens/workers/add_new_worker.dart';
 import 'package:atc_international/screens/workers/worker.dart';
+import 'package:atc_international/screens/workers/worker_forms.dart';
 import 'package:atc_international/screens/workers/workers.dart';
 import 'theme.dart';
 
@@ -66,8 +67,9 @@ class MyApp extends StatelessWidget {
         "/completedTasks": (context) => const CompletedTasksPage(),
         "/chats": (context) => const ChatsPage(),
         "/customChat": (context) => CustomChatPage(),
-        "/workers": (context) => WorkersPage(),
-        "/worker": (context) => WorkerPage(),
+        "/workers": (context) => const WorkersPage(),
+        "/worker": (context) => const WorkerPage(),
+        "/workerForms": (context) => const WorkerForms(),
       },
     );
   }
