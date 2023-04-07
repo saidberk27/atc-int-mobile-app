@@ -1,6 +1,7 @@
 import 'package:atc_international/data/local/current_user_data.dart';
 import 'package:atc_international/data/model/project_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 import '../../local_components/get_today.dart';
 import '../model/project_firestore.dart';
@@ -51,6 +52,11 @@ class WorkerViewModel {
 
     db.removeFromDatabase(documentPath: "users/$userID/workers", id: id);
 //TODO Worker firestoer workers'den siliniyor. fakat id farklı oldugu icin ayni worker users'dan silinmiyor. Ayrıca hesap da kaldırılmıyor auth sistemden
+  }
+
+  Future<void> addForm({required JobForm jobForm}) async {
+    Map json = JobForm.toJson(jobForm: jobForm);
+    print(json["colden_unit"]);
   }
 }
 
@@ -106,5 +112,122 @@ class Worker {
     workerTimeStamp = json["worker_added"];
     id = json["id"];
     // Timestamp to DateTime to String conversion
+  }
+}
+
+class JobForm {
+  late bool coldenGeneralControl;
+  late bool compressor;
+  late bool gasControl;
+  late bool condensator;
+
+  late bool gasLeakControl;
+  late bool honeyComb;
+  late bool connectionControls;
+  late bool allConnectionPipesControls;
+
+  late bool sidePanels;
+  late bool frontPanel;
+  late bool floorPanel;
+  late bool floorDrenage;
+  late bool panelHoneycombConnectionStatus;
+  late bool fridgeIsolationStatus;
+  late bool fridgeInnerOuterElectricityControl;
+  late bool fridgeDoorConnectionControl;
+  late bool fridgeConnectionScrewControl;
+
+  late bool doorIsolationStatus;
+  late bool doorPlastic;
+  late bool locks;
+  late bool rearDoorFrameStatus;
+  late bool rearDoorStands;
+
+  late bool floor;
+  late bool honeycombs;
+  late bool pipes;
+  late bool innerSeperations;
+  late bool lights;
+  late bool roofAndOthers;
+
+  late bool approveForm;
+
+  JobForm({
+    required this.coldenGeneralControl,
+    required this.compressor,
+    required this.gasControl,
+    required this.condensator,
+    required this.gasLeakControl,
+    required this.honeyComb,
+    required this.connectionControls,
+    required this.allConnectionPipesControls,
+    required this.sidePanels,
+    required this.frontPanel,
+    required this.floorPanel,
+    required this.floorDrenage,
+    required this.panelHoneycombConnectionStatus,
+    required this.fridgeIsolationStatus,
+    required this.fridgeInnerOuterElectricityControl,
+    required this.fridgeDoorConnectionControl,
+    required this.fridgeConnectionScrewControl,
+    required this.doorIsolationStatus,
+    required this.doorPlastic,
+    required this.locks,
+    required this.rearDoorFrameStatus,
+    required this.rearDoorStands,
+    required this.floor,
+    required this.honeycombs,
+    required this.pipes,
+    required this.innerSeperations,
+    required this.lights,
+    required this.roofAndOthers,
+    required bool this.approveForm,
+  });
+
+  static Map<String, dynamic> toJson({required JobForm jobForm}) {
+    final jobFormJson = <String, dynamic>{
+      "colden_unit": {
+        "coldenGeneralControl": jobForm.coldenGeneralControl,
+        "compressor": jobForm.compressor,
+        "gasControl": jobForm.gasControl,
+        "condensator": jobForm.condensator,
+      },
+      "honey_combs": {
+        "gasLeakControl": jobForm.gasLeakControl,
+        "honeyComb": jobForm.honeyComb,
+        "connectionControls": jobForm.connectionControls,
+        "allConnectionPipesControls": jobForm.allConnectionPipesControls,
+      },
+      "all_panels": {
+        "sidePanels": jobForm.sidePanels,
+        "frontPanel": jobForm.frontPanel,
+        "floorPanel": jobForm.floorPanel,
+        "floorDrenage": jobForm.floorDrenage,
+        "panelHoneycombConnectionStatus":
+            jobForm.panelHoneycombConnectionStatus,
+        "fridgeIsolationStatus": jobForm.fridgeIsolationStatus,
+        "fridgeInnerOuterElectricityControl":
+            jobForm.fridgeInnerOuterElectricityControl,
+        "fridgeDoorConnectionControl": jobForm.fridgeDoorConnectionControl,
+        "fridgeConnectionScrewControl": jobForm.fridgeConnectionScrewControl,
+      },
+      "rear_door": {
+        "doorIsolationStatus": jobForm.doorIsolationStatus,
+        "doorPlastic": jobForm.doorPlastic,
+        "locks": jobForm.locks,
+        "rearDoorFrameStatus": jobForm.rearDoorFrameStatus,
+        "rearDoorStands": jobForm.rearDoorStands,
+      },
+      "fridge_interior": {
+        "floor": jobForm.floor,
+        "honeycombs": jobForm.honeycombs,
+        "pipes": jobForm.pipes,
+        "innerSeperations": jobForm.innerSeperations,
+        "lights": jobForm.lights,
+        "roofAndOthers": jobForm.roofAndOthers,
+      },
+      "approveForm": jobForm.approveForm
+    };
+
+    return jobFormJson;
   }
 }
