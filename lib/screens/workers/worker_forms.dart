@@ -27,6 +27,8 @@ class WorkerForms extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return jobFormListTile(
                     customerName: forms[index]["customer"],
+                    workerName: forms[index]["worker"],
+                    date: forms[index]["finish_date"],
                     form: forms[index],
                   );
                 },
@@ -41,11 +43,15 @@ class WorkerForms extends StatelessWidget {
 
 class jobFormListTile extends StatelessWidget {
   String customerName;
+  String workerName;
+  String date;
   Map<String, dynamic> form;
   jobFormListTile(
       {super.key,
-      required String this.customerName,
-      required Map<String, dynamic> this.form});
+      required this.customerName,
+      required this.workerName,
+      required this.date,
+      required this.form});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +60,7 @@ class jobFormListTile extends StatelessWidget {
         Navigator.pushNamed(context, "/customJobForm", arguments: form);
       },
       leading: const Icon(
-        Icons.view_list,
+        Icons.checklist_rounded,
         color: ProjectColor.darkBlue,
       ),
       title: Text(
@@ -63,7 +69,7 @@ class jobFormListTile extends StatelessWidget {
         style: ProjectTextStyle.darkBlueSmallStrong(context),
       ),
       subtitle: Text(
-        customerName,
+        "$customerName - $workerName - $date",
         textAlign: TextAlign.center,
         style: ProjectTextStyle.lightBlueSmall(context),
       ),

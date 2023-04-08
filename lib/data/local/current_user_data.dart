@@ -31,7 +31,7 @@ class UserData {
         userPrivelege: currentUserPrivelege);
 
     return completeUser;
-  } //TODO getUserName ve diğer get methodlarını sil.
+  }
 
   static Future<String?> getUserName() async {
     String? currentUserName;

@@ -10,7 +10,7 @@ import 'package:flutter_chat_bubble/chat_bubble.dart';
 import '../../data/viewmodel/message_vm.dart';
 
 class CustomChatPage extends StatefulWidget {
-  CustomChatPage({super.key});
+  const CustomChatPage({super.key});
 
   @override
   State<CustomChatPage> createState() => _CustomChatPageState();

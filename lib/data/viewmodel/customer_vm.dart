@@ -51,7 +51,6 @@ class CustomerViewModel {
     String? userID = await UserData.getUserId();
 
     db.removeFromDatabase(documentPath: "users/$userID/customers", id: id);
-//TODO Customer firestoer customers'den siliniyor. fakat id farklı oldugu icin ayni customer users'dan silinmiyor. Ayrıca hesap da kaldırılmıyor auth sistemden
     db.removeFromDatabase(documentPath: "users", id: id);
   }
 }

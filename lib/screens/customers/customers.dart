@@ -119,7 +119,7 @@ Card customerCard(BuildContext context,
           Column(
             children: [
               Text(
-                customerName, //TODO take care of possible long names
+                customerName,
                 style: ProjectTextStyle.redMediumStrong(context),
               ),
               Text(

@@ -50,13 +50,13 @@ class WorkerViewModel {
     String? userID = await UserData.getUserId();
 
     db.removeFromDatabase(documentPath: "users/$userID/workers", id: id);
-//TODO Worker firestoer workers'den siliniyor. fakat id farklı oldugu icin ayni worker users'dan silinmiyor. Ayrıca hesap da kaldırılmıyor auth sistemden
   }
 
   Future<void> addForm({required JobForm jobForm}) async {
     String? userID = await UserData.getUserId();
-
-    Map<String, dynamic> json = JobForm.toJson(jobForm: jobForm);
+    String? userName = await UserData.getUserName();
+    Map<String, dynamic> json =
+        JobForm.toJson(jobForm: jobForm, workerName: userName!);
     db.addDocumentToCollection(json: json, path: "users/$userID/forms");
   }
 
@@ -131,6 +131,7 @@ class JobForm {
   late String customerName;
   late String fridgeNo;
   late String vehiclePlateAndInfo;
+  late String serviceLocation;
   late String arrivalTime;
   late String leaveTime;
   late String finishDate;
@@ -177,6 +178,7 @@ class JobForm {
     required this.customerName,
     required this.fridgeNo,
     required this.vehiclePlateAndInfo,
+    required this.serviceLocation,
     required this.arrivalTime,
     required this.leaveTime,
     required this.finishDate,
@@ -211,19 +213,22 @@ class JobForm {
     required this.innerSeperations,
     required this.lights,
     required this.roofAndOthers,
-    required bool this.approveForm,
+    required this.approveForm,
   });
 
-  static Map<String, dynamic> toJson({required JobForm jobForm}) {
+  static Map<String, dynamic> toJson(
+      {required JobForm jobForm, required String workerName}) {
     String dateStr = Time.getTimeStamp();
     DateTime timeStamp = DateTime.parse(dateStr);
     final jobFormJson = <String, dynamic>{
+      "worker": workerName,
       "customer": jobForm.customerName,
       "fridge_no": jobForm.fridgeNo,
       "vehicle_plate_and_info": jobForm.vehiclePlateAndInfo,
       "arrival_time": jobForm.arrivalTime,
       "leave_time": jobForm.leaveTime,
       "finish_date": jobForm.finishDate,
+      "service_location": jobForm.serviceLocation,
       "parts_must_change": jobForm.partsMustChange,
       "vehicle_health_status": jobForm.vehicleHealthStatus,
       "other_comments": jobForm.otherComments,

@@ -19,7 +19,6 @@ class _ProjectSideNavMenuState extends State<ProjectSideNavMenu> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _userName = UserData.getCompleteUser();
   }

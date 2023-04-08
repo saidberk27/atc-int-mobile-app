@@ -20,6 +20,7 @@ class _AddNewWorkerFormState extends State<AddNewWorkerForm> {
   final TextEditingController _leavetTimeController = TextEditingController();
   final TextEditingController _arriveTimeController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
   final TextEditingController _partsMustChangeController =
       TextEditingController();
   final TextEditingController _otherCommentsController =
@@ -127,6 +128,7 @@ class _AddNewWorkerFormState extends State<AddNewWorkerForm> {
                   customerName: _customerController.text,
                   fridgeNo: _fridgeNoController.text,
                   vehiclePlateAndInfo: _vehicleInfoController.text,
+                  serviceLocation: _locationController.text,
                   arrivalTime: _arriveTimeController.text,
                   leaveTime: _leavetTimeController.text,
                   finishDate: _dateController.text,
@@ -165,8 +167,9 @@ class _AddNewWorkerFormState extends State<AddNewWorkerForm> {
                   roofAndOthers: _roofAndOthers,
                   approveForm: _approveForm);
               ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Form Kaydediliyor ...")));
+                  const SnackBar(content: Text("Form Kaydediliyor ...")));
               WorkerViewModel().addForm(jobForm: jobForm);
+              Navigator.pushNamed(context, "/workerForms");
             },
             child: const SizedBox(
               height: 100,
@@ -519,6 +522,11 @@ class _AddNewWorkerFormState extends State<AddNewWorkerForm> {
               icon: MdiIcons.truck,
               controller: _vehicleInfoController,
               hintText: "Araç Plaka ve Bilgisi:"),
+          const SizedBox(height: 20),
+          textFormField(
+              icon: Icons.location_on,
+              controller: _locationController,
+              hintText: "Servis Yeri"),
           const SizedBox(height: 20),
           timePicker(context,
               labelText: "Varış Saati", controller: _arriveTimeController),

@@ -113,7 +113,8 @@ class CustomJobFormPage extends StatelessWidget {
             ),
             singleRowInformationSection(
               title: "Servis Personel İsmi:",
-              content: "Servis ismi", //TODO Servis ismini veritabanina ekle
+              content:
+                  arguments["worker"], //TODO Servis ismini veritabanina ekle
             ),
             const Divider(
               color: ProjectColor.darkGray,
@@ -137,7 +138,7 @@ class CustomJobFormPage extends StatelessWidget {
             ),
             singleRowInformationSection(
               title: "Servis Yeri:",
-              content: "Adana", //TODO servis yeri eksik
+              content: arguments["service_location"], //TODO servis yeri eksik
             ),
             const Divider(
               color: ProjectColor.darkGray,
@@ -246,7 +247,7 @@ class CustomJobFormPage extends StatelessWidget {
               style: ProjectTextStyle.darkBlueSmallStrong(context),
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Icon(
               Icons.check_box_outline_blank,
               color: Colors.blueGrey,

@@ -43,7 +43,7 @@ class ProjectFirestore {
       return userData;
     } catch (e) {
       debugPrint("Hata, $e");
-      var userData = null;
+      var userData;
       return userData;
     }
   }

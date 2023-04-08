@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
           ? snackBarText = "Lütfen Geçerli Bir Şekilde Doldurun."
           : snackBarText = response;
     } else {
-      userId = response; //TODO BURAYA BAK
+      userId = response;
       UserData user = UserData();
       user.saveUserDataFromRemoteToLocal(userId: userId);
       snackBarText = "Giriş Başarılı ...";
