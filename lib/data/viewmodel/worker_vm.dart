@@ -60,11 +60,13 @@ class WorkerViewModel {
     db.addDocumentToCollection(json: json, path: "users/$userID/forms");
   }
 
-  Future<List> getJobForms() async {
+  Future<List> getJobForms(String id) async {
     String? userID = await UserData.getUserId();
-
+    if (id == "current_user_id") {
+      id = userID!;
+    }
     List forms = await db.readDocumentsFromDatabaseWithOrder(
-        collectionPath: "users/$userID/forms",
+        collectionPath: "users/$id/forms",
         orderField: "timestamp",
         isDescending: false);
 

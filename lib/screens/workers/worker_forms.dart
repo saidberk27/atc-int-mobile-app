@@ -1,7 +1,6 @@
 import 'package:atc_international/data/viewmodel/worker_vm.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
-import 'package:atc_international/local_components/drawer.dart';
 import 'package:atc_international/local_components/fab.dart';
 import 'package:flutter/material.dart';
 
@@ -10,15 +9,26 @@ class WorkerForms extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String id;
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      //if arguments equals to something(it's id in that example), it means that, worker forms page navigated from Admin account.
+
+      id = ModalRoute.of(context)!.settings.arguments as String;
+    } else {
+      //if arguments equals to null, it means that, worker forms page Navigated from nowhere. It happens when service workers navigate this page
+
+      id =
+          "current_user_id"; //id is that string because I can't call future funtion getUserName here. I will take care of that gettin user ID part in .getJobForms() method. I send this string to do comprasion at conditional expressions
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("İŞ TAKİP FORMLARI"),
         ),
-        drawer: const ProjectDrawer(),
         floatingActionButton:
             const ProjectFAB(text: "Yeni Form Ekle", route: "/addNewForm"),
         body: FutureBuilder(
-          future: WorkerViewModel().getJobForms(),
+          future: WorkerViewModel().getJobForms(id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List? forms = snapshot.data;

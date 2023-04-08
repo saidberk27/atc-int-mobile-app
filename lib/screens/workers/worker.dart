@@ -52,6 +52,7 @@ class _WorkerPageState extends State<WorkerPage> {
                 normalRow(context, "Unvan: ", args.workerTitle),
                 normalRow(context, "E-Posta: ", args.workerMail),
                 normalRow(context, "Telefon: ", args.workerPhone),
+                showFormsListTile(context, workerID: args.workerID)
               ],
             ),
           ),
@@ -65,6 +66,30 @@ class _WorkerPageState extends State<WorkerPage> {
                 child: const Text("Servis Elemanını Sil")),
           )
         ],
+      ),
+    );
+  }
+
+  Material showFormsListTile(BuildContext context, {required String workerID}) {
+    return Material(
+      elevation: 5,
+      child: ListTile(
+        title: Text(
+          "Formları Görüntüle",
+          style: ProjectTextStyle.darkBlueSmallStrong(context),
+        ),
+        onTap: () {
+          Navigator.of(context).pushNamed("/workerForms", arguments: workerID);
+        },
+        trailing: Icon(
+          Icons.arrow_right,
+          color: ProjectColor.darkBlue,
+        ),
+        leading: Icon(
+          Icons.checklist,
+          color: ProjectColor.darkBlue,
+        ),
+        tileColor: Colors.white,
       ),
     );
   }
