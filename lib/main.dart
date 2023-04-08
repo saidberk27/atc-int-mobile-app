@@ -9,7 +9,9 @@ import 'package:atc_international/screens/home_screen/notifications.dart';
 import 'package:atc_international/screens/login/login.dart';
 import 'package:atc_international/screens/messages/chats.dart';
 import 'package:atc_international/screens/messages/custom_chat.dart';
+import 'package:atc_international/screens/workers/add_new_form.dart';
 import 'package:atc_international/screens/workers/add_new_worker.dart';
+import 'package:atc_international/screens/workers/custom_job_form.dart';
 import 'package:atc_international/screens/workers/worker.dart';
 import 'package:atc_international/screens/workers/worker_forms.dart';
 import 'package:atc_international/screens/workers/workers.dart';
@@ -70,6 +72,8 @@ class MyApp extends StatelessWidget {
         "/workers": (context) => const WorkersPage(),
         "/worker": (context) => const WorkerPage(),
         "/workerForms": (context) => const WorkerForms(),
+        "/addNewForm": (context) => const AddNewWorkerForm(),
+        "/customJobForm": (context) => const CustomJobFormPage()
       },
     );
   }

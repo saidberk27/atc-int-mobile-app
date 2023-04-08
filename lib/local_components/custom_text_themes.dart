@@ -79,7 +79,7 @@ class ProjectTextStyle {
           fontWeight: FontWeight.bold);
   static TextStyle darkBlueSmallStrong(BuildContext context) =>
       Theme.of(context).textTheme.headlineMedium!.copyWith(
-          color: ProjectColor.lightBlue,
+          color: ProjectColor.darkBlue,
           fontSize: 16,
           fontWeight: FontWeight.bold);
 

@@ -1,7 +1,6 @@
 import 'package:atc_international/data/local/current_user_data.dart';
 import 'package:atc_international/data/model/project_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 import '../../local_components/get_today.dart';
 import '../model/project_firestore.dart';
@@ -55,8 +54,21 @@ class WorkerViewModel {
   }
 
   Future<void> addForm({required JobForm jobForm}) async {
-    Map json = JobForm.toJson(jobForm: jobForm);
-    print(json["colden_unit"]);
+    String? userID = await UserData.getUserId();
+
+    Map<String, dynamic> json = JobForm.toJson(jobForm: jobForm);
+    db.addDocumentToCollection(json: json, path: "users/$userID/forms");
+  }
+
+  Future<List> getJobForms() async {
+    String? userID = await UserData.getUserId();
+
+    List forms = await db.readDocumentsFromDatabaseWithOrder(
+        collectionPath: "users/$userID/forms",
+        orderField: "timestamp",
+        isDescending: false);
+
+    return forms;
   }
 }
 
@@ -116,6 +128,16 @@ class Worker {
 }
 
 class JobForm {
+  late String customerName;
+  late String fridgeNo;
+  late String vehiclePlateAndInfo;
+  late String arrivalTime;
+  late String leaveTime;
+  late String finishDate;
+  late String partsMustChange;
+  late String vehicleHealthStatus;
+  late String otherComments;
+
   late bool coldenGeneralControl;
   late bool compressor;
   late bool gasControl;
@@ -152,6 +174,15 @@ class JobForm {
   late bool approveForm;
 
   JobForm({
+    required this.customerName,
+    required this.fridgeNo,
+    required this.vehiclePlateAndInfo,
+    required this.arrivalTime,
+    required this.leaveTime,
+    required this.finishDate,
+    required this.partsMustChange,
+    required this.vehicleHealthStatus,
+    required this.otherComments,
     required this.coldenGeneralControl,
     required this.compressor,
     required this.gasControl,
@@ -184,7 +215,19 @@ class JobForm {
   });
 
   static Map<String, dynamic> toJson({required JobForm jobForm}) {
+    String dateStr = Time.getTimeStamp();
+    DateTime timeStamp = DateTime.parse(dateStr);
     final jobFormJson = <String, dynamic>{
+      "customer": jobForm.customerName,
+      "fridge_no": jobForm.fridgeNo,
+      "vehicle_plate_and_info": jobForm.vehiclePlateAndInfo,
+      "arrival_time": jobForm.arrivalTime,
+      "leave_time": jobForm.leaveTime,
+      "finish_date": jobForm.finishDate,
+      "parts_must_change": jobForm.partsMustChange,
+      "vehicle_health_status": jobForm.vehicleHealthStatus,
+      "other_comments": jobForm.otherComments,
+      "timestamp": timeStamp,
       "colden_unit": {
         "coldenGeneralControl": jobForm.coldenGeneralControl,
         "compressor": jobForm.compressor,

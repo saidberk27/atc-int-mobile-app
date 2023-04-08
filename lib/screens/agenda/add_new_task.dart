@@ -152,7 +152,7 @@ class _AddNewTaskState extends State<AddNewTask> {
         );
         if (pickedDate != null) {
           String formattedDate =
-              DateFormat("dd/MM/yyyy HH:mm:ss").format(pickedDate);
+              DateFormat("yyyy-MM-dd HH:mm:ss").format(pickedDate);
 
           setState(() {
             _dateController.text = formattedDate.toString();
