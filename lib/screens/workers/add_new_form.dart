@@ -2,6 +2,7 @@ import 'package:atc_international/data/viewmodel/worker_vm.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:atc_international/local_components/drawer.dart';
+import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -68,7 +69,87 @@ class _AddNewWorkerFormState extends State<AddNewWorkerForm> {
 
   @override
   Widget build(BuildContext context) {
-    List<Step> formSteps = <Step>[
+    List<Step> formSteps = customSteps(context);
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (constraints.maxWidth > 1100) {
+        return webScaffold(formSteps);
+      } else {
+        return mobileScaffold(formSteps);
+      }
+    });
+  }
+
+  Scaffold webScaffold(List<Step> formSteps) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Yeni Form Ekle"),
+        ),
+        body: Row(
+          children: [
+            ProjectSideNavMenu(),
+            Expanded(
+              flex: 8,
+              child: Stepper(
+                currentStep: _index,
+                onStepCancel: () {
+                  if (_index > 0) {
+                    setState(() {
+                      _index -= 1;
+                    });
+                  }
+                },
+                onStepContinue: () {
+                  if (_index < formSteps.length - 1) {
+                    setState(() {
+                      _index = _index + 1;
+                    });
+                  }
+                },
+                onStepTapped: (int index) {
+                  setState(() {
+                    _index = index;
+                  });
+                },
+                steps: formSteps,
+              ),
+            ),
+          ],
+        ));
+  }
+
+  Scaffold mobileScaffold(List<Step> formSteps) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Yeni Form Ekle"),
+        ),
+        body: Stepper(
+          currentStep: _index,
+          onStepCancel: () {
+            if (_index > 0) {
+              setState(() {
+                _index -= 1;
+              });
+            }
+          },
+          onStepContinue: () {
+            if (_index < formSteps.length - 1) {
+              setState(() {
+                _index = _index + 1;
+              });
+            }
+          },
+          onStepTapped: (int index) {
+            setState(() {
+              _index = index;
+            });
+          },
+          steps: formSteps,
+        ));
+  }
+
+  List<Step> customSteps(BuildContext context) {
+    return <Step>[
       Step(
           // continue ve cancel butonlarını özelleştirmek için material_localizations.dart dosyasında değişiklik yaptım. String get continueButtonLabel => 'Devam Et';
           title: const Text('Genel Bilgiler'),
@@ -183,33 +264,6 @@ class _AddNewWorkerFormState extends State<AddNewWorkerForm> {
             )),
       ),
     ];
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text("Yeni Form Ekle"),
-        ),
-        body: Stepper(
-          currentStep: _index,
-          onStepCancel: () {
-            if (_index > 0) {
-              setState(() {
-                _index -= 1;
-              });
-            }
-          },
-          onStepContinue: () {
-            if (_index < formSteps.length - 1) {
-              setState(() {
-                _index = _index + 1;
-              });
-            }
-          },
-          onStepTapped: (int index) {
-            setState(() {
-              _index = index;
-            });
-          },
-          steps: formSteps,
-        ));
   }
 
   Form fridgeInteriorForm() {

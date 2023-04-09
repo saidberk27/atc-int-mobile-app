@@ -86,7 +86,6 @@ class MessageViewModel {
   }
 
   Future<String?> getChatID({required String userID}) async {
-    print("burası");
     print(await getChat(chatPairID: userID));
     if (await getChat(chatPairID: userID) != null) {
       String? activeChatID = await getChat(chatPairID: userID);

@@ -2,6 +2,7 @@ import 'package:atc_international/data/viewmodel/worker_vm.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
 import 'package:atc_international/local_components/fab.dart';
+import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class WorkerForms extends StatelessWidget {
@@ -21,33 +22,63 @@ class WorkerForms extends StatelessWidget {
           "current_user_id"; //id is that string because I can't call future funtion getUserName here. I will take care of that gettin user ID part in .getJobForms() method. I send this string to do comprasion at conditional expressions
     }
 
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (constraints.maxWidth > 1100) {
+        return webScaffold(id);
+      } else {
+        return mobileScaffold(id);
+      }
+    });
+  }
+
+  Scaffold mobileScaffold(String id) {
     return Scaffold(
         appBar: AppBar(
           title: const Text("İŞ TAKİP FORMLARI"),
         ),
         floatingActionButton:
             const ProjectFAB(text: "Yeni Form Ekle", route: "/addNewForm"),
-        body: FutureBuilder(
-          future: WorkerViewModel().getJobForms(id),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List? forms = snapshot.data;
-              return ListView.builder(
-                itemCount: forms!.length,
-                itemBuilder: (context, index) {
-                  return jobFormListTile(
-                    customerName: forms[index]["customer"],
-                    workerName: forms[index]["worker"],
-                    date: forms[index]["finish_date"],
-                    form: forms[index],
-                  );
-                },
-              );
-            } else {
-              return const CircularProgressIndicator();
-            }
-          },
+        body: futureBuilder(id));
+  }
+
+  Scaffold webScaffold(String id) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("İŞ TAKİP FORMLARI"),
+        ),
+        floatingActionButton:
+            const ProjectFAB(text: "Yeni Form Ekle", route: "/addNewForm"),
+        body: Row(
+          children: [
+            ProjectSideNavMenu(),
+            Expanded(flex: 8, child: futureBuilder(id)),
+          ],
         ));
+  }
+
+  FutureBuilder<List<dynamic>> futureBuilder(String id) {
+    return FutureBuilder(
+      future: WorkerViewModel().getJobForms(id),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List? forms = snapshot.data;
+          return ListView.builder(
+            itemCount: forms!.length,
+            itemBuilder: (context, index) {
+              return jobFormListTile(
+                customerName: forms[index]["customer"],
+                workerName: forms[index]["worker"],
+                date: forms[index]["finish_date"],
+                form: forms[index],
+              );
+            },
+          );
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    );
   }
 }
 

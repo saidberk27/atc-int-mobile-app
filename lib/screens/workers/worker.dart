@@ -122,6 +122,7 @@ class _WorkerPageState extends State<WorkerPage> {
                       normalRow(context, "Unvan: ", args.workerTitle),
                       normalRow(context, "E-Posta: ", args.workerMail),
                       normalRow(context, "Telefon: ", args.workerPhone),
+                      showFormsListTile(context, workerID: args.workerID)
                     ],
                   ),
                 ),

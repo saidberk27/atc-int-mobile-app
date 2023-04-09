@@ -1,6 +1,7 @@
 import 'package:atc_international/data/viewmodel/worker_vm.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
+import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class CustomJobFormPage extends StatelessWidget {
@@ -72,11 +73,88 @@ class CustomJobFormPage extends StatelessWidget {
       checkBoxRow(
           context, "Çatı ve Diğer Ekler", fridgeInteriorMap["roofAndOthers"]),
     ];
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 1100) {
+        return webScaffold(
+            arguments,
+            context,
+            coldenGenerealUnitItems,
+            honeyCombsItems,
+            allPanelsItems,
+            rearDoorItems,
+            fridgeInteriorItems);
+      } else {
+        return mobileScaffold(
+            arguments,
+            context,
+            coldenGenerealUnitItems,
+            honeyCombsItems,
+            allPanelsItems,
+            rearDoorItems,
+            fridgeInteriorItems);
+      }
+    });
+  }
+
+  Scaffold webScaffold(
+      Map<String, dynamic> arguments,
+      BuildContext context,
+      List<Widget> coldenGenerealUnitItems,
+      List<Widget> honeyCombsItems,
+      List<Widget> allPanelsItems,
+      List<Widget> rearDoorItems,
+      List<Widget> fridgeInteriorItems) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("İş Takip Formu"),
       ),
-      body: SingleChildScrollView(
+      body: Row(
+        children: [
+          ProjectSideNavMenu(),
+          Expanded(
+            flex: 8,
+            child: scaffoldBody(
+                arguments,
+                context,
+                coldenGenerealUnitItems,
+                honeyCombsItems,
+                allPanelsItems,
+                rearDoorItems,
+                fridgeInteriorItems),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Scaffold mobileScaffold(
+      Map<String, dynamic> arguments,
+      BuildContext context,
+      List<Widget> coldenGenerealUnitItems,
+      List<Widget> honeyCombsItems,
+      List<Widget> allPanelsItems,
+      List<Widget> rearDoorItems,
+      List<Widget> fridgeInteriorItems) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("İş Takip Formu"),
+      ),
+      body: scaffoldBody(arguments, context, coldenGenerealUnitItems,
+          honeyCombsItems, allPanelsItems, rearDoorItems, fridgeInteriorItems),
+    );
+  }
+
+  Padding scaffoldBody(
+      Map<String, dynamic> arguments,
+      BuildContext context,
+      List<Widget> coldenGenerealUnitItems,
+      List<Widget> honeyCombsItems,
+      List<Widget> allPanelsItems,
+      List<Widget> rearDoorItems,
+      List<Widget> fridgeInteriorItems) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SingleChildScrollView(
         child: Column(
           children: [
             singleRowInformationSection(
@@ -194,6 +272,16 @@ class CustomJobFormPage extends StatelessWidget {
               title: "Kasa İle İlgili Servis Dışı Yorumlar:",
               content: arguments["other_comments"],
             ),
+            const Divider(
+              color: ProjectColor.darkGray,
+              height: 40,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: SizedBox(
+                    height: 75, child: Center(child: Text("ANA MENÜYE DÖN"))))
           ],
         ),
       ),

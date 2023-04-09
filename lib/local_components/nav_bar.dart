@@ -15,18 +15,18 @@ class ProjectSideNavMenu extends StatefulWidget {
 }
 
 class _ProjectSideNavMenuState extends State<ProjectSideNavMenu> {
-  late Future<dynamic> _userName;
+  late Future<CompleteUser?> _user;
 
   @override
   void initState() {
     super.initState();
-    _userName = UserData.getCompleteUser();
+    _user = UserData.getCompleteUser();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _userName,
+        future: _user,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.userPrivelege == "admin") {
@@ -90,7 +90,7 @@ class _ProjectSideNavMenuState extends State<ProjectSideNavMenu> {
                 menuItem(context,
                     text: "İŞ TAKİP FORMLARIM",
                     icon: Icons.kitchen_rounded,
-                    route: "/refrigerations"),
+                    route: "/workerForms"),
                 menuItem(context,
                     text: "MESAJLARIM",
                     icon: Icons.message_outlined,
@@ -129,7 +129,7 @@ class _ProjectSideNavMenuState extends State<ProjectSideNavMenu> {
               ),
               const SizedBox(height: 20),
               Text(
-                snapshot.data!,
+                snapshot.data!.userName,
                 style: ProjectTextStyle.darkBlueMediumStrong(context),
               ),
               const SizedBox(
