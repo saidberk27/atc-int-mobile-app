@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 class ProjectFAB extends StatelessWidget {
-  const ProjectFAB({super.key, required this.text, required this.route});
+  ProjectFAB({super.key, required this.text, required this.route});
+  ProjectFAB.arguments(
+      {super.key,
+      required this.text,
+      required this.route,
+      required this.arguments});
 
   final String text;
   final String route;
+  late List arguments;
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       onPressed: () {
-        Navigator.pushNamed(context, route);
+        Navigator.pushNamed(context, route, arguments: arguments);
       },
       label: Text(text),
       icon: const Icon(Icons.add),

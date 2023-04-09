@@ -2,6 +2,7 @@ import 'package:atc_international/data/local/current_user_data.dart';
 import 'package:atc_international/data/viewmodel/login_vm.dart';
 import 'package:atc_international/local_components/colors.dart';
 import 'package:atc_international/local_components/custom_text_themes.dart';
+import 'package:atc_international/screens/home_screen/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -132,7 +133,11 @@ class _LoginPageState extends State<LoginPage> {
       UserData user = UserData();
       user.saveUserDataFromRemoteToLocal(userId: userId);
       snackBarText = "Giriş Başarılı ...";
-      Navigator.of(context).pushNamed("/home");
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (BuildContext context) => const MyHomePage()),
+        (Route<dynamic> route) => false,
+      );
     }
 
     SnackBar snackBar = SnackBar(

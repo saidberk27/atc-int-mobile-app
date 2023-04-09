@@ -67,17 +67,22 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
   @override
   Widget build(BuildContext context) {
     const pageTitle = "Yeni Kasa Ekle";
+    List args =
+        ModalRoute.of(context)!.settings.arguments as List; // Update or Add New
+
+    String formMode = args[0];
+
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       if (constraints.maxWidth > 1100) {
-        return webScaffold(pageTitle);
+        return webScaffold(pageTitle, formMode: formMode);
       } else {
-        return mobileScaffold(pageTitle);
+        return mobileScaffold(pageTitle, formMode: formMode);
       }
     });
   }
 
-  Scaffold webScaffold(String pageTitle) {
+  Scaffold webScaffold(String pageTitle, {required String formMode}) {
     return Scaffold(
       appBar: AppBar(
         title: Text(pageTitle),
@@ -97,7 +102,7 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: submitButton(),
+                        child: submitButton(formMode: formMode),
                       )
                     ],
                   ))),
@@ -106,7 +111,7 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
     );
   }
 
-  Scaffold mobileScaffold(String pageTitle) {
+  Scaffold mobileScaffold(String pageTitle, {required String formMode}) {
     return Scaffold(
       appBar: AppBar(
         title: Text(pageTitle),
@@ -123,7 +128,7 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
                   ),
                   Expanded(
                     flex: 2,
-                    child: submitButton(),
+                    child: submitButton(formMode: formMode),
                   )
                 ],
               ))),
@@ -233,13 +238,13 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
         });
   }
 
-  Padding submitButton() {
+  Padding submitButton({required String formMode}) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: ElevatedButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              saveAndNavigate();
+              saveAndNavigate(formMode: formMode);
             }
           },
           child: const SizedBox(
@@ -254,7 +259,7 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
     );
   }
 
-  void saveAndNavigate() {
+  void saveAndNavigate({required String formMode}) {
     try {
       print("screeen");
       RefrigerationViewModel customerVm = RefrigerationViewModel();
@@ -284,22 +289,25 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
         String gasStatus = _gasStatusController.text;
         String extraNotes = _extraNotesController.text;
 
-        customerVm.addRefrigeration(
-            caseBrand: caseBrand,
-            caseModel: caseModel,
-            serialNumber: serialNumber,
-            rearDoor: rearDoor,
-            vehicleInformation: vehicleInformation,
-            compressorBrand: compressorBrand,
-            compressorModel: compressorModel,
-            compressorStatus: compressorStatus,
-            euteticPlateModel: euteticPlateModel,
-            euteticPlateMeasurement: euteticPlateMeasurement,
-            euteticPlateNumber: euteticPlateNumber,
-            euteticPlateStatus: euteticPlateStatus,
-            interiorInstallationStatus: interiorInstallationStatus,
-            gasStatus: gasStatus,
-            extraNotes: extraNotes);
+        Refrigeration refrigeration = Refrigeration(
+          caseBrand: caseBrand,
+          caseModel: caseModel,
+          rearDoor: rearDoor,
+          serialNumber: serialNumber,
+          vehicleInformation: vehicleInformation,
+          compressorBrand: compressorBrand,
+          compressorModel: compressorModel,
+          compressorStatus: compressorStatus,
+          euteticPlateModel: euteticPlateModel,
+          euteticPlateMeasurement: euteticPlateMeasurement,
+          euteticPlateNumber: euteticPlateNumber,
+          euteticPlateStatus: euteticPlateStatus,
+          interiorInstallationStatus: interiorInstallationStatus,
+          gasStatus: gasStatus,
+          extraNotes: extraNotes,
+        );
+
+        customerVm.addRefrigeration(refrigeration: refrigeration);
       } catch (e) {
         print(e.toString());
       }

@@ -92,7 +92,11 @@ class ProjectDrawer extends StatelessWidget {
               return drawer(snapshot, context, companyName, menuItems);
             } else {
               List<Widget> menuItems = [
-                menuItem(context, text: "Error", icon: Icons.error)
+                menuItem(context,
+                    text:
+                        "İLK DEFA GİRİŞ YAPTINIZ. DEVAM ETMEK İÇİN BURAYA BASIN",
+                    icon: Icons.error,
+                    route: "/home")
               ];
               return drawer(snapshot, context, companyName, menuItems);
             }

@@ -35,13 +35,13 @@ class AgendaViewModel {
     Timestamp completionTimeStamp = Timestamp.fromDate(completionDateTime);
 
     ProjectFirestore projectFireStore = ProjectFirestore();
-    projectFireStore.editDocument(
+    projectFireStore.editDocumentField(
         path: "/users/$userID/agenda",
         id: id,
         field: "is_completed",
         newData: true);
 
-    projectFireStore.editDocument(
+    projectFireStore.editDocumentField(
         path: "users/$userID/agenda",
         id: id,
         field: "completion_date",

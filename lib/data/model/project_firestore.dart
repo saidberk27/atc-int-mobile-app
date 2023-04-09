@@ -120,7 +120,7 @@ class ProjectFirestore {
     return documents;
   }
 
-  Future<void> editDocument(
+  Future<void> editDocumentField(
       {required String path,
       required String id,
       required var field,

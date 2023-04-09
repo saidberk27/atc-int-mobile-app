@@ -27,9 +27,10 @@ class Refrigerations extends StatelessWidget {
         appBar: AppBar(
           title: const Text("KASALARIM"),
         ),
-        floatingActionButton: const ProjectFAB(
+        floatingActionButton: ProjectFAB.arguments(
           text: "YENİ KASA",
           route: "/addNewRefrigeration",
+          arguments: ["add"],
         ),
         body: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -56,9 +57,10 @@ class Refrigerations extends StatelessWidget {
         appBar: AppBar(
           title: const Text("KASALARIM"),
         ),
-        floatingActionButton: const ProjectFAB(
+        floatingActionButton: ProjectFAB.arguments(
           text: "YENİ KASA",
           route: "/addNewRefrigeration",
+          arguments: ["add"],
         ),
         body: Padding(
             padding: const EdgeInsets.all(20.0),

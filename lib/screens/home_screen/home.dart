@@ -52,16 +52,48 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Scaffold webScaffold(
+  FutureBuilder webScaffold(
       double screenHeight, double screenWidth, BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Row(
-        children: [
-          const ProjectSideNavMenu(),
-          Expanded(
-            flex: 8,
-            child: SafeArea(
+    return FutureBuilder(
+      future: UserData.getCompleteUser(),
+      builder: (context, snapshot) {
+        return Scaffold(
+          appBar: AppBar(),
+          body: Row(
+            children: [
+              const ProjectSideNavMenu(),
+              Expanded(
+                flex: 8,
+                child: SafeArea(
+                    child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      buildLogo(screenHeight, screenWidth),
+                      buildUserandDateSection(context),
+                      const Divider(
+                        thickness: 2,
+                      ),
+                      buildMenu(userPrivelege: snapshot.data!.userPrivelege),
+                    ],
+                  ),
+                )),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  FutureBuilder mobileScaffold(
+      double screenHeight, double screenWidth, BuildContext context) {
+    return FutureBuilder(
+        future: UserData.getCompleteUser(),
+        builder: (context, snapshot) {
+          return Scaffold(
+            appBar: AppBar(),
+            drawer: const ProjectDrawer(),
+            body: SafeArea(
                 child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -70,55 +102,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   const Divider(
                     thickness: 2,
                   ),
-                  buildMenu(),
+                  buildMenu(userPrivelege: snapshot.data!.userPrivelege),
                 ],
               ),
             )),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Scaffold mobileScaffold(
-      double screenHeight, double screenWidth, BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      drawer: const ProjectDrawer(),
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          children: [
-            buildLogo(screenHeight, screenWidth),
-            buildUserandDateSection(context),
-            const Divider(
-              thickness: 2,
-            ),
-            buildMenu(),
-          ],
-        ),
-      )),
-    );
-  }
-
-  FutureBuilder buildMenu() {
-    return FutureBuilder(
-        future: UserData.getCompleteUser(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data!.userPrivelege == "admin") {
-              return adminMenu();
-            } else if (snapshot.data!.userPrivelege == "customer") {
-              return customerMenu();
-            } else if (snapshot.data!.userPrivelege == "worker") {
-              return workerMenu();
-            } else {
-              return errorMenu();
-            }
-          } else {
-            return const CircularProgressIndicator();
-          }
+          );
         });
+  }
+
+  Column buildMenu({required String userPrivelege}) {
+    if (userPrivelege == "admin") {
+      return adminMenu();
+    } else if (userPrivelege == "customer") {
+      return customerMenu();
+    } else if (userPrivelege == "worker") {
+      return workerMenu();
+    } else {
+      print(userPrivelege);
+      return errorMenu();
+    }
   }
 
   Column workerMenu() {
@@ -221,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       children: [
         buildListTile(
-            tileText: "HATA! MENU YUKLENEMEDİ",
+            tileText: "İLK DEFA GİRİŞ YAPTINIZ. DEVAM ETMEK İÇİN BURAYA BASIN",
             tileTextStyle: ProjectTextStyle.whiteMediumStrong(context),
             tileColor: ProjectColor.red,
             tileRoute: "/home"),

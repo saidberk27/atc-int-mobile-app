@@ -1,3 +1,5 @@
+import 'package:atc_international/screens/refrigerations/refrigeration.dart';
+
 import '../local/current_user_data.dart';
 import '../model/project_firestore.dart';
 
@@ -15,91 +17,24 @@ class RefrigerationViewModel {
     return modelList;
   }
 
-  Future<void> addRefrigeration(
-      {required String caseBrand,
-      required String caseModel,
-      String? rearDoor,
-      String? serialNumber,
-      String? vehicleInformation,
-      String? compressorBrand,
-      String? compressorModel,
-      String? compressorStatus,
-      String? euteticPlateModel,
-      String? euteticPlateMeasurement,
-      String? euteticPlateNumber,
-      String? euteticPlateStatus,
-      String? interiorInstallationStatus,
-      String? gasStatus,
-      String? extraNotes}) async {
+  Future<void> addRefrigeration({required Refrigeration refrigeration}) async {
     String? userID = await UserData.getUserId();
-
-    rearDoor == null ? rearDoor = "Belirtilmedi." : rearDoor = rearDoor;
-
-    vehicleInformation == null
-        ? vehicleInformation = "Belirtilmedi."
-        : vehicleInformation = vehicleInformation;
-
-    serialNumber == null
-        ? serialNumber = "Belirtilmedi."
-        : serialNumber = serialNumber;
-
-    compressorBrand == null
-        ? compressorBrand = "Belirtilmedi."
-        : compressorBrand = compressorBrand;
-
-    compressorModel == null
-        ? compressorModel = "Belirtilmedi."
-        : compressorModel = compressorModel;
-
-    compressorStatus == null
-        ? compressorStatus = "Belirtilmedi."
-        : compressorStatus = compressorStatus;
-
-    euteticPlateModel == null
-        ? euteticPlateModel = "Belirtilmedi."
-        : euteticPlateModel = euteticPlateModel;
-
-    euteticPlateMeasurement == null
-        ? euteticPlateMeasurement = "Belirtilmedi."
-        : euteticPlateMeasurement = euteticPlateMeasurement;
-
-    euteticPlateNumber == null
-        ? euteticPlateNumber = "Belirtilmedi."
-        : euteticPlateNumber = euteticPlateNumber;
-
-    euteticPlateStatus == null
-        ? euteticPlateStatus = "Belirtilmedi."
-        : euteticPlateStatus = euteticPlateStatus;
-
-    interiorInstallationStatus == null
-        ? interiorInstallationStatus = "Belirtilmedi."
-        : interiorInstallationStatus = interiorInstallationStatus;
-
-    gasStatus == null ? gasStatus = "Belirtilmedi." : gasStatus = gasStatus;
-
-    extraNotes == null ? extraNotes = "Belirtilmedi." : extraNotes = extraNotes;
-
-    Refrigeration.toJson(
-        caseBrand: caseBrand,
-        caseModel: caseModel,
-        rearDoor: rearDoor,
-        serialNumber: serialNumber,
-        vehicleInformation: vehicleInformation,
-        compressorBrand: compressorBrand,
-        compressorModel: compressorModel,
-        compressorStatus: compressorStatus,
-        euteticPlateModel: euteticPlateModel,
-        euteticPlateMeasurement: euteticPlateMeasurement,
-        euteticPlateNumber: euteticPlateNumber,
-        euteticPlateStatus: euteticPlateStatus,
-        interiorInstallationStatus: interiorInstallationStatus,
-        gasStatus: gasStatus,
-        extraNotes: extraNotes,
-        currentUserID: userID);
+    Map<String, dynamic> json =
+        Refrigeration.toJson(refrigeration: refrigeration);
+    db.addDocumentToCollection(
+        path: "/users/$userID/refrigerations", json: json);
   }
+/*   Future<void> editRefrigeration({required Refrigeration refrigeration}) async {
+    String? userID = await UserData.getUserId();
+    Map<String, dynamic> json =
+        Refrigeration.toJson(refrigeration: refrigeration);
+    db.editDocument(
+        path: "/users/$userID/refrigerations", id: userID!, json: json);
+  }*/
 
   Future<void> removeRefrigeration({required String id}) async {
     String? userID = await UserData.getUserId();
+
     db.removeFromDatabase(
         documentPath: "/users/$userID/refrigerations", id: id);
   }
@@ -123,6 +58,45 @@ class Refrigeration {
   late final String gasStatus;
   late final String extraNotes;
   late final String id;
+
+  static Map<String, dynamic> toJson({required Refrigeration refrigeration}) {
+    final json = <String, dynamic>{
+      "case_brand": refrigeration.caseBrand,
+      "case_model": refrigeration.caseModel,
+      "rear_door": refrigeration.rearDoor,
+      "serial_number": refrigeration.serialNumber,
+      "vehicle_information": refrigeration.vehicleInformation,
+      "compressor_brand": refrigeration.compressorBrand,
+      "compressor_model": refrigeration.compressorModel,
+      "compressor_status": refrigeration.compressorStatus,
+      "eutetic_plate_model": refrigeration.euteticPlateModel,
+      "eutetic_plate_measurement": refrigeration.euteticPlateMeasurement,
+      "eutetic_plate_number": refrigeration.euteticPlateNumber,
+      "eutetic_plate_status": refrigeration.euteticPlateStatus,
+      "interior_installation_status": refrigeration.interiorInstallationStatus,
+      "gas_status": refrigeration.gasStatus,
+      "extra_notes": refrigeration.extraNotes,
+    };
+    return json;
+  }
+
+  Refrigeration({
+    required this.caseBrand,
+    required this.caseModel,
+    required this.rearDoor,
+    required this.serialNumber,
+    required this.vehicleInformation,
+    required this.compressorBrand,
+    required this.compressorModel,
+    required this.compressorStatus,
+    required this.euteticPlateModel,
+    required this.euteticPlateMeasurement,
+    required this.euteticPlateNumber,
+    required this.euteticPlateStatus,
+    required this.interiorInstallationStatus,
+    required this.gasStatus,
+    required this.extraNotes,
+  });
   Refrigeration.fromJson({required Map json}) {
     caseBrand = json["case_brand"];
     caseModel = json["case_model"];
@@ -140,43 +114,5 @@ class Refrigeration {
     gasStatus = json["gas_status"];
     extraNotes = json["extra_notes"];
     id = json["id"];
-  }
-
-  Refrigeration.toJson(
-      {String? caseBrand,
-      String? caseModel,
-      String? serialNumber,
-      String? rearDoor,
-      String? vehicleInformation,
-      String? compressorBrand,
-      String? compressorModel,
-      String? compressorStatus,
-      String? euteticPlateModel,
-      String? euteticPlateMeasurement,
-      String? euteticPlateNumber,
-      String? euteticPlateStatus,
-      String? interiorInstallationStatus,
-      String? gasStatus,
-      String? extraNotes,
-      String? currentUserID}) {
-    final json = <String, dynamic>{
-      "case_brand": caseBrand,
-      "case_model": caseModel,
-      "rear_door": rearDoor,
-      "serial_number": serialNumber,
-      "vehicle_information": vehicleInformation,
-      "compressor_brand": compressorBrand,
-      "compressor_model": compressorModel,
-      "compressor_status": compressorStatus,
-      "eutetic_plate_model": euteticPlateModel,
-      "eutetic_plate_measurement": euteticPlateMeasurement,
-      "eutetic_plate_number": euteticPlateNumber,
-      "eutetic_plate_status": euteticPlateStatus,
-      "interior_installation_status": interiorInstallationStatus,
-      "gas_status": gasStatus,
-      "extra_notes": extraNotes,
-    };
-    db.addDocumentToCollection(
-        path: "/users/$currentUserID/refrigerations", json: json);
   }
 }

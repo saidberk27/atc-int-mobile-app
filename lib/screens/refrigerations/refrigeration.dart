@@ -95,10 +95,15 @@ class Refrigeration extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        /*
                         SizedBox(
                           height: 150,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(
+                                  "/addNewRefrigeration",
+                                  arguments: ["update"]);
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
@@ -108,7 +113,7 @@ class Refrigeration extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ),
+                        ),*/
                         SizedBox(
                           height: 150,
                           child: ElevatedButton(
