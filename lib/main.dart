@@ -9,6 +9,7 @@ import 'package:atc_international/screens/home_screen/notifications.dart';
 import 'package:atc_international/screens/login/login.dart';
 import 'package:atc_international/screens/messages/chats.dart';
 import 'package:atc_international/screens/messages/custom_chat.dart';
+import 'package:atc_international/screens/refrigerations/add_new_refrigeration_qr_code.dart';
 import 'package:atc_international/screens/workers/add_new_form.dart';
 import 'package:atc_international/screens/workers/add_new_worker.dart';
 import 'package:atc_international/screens/workers/custom_job_form.dart';
@@ -17,7 +18,7 @@ import 'package:atc_international/screens/workers/worker_forms.dart';
 import 'package:atc_international/screens/workers/workers.dart';
 import 'theme.dart';
 
-import 'package:atc_international/screens/refrigerations/add_new_refrigeration.dart';
+import 'package:atc_international/screens/refrigerations/add_new_refrigeration_form.dart';
 import 'package:atc_international/screens/refrigerations/refrigeration.dart';
 import 'package:atc_international/screens/refrigerations/refrigerations.dart';
 import 'package:flutter/material.dart';
@@ -62,18 +63,21 @@ class MyApp extends StatelessWidget {
         '/refrigerations': (context) => const Refrigerations(),
         '/refrigeration': (context) => const Refrigeration(),
         '/agenda': (context) => const AgendaPage(),
-        "/addNewRefrigeration": (context) => const AddNewRefrigeration(),
+        "/addNewRefrigeration": (context) =>
+            const AddNewRefrigerationWithForm(),
         "/addNewTask": (context) => const AddNewTask(),
         "/addNewCustomer": (context) => const AddNewCustomer(),
         "/addNewWorker": (context) => const AddNewWorker(),
         "/completedTasks": (context) => const CompletedTasksPage(),
         "/chats": (context) => const ChatsPage(),
-        "/customChat": (context) => CustomChatPage(),
+        "/customChat": (context) => const CustomChatPage(),
         "/workers": (context) => const WorkersPage(),
         "/worker": (context) => const WorkerPage(),
         "/workerForms": (context) => const WorkerForms(),
         "/addNewForm": (context) => const AddNewWorkerForm(),
-        "/customJobForm": (context) => const CustomJobFormPage()
+        "/customJobForm": (context) => const CustomJobFormPage(),
+        "/addNewRefrigerationQR": (context) =>
+            const AddNewRefrigerationWithQrCode(),
       },
     );
   }

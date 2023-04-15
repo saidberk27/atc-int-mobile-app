@@ -30,10 +30,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    today = Time.getToday();
-    username = UserData.getUserName();
     super.initState();
-    setState(() {});
+    setState(() {
+      today = Time.getToday();
+      username = UserData.getUserName();
+    });
   }
 
   @override
@@ -57,30 +58,36 @@ class _MyHomePageState extends State<MyHomePage> {
     return FutureBuilder(
       future: UserData.getCompleteUser(),
       builder: (context, snapshot) {
-        return Scaffold(
-          appBar: AppBar(),
-          body: Row(
-            children: [
-              const ProjectSideNavMenu(),
-              Expanded(
-                flex: 8,
-                child: SafeArea(
-                    child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      buildLogo(screenHeight, screenWidth),
-                      buildUserandDateSection(context),
-                      const Divider(
-                        thickness: 2,
-                      ),
-                      buildMenu(userPrivelege: snapshot.data!.userPrivelege),
-                    ],
-                  ),
-                )),
-              ),
-            ],
-          ),
-        );
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: Row(
+              children: [
+                const ProjectSideNavMenu(),
+                Expanded(
+                  flex: 8,
+                  child: SafeArea(
+                      child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        buildLogo(screenHeight, screenWidth),
+                        buildUserandDateSection(context),
+                        const Divider(
+                          thickness: 2,
+                        ),
+                        buildMenu(userPrivelege: snapshot.data!.userPrivelege),
+                      ],
+                    ),
+                  )),
+                ),
+              ],
+            ),
+          );
+        } else {
+          return const Scaffold(
+            body: CircularProgressIndicator(),
+          );
+        }
       },
     );
   }
@@ -90,23 +97,29 @@ class _MyHomePageState extends State<MyHomePage> {
     return FutureBuilder(
         future: UserData.getCompleteUser(),
         builder: (context, snapshot) {
-          return Scaffold(
-            appBar: AppBar(),
-            drawer: const ProjectDrawer(),
-            body: SafeArea(
-                child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  buildLogo(screenHeight, screenWidth),
-                  buildUserandDateSection(context),
-                  const Divider(
-                    thickness: 2,
-                  ),
-                  buildMenu(userPrivelege: snapshot.data!.userPrivelege),
-                ],
-              ),
-            )),
-          );
+          if (snapshot.hasData) {
+            return Scaffold(
+              appBar: AppBar(),
+              drawer: const ProjectDrawer(),
+              body: SafeArea(
+                  child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    buildLogo(screenHeight, screenWidth),
+                    buildUserandDateSection(context),
+                    const Divider(
+                      thickness: 2,
+                    ),
+                    buildMenu(userPrivelege: snapshot.data!.userPrivelege),
+                  ],
+                ),
+              )),
+            );
+          } else {
+            return const Scaffold(
+              body: CircularProgressIndicator(),
+            );
+          }
         });
   }
 

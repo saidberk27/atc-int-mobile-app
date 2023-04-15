@@ -38,7 +38,7 @@ class WorkerForms extends StatelessWidget {
           title: const Text("İŞ TAKİP FORMLARI"),
         ),
         floatingActionButton:
-            ProjectFAB(text: "Yeni Form Ekle", route: "/addNewForm"),
+            const ProjectFAB(text: "Yeni Form Ekle", route: "/addNewForm"),
         body: futureBuilder(id));
   }
 
@@ -48,10 +48,10 @@ class WorkerForms extends StatelessWidget {
           title: const Text("İŞ TAKİP FORMLARI"),
         ),
         floatingActionButton:
-            ProjectFAB(text: "Yeni Form Ekle", route: "/addNewForm"),
+            const ProjectFAB(text: "Yeni Form Ekle", route: "/addNewForm"),
         body: Row(
           children: [
-            ProjectSideNavMenu(),
+            const ProjectSideNavMenu(),
             Expanded(flex: 8, child: futureBuilder(id)),
           ],
         ));

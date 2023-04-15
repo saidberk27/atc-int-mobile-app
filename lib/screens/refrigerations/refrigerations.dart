@@ -27,11 +27,22 @@ class Refrigerations extends StatelessWidget {
         appBar: AppBar(
           title: const Text("KASALARIM"),
         ),
-        floatingActionButton: ProjectFAB.arguments(
-          text: "YENİ KASA",
-          route: "/addNewRefrigeration",
-          arguments: ["add"],
-        ),
+        floatingActionButton: Wrap(children: [
+          Container(
+            margin: const EdgeInsets.all(10),
+            child: const ProjectFAB(
+              text: "FORM İLE YENİ KASA EKLE",
+              route: "/addNewRefrigeration",
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.all(10),
+            child: const ProjectFAB(
+              text: "QR CODE İLE YENİ KASA EKLE",
+              route: "/addNewRefrigerationQR",
+            ),
+          ),
+        ]),
         body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: FutureBuilder(
@@ -57,11 +68,22 @@ class Refrigerations extends StatelessWidget {
         appBar: AppBar(
           title: const Text("KASALARIM"),
         ),
-        floatingActionButton: ProjectFAB.arguments(
-          text: "YENİ KASA",
-          route: "/addNewRefrigeration",
-          arguments: ["add"],
-        ),
+        floatingActionButton: Wrap(children: [
+          Container(
+            margin: const EdgeInsets.all(10),
+            child: const ProjectFAB(
+              text: "FORM İLE YENİ KASA EKLE",
+              route: "/addNewRefrigeration",
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.all(10),
+            child: const ProjectFAB(
+              text: "QR CODE İLE YENİ KASA EKLE",
+              route: "/addNewRefrigerationQR",
+            ),
+          ),
+        ]),
         body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: FutureBuilder(

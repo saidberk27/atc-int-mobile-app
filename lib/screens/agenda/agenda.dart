@@ -77,7 +77,7 @@ class _AgendaPageState extends State<AgendaPage> {
           ),
         ],
       ),
-      floatingActionButton: ProjectFAB(
+      floatingActionButton: const ProjectFAB(
         text: "YENİ GÖREV",
         route: "/addNewTask",
       ),
@@ -131,7 +131,7 @@ class _AgendaPageState extends State<AgendaPage> {
           )
         ],
       ),
-      floatingActionButton: ProjectFAB(
+      floatingActionButton: const ProjectFAB(
         text: "YENİ GÖREV",
         route: "/addNewTask",
       ),

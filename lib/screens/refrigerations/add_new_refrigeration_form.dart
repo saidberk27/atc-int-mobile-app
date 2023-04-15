@@ -3,14 +3,16 @@ import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
-class AddNewRefrigeration extends StatefulWidget {
-  const AddNewRefrigeration({super.key});
+class AddNewRefrigerationWithForm extends StatefulWidget {
+  const AddNewRefrigerationWithForm({super.key});
 
   @override
-  State<AddNewRefrigeration> createState() => _AddNewRefrigerationState();
+  State<AddNewRefrigerationWithForm> createState() =>
+      _AddNewRefrigerationWithFormState();
 }
 
-class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
+class _AddNewRefrigerationWithFormState
+    extends State<AddNewRefrigerationWithForm> {
   @override
   void initState() {
     super.initState();
@@ -67,22 +69,24 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
   @override
   Widget build(BuildContext context) {
     const pageTitle = "Yeni Kasa Ekle";
-    List args =
-        ModalRoute.of(context)!.settings.arguments as List; // Update or Add New
-
-    String formMode = args[0];
 
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       if (constraints.maxWidth > 1100) {
-        return webScaffold(pageTitle, formMode: formMode);
+        return webScaffold(
+          pageTitle,
+        );
       } else {
-        return mobileScaffold(pageTitle, formMode: formMode);
+        return mobileScaffold(
+          pageTitle,
+        );
       }
     });
   }
 
-  Scaffold webScaffold(String pageTitle, {required String formMode}) {
+  Scaffold webScaffold(
+    String pageTitle,
+  ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(pageTitle),
@@ -102,7 +106,7 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: submitButton(formMode: formMode),
+                        child: submitButton(),
                       )
                     ],
                   ))),
@@ -111,7 +115,9 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
     );
   }
 
-  Scaffold mobileScaffold(String pageTitle, {required String formMode}) {
+  Scaffold mobileScaffold(
+    String pageTitle,
+  ) {
     return Scaffold(
       appBar: AppBar(
         title: Text(pageTitle),
@@ -128,7 +134,7 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
                   ),
                   Expanded(
                     flex: 2,
-                    child: submitButton(formMode: formMode),
+                    child: submitButton(),
                   )
                 ],
               ))),
@@ -238,13 +244,13 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
         });
   }
 
-  Padding submitButton({required String formMode}) {
+  Padding submitButton() {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: ElevatedButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              saveAndNavigate(formMode: formMode);
+              saveAndNavigate();
             }
           },
           child: const SizedBox(
@@ -259,7 +265,7 @@ class _AddNewRefrigerationState extends State<AddNewRefrigeration> {
     );
   }
 
-  void saveAndNavigate({required String formMode}) {
+  void saveAndNavigate() {
     try {
       print("screeen");
       RefrigerationViewModel customerVm = RefrigerationViewModel();

@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _signIn() async {
+  Future<void> _signIn(context) async {
     late String snackBarText;
     late String userId;
     late String? userName;
@@ -133,10 +133,9 @@ class _LoginPageState extends State<LoginPage> {
       UserData user = UserData();
       user.saveUserDataFromRemoteToLocal(userId: userId);
       snackBarText = "Giriş Başarılı ...";
-      Navigator.of(context).pushAndRemoveUntil(
+      Navigator.of(context).push(
         MaterialPageRoute(
             builder: (BuildContext context) => const MyHomePage()),
-        (Route<dynamic> route) => false,
       );
     }
 
@@ -151,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
   TextButton signInButton(
       double screenHeight, double screenWidth, BuildContext context) {
     return TextButton(
-      onPressed: _signIn,
+      onPressed: () => _signIn(context),
       style: ButtonStyle(
           shape: MaterialStateProperty.all(const StadiumBorder()),
           backgroundColor: MaterialStateProperty.all(ProjectColor.lightBlue)),
@@ -200,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
       child: TextFormField(
-        onFieldSubmitted: (value) => _signIn(),
+        onFieldSubmitted: (value) => _signIn(context),
         obscureText: false,
         controller: _emailController,
         validator: (value) {
@@ -256,7 +255,7 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
       child: TextFormField(
-        onFieldSubmitted: (value) => _signIn(),
+        onFieldSubmitted: (value) => _signIn(context),
         controller: _passwordController,
         validator: (value) {
           if (value == null || value.isEmpty) {

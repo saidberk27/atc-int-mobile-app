@@ -81,11 +81,11 @@ class _WorkerPageState extends State<WorkerPage> {
         onTap: () {
           Navigator.of(context).pushNamed("/workerForms", arguments: workerID);
         },
-        trailing: Icon(
+        trailing: const Icon(
           Icons.arrow_right,
           color: ProjectColor.darkBlue,
         ),
-        leading: Icon(
+        leading: const Icon(
           Icons.checklist,
           color: ProjectColor.darkBlue,
         ),

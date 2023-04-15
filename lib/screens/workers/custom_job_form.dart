@@ -110,7 +110,7 @@ class CustomJobFormPage extends StatelessWidget {
       ),
       body: Row(
         children: [
-          ProjectSideNavMenu(),
+          const ProjectSideNavMenu(),
           Expanded(
             flex: 8,
             child: scaffoldBody(
@@ -280,7 +280,7 @@ class CustomJobFormPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: SizedBox(
+                child: const SizedBox(
                     height: 75, child: Center(child: Text("ANA MENÜYE DÖN"))))
           ],
         ),
