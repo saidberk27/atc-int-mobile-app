@@ -22,28 +22,34 @@ class WorkerViewModel {
     return modelsList;
   }
 
-  Future<void> saveWorker(
+  Future<bool> saveWorker(
       {required String workerName,
       required String workerCompany,
       required String workerTitle,
       required String workerMail,
       required String workerPassword,
       required String workerPhone}) async {
-    String? currentUserID = await UserData.getUserId();
+    try {
+      String? currentUserID = await UserData.getUserId();
 
-    String createdUserID = await AuthRemoteDB().createUser(
-        userEmail: workerMail,
-        userPassword: workerPassword,
-        userName: workerName);
-    Worker.toJson(
-        workerName: workerName,
-        workerCompany: "ATC International",
-        workerTitle: workerTitle,
-        workerMail: workerMail,
-        workerPassword: workerPassword,
-        workerPhone: workerPhone,
-        id: createdUserID,
-        userID: currentUserID!);
+      String createdUserID = await AuthRemoteDB().createUser(
+          userEmail: workerMail,
+          userPassword: workerPassword,
+          userName: workerName);
+      Worker.toJson(
+          workerName: workerName,
+          workerCompany: "ATC International",
+          workerTitle: workerTitle,
+          workerMail: workerMail,
+          workerPassword: workerPassword,
+          workerPhone: workerPhone,
+          id: createdUserID,
+          userID: currentUserID!);
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
   }
 
   Future<void> deleteWorker({required String id}) async {

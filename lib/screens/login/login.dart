@@ -6,6 +6,8 @@ import 'package:atc_international/screens/home_screen/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../local_components/slide_up_page_route.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -131,12 +133,14 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       userId = response;
       UserData user = UserData();
-      user.saveUserDataFromRemoteToLocal(userId: userId);
-      snackBarText = "Giriş Başarılı ...";
-      Navigator.of(context).push(
-        MaterialPageRoute(
-            builder: (BuildContext context) => const MyHomePage()),
-      );
+      if (await user.saveUserDataFromRemoteToLocal(userId: userId)) {
+        snackBarText = "Giriş Başarılı ...";
+        Navigator.pushAndRemoveUntil(
+          context,
+          SlideUpPageRoute(page: const MyHomePage()),
+          (route) => false,
+        );
+      }
     }
 
     SnackBar snackBar = SnackBar(

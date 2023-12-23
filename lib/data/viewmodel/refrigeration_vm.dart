@@ -17,12 +17,17 @@ class RefrigerationViewModel {
     return modelList;
   }
 
-  Future<void> addRefrigeration({required Refrigeration refrigeration}) async {
-    String? userID = await UserData.getUserId();
-    Map<String, dynamic> json =
-        Refrigeration.toJson(refrigeration: refrigeration);
-    db.addDocumentToCollection(
-        path: "/users/$userID/refrigerations", json: json);
+  Future<bool> addRefrigeration({required Refrigeration refrigeration}) async {
+    try {
+      String? userID = await UserData.getUserId();
+      Map<String, dynamic> json =
+          Refrigeration.toJson(refrigeration: refrigeration);
+      db.addDocumentToCollection(
+          path: "/users/$userID/refrigerations", json: json);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 /*   Future<void> editRefrigeration({required Refrigeration refrigeration}) async {
     String? userID = await UserData.getUserId();

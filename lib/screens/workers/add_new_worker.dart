@@ -1,9 +1,10 @@
 import 'package:atc_international/data/viewmodel/worker_vm.dart';
 import 'package:atc_international/local_components/nav_bar.dart';
+import 'package:atc_international/screens/workers/workers.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../data/viewmodel/worker_vm.dart';
+import '../../local_components/slide_up_page_route.dart';
 
 class AddNewWorker extends StatefulWidget {
   const AddNewWorker({super.key});
@@ -178,7 +179,7 @@ class _AddNewWorkerState extends State<AddNewWorker> {
         ));
   }
 
-  void saveAndNavigate() {
+  Future<void> saveAndNavigate() async {
     WorkerViewModel workerVm = WorkerViewModel();
     const snackBar = SnackBar(content: Text('Kaydediliyor...'));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -189,14 +190,14 @@ class _AddNewWorkerState extends State<AddNewWorker> {
     String workerPassword = _workerPasswordController.text;
     String workerPhone = _workerPhoneController.text;
 
-    workerVm.saveWorker(
+    if (await workerVm.saveWorker(
         workerName: workerName,
         workerTitle: workerTitle,
         workerCompany: "ATC International",
         workerMail: workerMail,
         workerPassword: workerPassword,
-        workerPhone: workerPhone);
-
-    Navigator.of(context).pushNamed("/workers");
+        workerPhone: workerPhone)) {
+      Navigator.of(context).push(SlideUpPageRoute(page: const WorkersPage()));
+    }
   }
 }

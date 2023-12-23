@@ -1,7 +1,11 @@
 import 'package:atc_international/data/viewmodel/refrigeration_vm.dart';
 import 'package:atc_international/local_components/nav_bar.dart';
+import 'package:atc_international/screens/refrigerations/refrigerations.dart';
+import 'package:flutter/foundation.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/material.dart';
+
+import '../../local_components/slide_up_page_route.dart';
 
 class AddNewRefrigerationWithForm extends StatefulWidget {
   const AddNewRefrigerationWithForm({super.key});
@@ -265,9 +269,11 @@ class _AddNewRefrigerationWithFormState
     );
   }
 
-  void saveAndNavigate() {
+  Future<void> saveAndNavigate() async {
     try {
-      print("screeen");
+      if (kDebugMode) {
+        print("screeen");
+      }
       RefrigerationViewModel customerVm = RefrigerationViewModel();
       const snackBar = SnackBar(
         content: Text('Kaydediliyor...'),
@@ -313,12 +319,13 @@ class _AddNewRefrigerationWithFormState
           extraNotes: extraNotes,
         );
 
-        customerVm.addRefrigeration(refrigeration: refrigeration);
+        if (await customerVm.addRefrigeration(refrigeration: refrigeration)) {
+          Navigator.of(context)
+              .push(SlideUpPageRoute(page: const RefrigerationsPage()));
+        }
       } catch (e) {
         print(e.toString());
       }
-
-      Navigator.of(context).pushNamed("/refrigerations");
     } catch (e) {
       print(e.toString());
     }

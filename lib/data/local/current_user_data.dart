@@ -7,13 +7,19 @@ class UserData {
   String? currentUserId;
   late Map currentUser;
   late Box box;
-  Future<void> saveUserDataFromRemoteToLocal({required userId}) async {
-    box = await Hive.openBox('userBox');
-    currentUser = await ProjectFirestore().getUser(userId: userId!);
+  Future<bool> saveUserDataFromRemoteToLocal({required userId}) async {
+    try {
+      box = await Hive.openBox('userBox');
+      currentUser = await ProjectFirestore().getUser(userId: userId!);
 
-    box.put('name', currentUser["user_name"]);
-    box.put('id', userId);
-    box.put('privelege', currentUser["user_privelege"]);
+      box.put('name', currentUser["user_name"]);
+      box.put('id', userId);
+      box.put('privelege', currentUser["user_privelege"]);
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
   }
 
   static Future<CompleteUser?> getCompleteUser() async {
@@ -62,6 +68,11 @@ class UserData {
     box = await Hive.openBox('userBox');
     currentUserPrivelege = await box.get('privelege');
     return currentUserPrivelege;
+  }
+
+  static Future<void> clearUserData() async {
+    Box box = await Hive.openBox('userBox');
+    await box.clear();
   }
 }
 

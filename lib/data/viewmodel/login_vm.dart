@@ -35,6 +35,7 @@ class LoginViewModel {
   Future<void> signOut() async {
     AuthRemoteDB db = AuthRemoteDB();
     db.signOutRemoteDB();
+    //await UserData.clearUserData();
   }
 
   String? get getUserId => userId;

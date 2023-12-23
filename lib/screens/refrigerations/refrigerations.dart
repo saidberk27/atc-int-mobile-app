@@ -6,8 +6,8 @@ import 'package:atc_international/local_components/nav_bar.dart';
 import 'package:atc_international/screens/refrigerations/refrigeration.dart';
 import 'package:flutter/material.dart';
 
-class Refrigerations extends StatelessWidget {
-  const Refrigerations({super.key});
+class RefrigerationsPage extends StatelessWidget {
+  const RefrigerationsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

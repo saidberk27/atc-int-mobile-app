@@ -29,13 +29,13 @@ class _MyHomePageState extends State<MyHomePage> {
   late Future<String?> username;
 
   @override
-  void initState() {
-    super.initState();
-    setState(() {
-      today = Time.getToday();
-      username = UserData.getUserName();
-    });
-  }
+ @override
+void initState() {
+  super.initState();
+  today = Time.getToday();
+  username = UserData.getUserName();
+  UserData.getCompleteUser(); // Future'ı burada başlatın
+}
 
   @override
   Widget build(BuildContext context) {

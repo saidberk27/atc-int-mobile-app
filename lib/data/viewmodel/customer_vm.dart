@@ -1,6 +1,7 @@
 import 'package:atc_international/data/local/current_user_data.dart';
 import 'package:atc_international/data/model/project_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 import '../../local_components/get_today.dart';
 import '../model/project_firestore.dart';
@@ -23,28 +24,34 @@ class CustomerViewModel {
     return modelsList;
   }
 
-  Future<void> saveCustomer(
+  Future<bool> saveCustomer(
       {required String customerName,
       required String customerCompany,
       required String customerTitle,
       required String customerMail,
       required String customerPassword,
       required String customerPhone}) async {
-    String? currentUserID = await UserData.getUserId();
+    try {
+      String? currentUserID = await UserData.getUserId();
 
-    String createdUserID = await AuthRemoteDB().createUser(
-        userEmail: customerMail,
-        userPassword: customerPassword,
-        userName: customerName);
-    Customer.toJson(
-        customerName: customerName,
-        customerCompany: customerCompany,
-        customerTitle: customerTitle,
-        customerMail: customerMail,
-        customerPassword: customerPassword,
-        customerPhone: customerPhone,
-        id: createdUserID,
-        userID: currentUserID!);
+      String createdUserID = await AuthRemoteDB().createUser(
+          userEmail: customerMail,
+          userPassword: customerPassword,
+          userName: customerName);
+      Customer.toJson(
+          customerName: customerName,
+          customerCompany: customerCompany,
+          customerTitle: customerTitle,
+          customerMail: customerMail,
+          customerPassword: customerPassword,
+          customerPhone: customerPhone,
+          id: createdUserID,
+          userID: currentUserID!);
+      return true;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
   }
 
   Future<void> deleteCustomer({required String id}) async {

@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         '/notifications': (context) => const NotificationsPage(),
         '/customers': (context) => const CustomersPage(),
         '/customer': (context) => const CustomerPage(),
-        '/refrigerations': (context) => const Refrigerations(),
+        '/refrigerations': (context) => const RefrigerationsPage(),
         '/refrigeration': (context) => const Refrigeration(),
         '/agenda': (context) => const AgendaPage(),
         "/addNewRefrigeration": (context) =>
@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
         "/addNewWorker": (context) => const AddNewWorker(),
         "/completedTasks": (context) => const CompletedTasksPage(),
         "/chats": (context) => const ChatsPage(),
-        "/customChat": (context) => const CustomChatPage(),
+        "/customChat": (context) => CustomChatPage(),
         "/workers": (context) => const WorkersPage(),
         "/worker": (context) => const WorkerPage(),
         "/workerForms": (context) => const WorkerForms(),

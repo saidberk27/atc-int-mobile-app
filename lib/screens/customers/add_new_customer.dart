@@ -1,7 +1,10 @@
 import 'package:atc_international/data/viewmodel/customer_vm.dart';
 import 'package:atc_international/local_components/nav_bar.dart';
+import 'package:atc_international/screens/customers/customers.dart';
 
 import 'package:flutter/material.dart';
+
+import '../../local_components/slide_up_page_route.dart';
 
 class AddNewCustomer extends StatefulWidget {
   const AddNewCustomer({super.key});
@@ -190,7 +193,7 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
         ));
   }
 
-  void saveAndNavigate() {
+  Future<void> saveAndNavigate() async {
     CustomerViewModel customerVm = CustomerViewModel();
     const snackBar = SnackBar(content: Text('Kaydediliyor...'));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -202,14 +205,14 @@ class _AddNewCustomerState extends State<AddNewCustomer> {
     String customerPassword = _customerPasswordController.text;
     String customerPhone = _customerPhoneController.text;
 
-    customerVm.saveCustomer(
+    if (await customerVm.saveCustomer(
         customerName: customerName,
         customerCompany: customerCompany,
         customerTitle: customerTitle,
         customerMail: customerMail,
         customerPassword: customerPassword,
-        customerPhone: customerPhone);
-
-    Navigator.of(context).pushNamed("/customers");
+        customerPhone: customerPhone)) {
+      Navigator.of(context).push(SlideUpPageRoute(page: const CustomersPage()));
+    }
   }
 }

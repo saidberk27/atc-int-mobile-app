@@ -11,25 +11,40 @@ import '../../local_components/nav_bar.dart';
 
 import '../messages/custom_chat.dart';
 
-class CustomersPage extends StatelessWidget {
+class CustomersPage extends StatefulWidget {
   const CustomersPage({super.key});
-  final String _pageTitle = "MÜŞTERİLERİM";
+
+  @override
+  State<CustomersPage> createState() => _CustomersPageState();
+}
+
+class _CustomersPageState extends State<CustomersPage> {
+  String? _pageTitle;
+  Future<List<dynamic>>? _customers;
+  @override
+  void initState() {
+    _pageTitle = "MÜŞTERİLERİM";
+    _customers = CustomerViewModel().getCustomers();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     const fabtext = "Yeni Müşteri";
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         if (constraints.maxWidth > 1000) {
-          return webScaffold(fabtext, _pageTitle);
+          return webScaffold(fabtext, _pageTitle!, _customers);
         } else {
-          return mobileScaffold(fabtext, _pageTitle);
+          return mobileScaffold(fabtext, _pageTitle!, _customers);
         }
       },
     );
   }
 }
 
-Scaffold webScaffold(String fabtext, String pageTitle) {
+Scaffold webScaffold(
+    String fabtext, String pageTitle, Future<List<dynamic>>? _customers) {
   return Scaffold(
     body: Row(
       children: [
@@ -37,7 +52,7 @@ Scaffold webScaffold(String fabtext, String pageTitle) {
         Expanded(
           flex: 8,
           child: FutureBuilder(
-            future: CustomerViewModel().getCustomers(),
+            future: _customers,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return ListView.builder(
@@ -68,7 +83,8 @@ Scaffold webScaffold(String fabtext, String pageTitle) {
   );
 }
 
-Scaffold mobileScaffold(String fabtext, String pageTitle) {
+Scaffold mobileScaffold(
+    String fabtext, String pageTitle, Future<List<dynamic>>? _customers) {
   return Scaffold(
     body: FutureBuilder(
       future: CustomerViewModel().getCustomers(),
